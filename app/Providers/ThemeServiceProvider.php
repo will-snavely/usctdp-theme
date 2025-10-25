@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Roots\Acorn\Sage\SageServiceProvider;
+use Illuminate\Support\Facades\View; 
+use Illuminate\Support\Facades\Event; 
 
 class ThemeServiceProvider extends SageServiceProvider
 {
@@ -14,6 +16,14 @@ class ThemeServiceProvider extends SageServiceProvider
     public function register()
     {
         parent::register();
+
+        // Add custom logo theme support
+        add_theme_support('custom-logo', [
+            'height'      => 256,
+            'width'       => 256,
+            'flex-height' => true,
+            'flex-width'  => true,
+        ]);
     }
 
     /**

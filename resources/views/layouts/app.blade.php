@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html @php(language_attributes())>
   <head>
     <meta charset="utf-8">
@@ -12,14 +13,14 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
-    <div id="app">
+    <div id="app" class="bg-green">
       <a class="sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
 
       @include('sections.header')
 
-      <main id="main" class="main">
+      <main id="main" class="main wp-content-container">
         @yield('content')
       </main>
 

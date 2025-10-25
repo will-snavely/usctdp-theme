@@ -1,6 +1,6 @@
 <article @php(post_class())>
   <header>
-    <h2 class="entry-title">
+    <h2 class="entry-title bg-blue-100">
       <a href="{{ get_permalink() }}">
         {!! $title !!}
       </a>
@@ -8,8 +8,8 @@
 
     @include('partials.entry-meta')
   </header>
-
-  <div class="entry-summary">
+  <x-people/>
+  <div class="entry-summary bg-blue-200">
     @php(the_excerpt())
   </div>
 </article>

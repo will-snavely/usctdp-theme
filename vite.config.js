@@ -35,4 +35,14 @@ export default defineConfig({
       '@images': '/resources/images',
     },
   },
+  server: {
+    host: '0.0.0.0', 
+    port: 5173,
+    hmr: {
+      host: '34.60.198.151',
+    },
+    cors: {
+      origin: 'http://34.60.198.151'
+    }
+  }
 })
