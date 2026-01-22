@@ -6,9 +6,15 @@
 <article {{ wc_product_class('group bg-white border p-4 rounded-xl transition hover:shadow-lg', $product) }}>
   {{-- Image Section --}}
   <div class="relative overflow-hidden rounded-md mb-4">
-    <a href="{{ get_permalink() }}">
-      {!! $product->get_image('woocommerce_thumbnail', ['class' => 'w-full h-auto transform transition group-hover:scale-105']) !!}
-    </a>
+    <div class="product-image-container max-w-[250px] mx-auto">
+      <a href="{{ get_permalink() }}">
+        {!! 
+          $product->get_image(
+            'woocommerce_thumbnail',
+            ['class' => 'w-full h-auto transform transition group-hover:scale-105']) 
+        !!}
+      </a>
+    </div>
     
     {{-- Example of a custom "Sale" badge --}}
     @if($product->is_on_sale())

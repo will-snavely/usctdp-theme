@@ -215,3 +215,20 @@ add_action('pre_get_posts', function ($query) {
         }
     }
 });
+
+// Disable related products
+remove_action(
+  'woocommerce_after_single_product_summary',
+  'woocommerce_output_related_products',
+  20
+);
+
+add_filter('woocommerce_get_breadcrumb', function ($crumbs, $breadcrumb) {
+    if (is_product()) {
+        $crumbs[1] = [
+            'Shop', 
+            get_permalink(wc_get_page_id('shop')) 
+        ];
+    }
+    return $crumbs;
+}, 10, 2);
