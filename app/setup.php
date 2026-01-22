@@ -153,3 +153,65 @@ add_action('widgets_init', function () {
         'id' => 'sidebar-footer',
     ] + $config);
 });
+
+
+add_action('init', function () {
+    register_taxonomy('age_group', 'product', [
+        'labels' => ['name' => 'Age Groups', 'singular_name' => 'Age Group'],
+        'hierarchical' => true, 
+        'show_in_rest' => true,
+        'show_admin_column' => false,
+    ]);
+
+    register_taxonomy('skill_level', 'product', [
+        'labels' => ['name' => 'Skill Levels', 'singular_name' => 'Skill Level'],
+        'hierarchical' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => false,
+    ]);
+
+    register_taxonomy('event_type', 'product', [
+        'labels' => ['name' => 'Event Types', 'singular_name' => 'Event Type'],
+        'hierarchical' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => false,
+    ]);
+}, 10);
+
+
+add_action('init', function () {
+    $taxonomy_terms = [
+        'skill_level' => ['Beginner', 'Intermediate', 'Advanced'],
+        'age_group'   => ['Junior', 'Adult'],
+        'event_type'  => ['Clinic', 'Cardio Tennis', 'Tournament'],
+    ];
+
+    foreach ($taxonomy_terms as $taxonomy => $terms) {
+        foreach ($terms as $term) {
+            if (!term_exists($term, $taxonomy)) {
+                wp_insert_term($term, $taxonomy);
+            }
+        }
+    }
+}, 20);
+
+add_action('pre_get_posts', function ($query) {
+    if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_taxonomy())) {
+        $tax_query = [];
+        $my_taxonomies = ['event_type', 'age_group', 'skill_level'];
+
+        foreach ($my_taxonomies as $tax) {
+            if (!empty($_GET[$tax])) {
+                $tax_query[] = [
+                    'taxonomy' => $tax,
+                    'field'    => 'slug',
+                    'terms'    => sanitize_text_field($_GET[$tax]),
+                ];
+            }
+        }
+
+        if (!empty($tax_query)) {
+            $query->set('tax_query', $tax_query);
+        }
+    }
+});

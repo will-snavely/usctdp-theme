@@ -23,35 +23,65 @@ the readme will list any important changes.
   @endphp
 
   <header class="woocommerce-products-header">
-    @if (apply_filters('woocommerce_show_page_title', true))
-      <h1 class="woocommerce-products-header__title page-title">{!! woocommerce_page_title(false) !!}</h1>
-    @endif
-
     @php
-      do_action('woocommerce_archive_description')
+      $groups = [
+        ['label' => 'Event Type', 'tax' => 'event_type', 'terms' => $event_types],
+        ['label' => 'Age Group',  'tax' => 'age_group',  'terms' => $age_groups],
+        ['label' => 'Skill Level','tax' => 'skill_level','terms' => $skill_levels],
+      ];
     @endphp
+    <div class="filter-container mb-10 space-y-4">
+      @foreach($groups as $group)
+        <div class="filter-group">
+          <span class="block text-xs font-bold uppercase text-gray-400 mb-2">{{ $group['label'] }}</span>
+          <div class="flex flex-wrap gap-2">
+            @foreach($group['terms'] as $term)
+              <x-filter-pill 
+                :url="$filter_url($group['tax'], $term->slug)"
+                :label="$term->name"
+                :active="($active_filters[$group['tax']] ?? '') === $term->slug"
+              />
+            @endforeach
+          </div>
+        </div>
+      @endforeach
+
+      @if(!empty($active_filters))
+        <div class="pt-2">
+          <a href="{{ get_permalink(wc_get_page_id('shop')) }}" class="text-xs text-red-500 font-medium hover:underline">
+            ✕ Reset all filters
+          </a>
+        </div>
+      @endif
+    </div>
+
+    <div>
+      @php
+        do_action('woocommerce_archive_description')
+      @endphp
+    </div>
   </header>
 
   @if (woocommerce_product_loop())
-    @php
-      do_action('woocommerce_before_shop_loop');
-      woocommerce_product_loop_start();
-    @endphp
-
-    @if (wc_get_loop_prop('total'))
-      @while (have_posts())
+    <div id="shop-area" class="flex flex-col">
+      <div>
         @php
-          the_post();
-          do_action('woocommerce_shop_loop');
-          wc_get_template_part('content', 'product');
+          do_action('woocommerce_before_shop_loop');
         @endphp
-      @endwhile
-    @endif
+      </div>
 
-    @php
-      woocommerce_product_loop_end();
-      do_action('woocommerce_after_shop_loop');
-    @endphp
+      <div class="products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @while (have_posts())
+          @php the_post() @endphp
+          @php do_action('woocommerce_shop_loop') @endphp
+          @include('woocommerce.content-product')
+        @endwhile
+      </div>
+
+      @php
+        do_action('woocommerce_after_shop_loop')
+      @endphp
+    </div>
   @else
     @php
       do_action('woocommerce_no_products_found')
