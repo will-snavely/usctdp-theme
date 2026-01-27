@@ -216,12 +216,12 @@ add_action('pre_get_posts', function ($query) {
     }
 });
 
-// Disable related products
-remove_action(
-  'woocommerce_after_single_product_summary',
-  'woocommerce_output_related_products',
-  20
-);
+add_action('init', function () {
+    // 1. Remove Related Products (Priority 20)
+    remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
+    // 2. Remove SKU/Categories (Priority 40)
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+}, 20);
 
 add_filter('woocommerce_get_breadcrumb', function ($crumbs, $breadcrumb) {
     if (is_product()) {
