@@ -2,6 +2,17 @@
 @source "../views/";
 @source "../../app/";
 
+@layer base {
+    h1 {
+        /* text-3xl on mobile, text-4xl on desktop */
+        @apply text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-snug tracking-tight;
+    }
+
+    h2 {
+        @apply text-xl md:text-2xl font-semibold text-slate-800 mt-8 mb-4;
+    }
+}
+
 .wp-content-container {
     max-width: var(--wp--style--global--content-size);
     margin-left: auto;
@@ -10,7 +21,8 @@
     margin-bottom: 2rem;
 }
 
-.product table.variations th, td {
+.product table.variations th,
+td {
     padding: 8px;
 }
 
@@ -20,4 +32,96 @@
     border-width: 1px;
     max-width: 10px;
     padding-left: 5px;
+}
+
+/* Top Level Menu Items */
+.nav-primary ul li {
+    @apply relative;
+}
+
+.nav-primary ul li a {
+    @apply transition-colors duration-200 hover:text-green-600;
+}
+
+/* Indicators for items with submenus */
+.nav-primary ul li.menu-item-has-children>a::after {
+    content: '▼';
+    @apply ml-1 text-[10px] opacity-50 transition-transform duration-200 inline-block;
+}
+
+.nav-primary ul li.menu-item-has-children:hover>a::after {
+    @apply rotate-180;
+}
+
+/* Submenu Dropdown */
+.nav-primary ul .sub-menu {
+    @apply absolute top-full left-0 mt-2 w-56 bg-white shadow-2xl rounded-xl opacity-0 invisible translate-y-4 transition-all duration-300 border border-blue-50 flex flex-col py-3 z-50 overflow-hidden;
+}
+
+/* Hover State to show Submenu */
+.nav-primary ul li:hover>.sub-menu {
+    @apply opacity-100 visible translate-y-0;
+}
+
+/* Submenu Link Styling */
+.nav-primary ul .sub-menu li {
+    @apply px-2;
+}
+
+.nav-primary ul .sub-menu li a {
+    @apply block px-4 py-2 text-sm font-medium normal-case tracking-normal text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all;
+}
+
+/* Mobile Menu Container Styles */
+.nav-mobile ul li {
+    @apply border-b border-gray-50 last:border-0;
+}
+
+.nav-mobile ul li a {
+    @apply block py-4 px-2 text-lg font-bold text-slate-800 uppercase tracking-wide hover:bg-blue-50 hover:text-blue-600 transition-colors;
+}
+
+/* Handle Mobile Submenus */
+.nav-mobile ul .sub-menu {
+    @apply bg-gray-50 pl-4 py-2 flex flex-col space-y-1 list-none;
+}
+
+.nav-mobile ul .sub-menu li a {
+    @apply text-base font-semibold normal-case py-3 text-slate-600 border-0;
+}
+
+/* Fix for the hamburger icon contrast */
+header button svg {
+    @apply w-8 h-8;
+}
+
+.content-info ul {
+    @apply list-none p-0 m-0;
+}
+
+.content-info ul li a {
+    @apply transition-colors duration-200 hover:text-white;
+}
+
+/* If you have a specific social media section later */
+.footer-social-icon {
+    @apply w-5 h-5 opacity-70 hover:opacity-100 transition-opacity;
+}
+
+/* Ensure images inside the content don't overflow the new padding */
+.main img {
+    @apply h-auto max-w-full rounded-lg;
+}
+
+/* Add a bit of space between the title and the content */
+.page-header {
+    @apply mb-8 md:mb-12;
+}
+
+.page-header h1 {
+    @apply text-3xl md:text-5xl font-black text-slate-900 tracking-tight;
+}
+
+[x-cloak] {
+    display: none !important;
 }

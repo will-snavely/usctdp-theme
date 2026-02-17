@@ -29,14 +29,14 @@ add_filter('block_editor_settings_all', function ($settings) {
  * @return void
  */
 add_filter('admin_head', function () {
-    if (! get_current_screen()?->is_block_editor()) {
+    if (!get_current_screen()?->is_block_editor()) {
         return;
     }
 
     $dependencies = json_decode(Vite::content('editor.deps.json'));
 
     foreach ($dependencies as $dependency) {
-        if (! wp_script_is($dependency)) {
+        if (!wp_script_is($dependency)) {
             wp_enqueue_script($dependency);
         }
     }
@@ -128,6 +128,14 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/add_theme_support/#customize-selective-refresh-widgets
      */
     add_theme_support('customize-selective-refresh-widgets');
+
+    /**
+     * Enable WooCommerce Support
+     */
+    add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
 }, 20);
 
 /**
@@ -158,7 +166,7 @@ add_action('widgets_init', function () {
 add_action('init', function () {
     register_taxonomy('age_group', 'product', [
         'labels' => ['name' => 'Age Groups', 'singular_name' => 'Age Group'],
-        'hierarchical' => true, 
+        'hierarchical' => true,
         'show_in_rest' => true,
         'show_admin_column' => false,
     ]);
@@ -182,8 +190,8 @@ add_action('init', function () {
 add_action('init', function () {
     $taxonomy_terms = [
         'skill_level' => ['Beginner', 'Intermediate', 'Advanced'],
-        'age_group'   => ['Junior', 'Adult'],
-        'event_type'  => ['Clinic', 'Cardio Tennis', 'Tournament'],
+        'age_group' => ['Junior', 'Adult'],
+        'event_type' => ['Clinic', 'Cardio Tennis', 'Tournament'],
     ];
 
     foreach ($taxonomy_terms as $taxonomy => $terms) {
@@ -204,8 +212,8 @@ add_action('pre_get_posts', function ($query) {
             if (!empty($_GET[$tax])) {
                 $tax_query[] = [
                     'taxonomy' => $tax,
-                    'field'    => 'slug',
-                    'terms'    => sanitize_text_field($_GET[$tax]),
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($_GET[$tax]),
                 ];
             }
         }
@@ -226,9 +234,17 @@ add_action('init', function () {
 add_filter('woocommerce_get_breadcrumb', function ($crumbs, $breadcrumb) {
     if (is_product()) {
         $crumbs[1] = [
-            'Shop', 
-            get_permalink(wc_get_page_id('shop')) 
+            'Shop',
+            get_permalink(wc_get_page_id('shop'))
         ];
     }
     return $crumbs;
 }, 10, 2);
+
+add_action('init', function () {
+    global $pagenow;
+    if ('wp-login.php' == $pagenow && !isset($_GET['action']) && !isset($_POST['wp-submit'])) {
+        wp_redirect(get_permalink(get_option('woocommerce_myaccount_page_id')));
+        exit;
+    }
+});
