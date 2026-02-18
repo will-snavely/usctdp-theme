@@ -125,3 +125,35 @@ header button svg {
 [x-cloak] {
     display: none !important;
 }
+
+@keyframes snappierFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.motto-word {
+  opacity: 0;
+  animation: snappierFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+/* Delaying each word slightly for a rhythmic 1-2-3 pulse */
+.word-1 { animation-delay: 100ms; }
+.word-2 { animation-delay: 250ms; }
+.word-3 { animation-delay: 400ms; }
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: snappierFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+}
+
+.plaid {
+  background-color: #daffc8;
+  background-image: repeating-linear-gradient(45deg, #879ade87, #879ade87 350px, transparent 350px, transparent 370px), repeating-linear-gradient(-45deg, #879ade87, #879ade87 350px, transparent 350px, transparent 370px);
+}
