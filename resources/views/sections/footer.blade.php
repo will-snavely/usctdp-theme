@@ -1,5 +1,5 @@
 {{-- Using a deep slate/navy for a professional anchor --}}
-<footer class="content-info bg-slate-900 text-slate-300 py-12 border-t-4 border-black/20">
+<footer class="content-info bg-slate-900 text-slate-300 py-12">
   <div class="max-w-screen-xl mx-auto px-6 lg:px-12">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 
@@ -20,13 +20,13 @@
       <div>
         <h3 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Navigation</h3>
         @if (has_nav_menu('footer_navigation'))
-          {!! wp_nav_menu(['theme_location' => 'footer_navigation', 'menu_class' => 'space-y-3 text-sm', 'echo' => false]) !!}
+        {!! wp_nav_menu(['theme_location' => 'footer_navigation', 'menu_class' => 'space-y-3 text-sm', 'echo' => false]) !!}
         @else
-          <ul class="space-y-3 text-sm list-none p-0">
-            <li><a href="/shop" class="hover:text-white transition-colors">Shop</a></li>
-            <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
-          </ul>
+        <ul class="space-y-3 text-sm list-none p-0">
+          <li><a href="/shop" class="hover:text-white transition-colors">Shop</a></li>
+          <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
         @endif
       </div>
 
