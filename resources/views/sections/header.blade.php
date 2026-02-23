@@ -1,9 +1,12 @@
-<header class="absolute top-0 left-0 w-full z-50 bg-transparent"
-  x-data="{ mobileMenuOpen: false }">
+<header class="w-full bg-[#333333] h-32 flex items-center" x-data="{ mobileMenuOpen: false }"
+  style="
+    background-image: url('{{ Vite::asset('resources/images/tennis_bg_overlay.svg') }}');
+    background-repeat: repeat;
+    background-size: 1000px 125px;">
 
   <div class="max-w-screen-xl mx-auto px-6 lg:px-12 flex justify-between items-center h-32">
     {{-- Logo Area --}}
-    <div class="flex-shrink-0 flex items-center h-full">
+    <div class="flex-shrink-0 flex items-center h-full pr-10">
       <a href="{{ home_url('/') }}" class="block">
         <img src="{{ Vite::asset('resources/images/logo_banner.svg') }}"
           alt="USCTDP"
@@ -23,7 +26,6 @@
 
     {{-- Desktop User & Cart Area --}}
     <div class="hidden lg:flex items-center ml-8 border-l border-white/20 pl-6">
-
       {{-- 1. Cart Icon: Now completely independent of the User Menu state --}}
       <div class="flex items-center mr-6">
         <a href="{{ wc_get_cart_url() }}" class="relative group p-2 text-white hover:text-blue-200 transition-colors">

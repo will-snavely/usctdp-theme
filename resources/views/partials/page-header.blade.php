@@ -1,8 +1,9 @@
 @if(!is_front_page())
-  <div class="page-header border-b border-slate-100 pb-4 mb-10">
-    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+<div class="page-header bg-white w-full">
+  <div class="container mx-auto px-4 text-center">
+    <span class="text-2xl font-semibold">
       {!! $title !!}
-    </h1>
-    <div class="w-12 h-1 bg-[#5c88da]/60 mt-3 rounded-full"></div>
+    </span>
   </div>
+</div>
 @endif

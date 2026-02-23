@@ -20,9 +20,16 @@
 
     @include('sections.header')
 
-    <main id="main" class="main flex-grow flex flex-col">
-      @yield('content')
-    </main>
+    <div class="flex-grow"
+      style="background: 
+      /* 1. White Line (h-8 = 32px) at the very top of this div */
+      linear-gradient(#ffffff 32px, transparent 32px),
+      /* 2. Blue Court Gradient starting after the white line */
+      linear-gradient(to bottom, #0092be 0%, #005fbe 40%, #1e3a8a 80%, #0f172a 100%);">
+      <main id="main" class="main flex-grow flex flex-col">
+        @yield('content')
+      </main>
+    </div>
 
     @hasSection('sidebar')
     <aside class="sidebar max-w-screen-xl mx-auto px-6 pb-12">
