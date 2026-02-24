@@ -131,3 +131,63 @@ header button svg {
 .woocommerce-pagination {
     @apply my-4;
 }
+
+/* Container setup */
+.home-vision-section {
+    display: grid;
+    /* Creates 3 columns on desktop, collapses to 1 on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #f0f2f5;
+    /* Light grey to match your image shadows */
+}
+
+/* Individual Card Styling */
+.home-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-10px);
+    /* Subtle lift effect on hover */
+}
+
+/* Responsive Image Handling */
+.home-card img {
+    width: 100%;
+    height: 400px;
+    /* Fixed height keeps the row aligned */
+    object-fit: contain;
+    /* Keeps the transparent cut-outs from stretching */
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+}
+
+/* Typography Overlay */
+.home-card h2 {
+    margin-top: -20px;
+    /* Pulls text up to overlap the image slightly */
+    font-family: 'Arial Black', sans-serif;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    z-index: 2;
+    /* Text shadow adds a 'sticker' look to the words */
+    text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .home-card img {
+        height: 300px;
+        /* Smaller images for smaller screens */
+    }
+
+    .home-card h2 {
+        font-size: 2.2rem;
+    }
+}
