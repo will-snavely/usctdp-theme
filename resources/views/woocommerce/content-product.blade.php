@@ -1,6 +1,6 @@
 @php
-  global $product;
-  if (empty($product) || ! $product->is_visible()) return;
+global $product;
+if (empty($product) || ! $product->is_visible()) return;
 @endphp
 
 <article {{ wc_product_class('group bg-white border p-4 rounded-xl transition hover:shadow-lg', $product) }}>
@@ -8,19 +8,19 @@
   <div class="relative overflow-hidden rounded-md mb-4">
     <div class="product-image-container max-w-[250px] mx-auto">
       <a href="{{ get_permalink() }}">
-        {!! 
-          $product->get_image(
-            'woocommerce_thumbnail',
-            ['class' => 'w-full h-auto transform transition group-hover:scale-105']) 
+        {!!
+        $product->get_image(
+        'woocommerce_thumbnail',
+        ['class' => 'w-full h-auto transform transition group-hover:scale-105'])
         !!}
       </a>
     </div>
-    
+
     {{-- Example of a custom "Sale" badge --}}
     @if($product->is_on_sale())
-      <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-        SALE
-      </span>
+    <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+      SALE
+    </span>
     @endif
   </div>
 

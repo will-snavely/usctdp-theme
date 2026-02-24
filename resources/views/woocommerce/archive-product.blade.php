@@ -17,80 +17,79 @@ the readme will list any important changes.
 @extends('layouts.app')
 
 @section('content')
+@php
+do_action('get_header', 'shop');
+do_action('woocommerce_before_main_content');
+@endphp
+
+<header class="woocommerce-products-header">
   @php
-    do_action('get_header', 'shop');
-    do_action('woocommerce_before_main_content');
+  $groups = [
+  ['label' => 'Event Type', 'tax' => 'event_type', 'terms' => $event_types],
+  ['label' => 'Age Group', 'tax' => 'age_group', 'terms' => $age_groups],
+  ['label' => 'Skill Level','tax' => 'skill_level','terms' => $skill_levels],
+  ];
   @endphp
-
-  <header class="woocommerce-products-header">
-    @php
-      $groups = [
-        ['label' => 'Event Type', 'tax' => 'event_type', 'terms' => $event_types],
-        ['label' => 'Age Group',  'tax' => 'age_group',  'terms' => $age_groups],
-        ['label' => 'Skill Level','tax' => 'skill_level','terms' => $skill_levels],
-      ];
-    @endphp
-    <div class="filter-container mb-10 space-y-4">
-      @foreach($groups as $group)
-        <div class="filter-group">
-          <span class="block text-xs font-bold uppercase text-gray-400 mb-2">{{ $group['label'] }}</span>
-          <div class="flex flex-wrap gap-2">
-            @foreach($group['terms'] as $term)
-              <x-filter-pill 
-                :url="$filter_url($group['tax'], $term->slug)"
-                :label="$term->name"
-                :active="($active_filters[$group['tax']] ?? '') === $term->slug"
-              />
-            @endforeach
-          </div>
-        </div>
-      @endforeach
-
-      @if(!empty($active_filters))
-        <div class="pt-2">
-          <a href="{{ get_permalink(wc_get_page_id('shop')) }}" class="text-xs text-red-500 font-medium hover:underline">
-            ✕ Reset all filters
-          </a>
-        </div>
-      @endif
-    </div>
-
-    <div>
-      @php
-        do_action('woocommerce_archive_description')
-      @endphp
-    </div>
-  </header>
-
-  @if (woocommerce_product_loop())
-    <div id="shop-area" class="flex flex-col">
-      <div>
-        @php
-          do_action('woocommerce_before_shop_loop');
-        @endphp
+  <div class="filter-container mb-10 space-y-4 bg-slate-50 border border-slate-200 p-6 rounded-2xl w-fit">
+    @foreach($groups as $group)
+    <div class="filter-group flex flex-col space-y-2 w-fit">
+      <span class="block text-xs font-bold uppercase text-slate-400 mb-2">{{ $group['label'] }}</span>
+      <div class="flex flex-wrap gap-2 w-fit">
+        @foreach($group['terms'] as $term)
+        <x-filter-pill
+          :url="$filter_url($group['tax'], $term->slug)"
+          :label="$term->name"
+          :active="($active_filters[$group['tax']] ?? '') === $term->slug" />
+        @endforeach
       </div>
-
-      <div class="products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        @while (have_posts())
-          @php the_post() @endphp
-          @php do_action('woocommerce_shop_loop') @endphp
-          @include('woocommerce.content-product')
-        @endwhile
-      </div>
-
-      @php
-        do_action('woocommerce_after_shop_loop')
-      @endphp
     </div>
-  @else
+    @endforeach
+
+    @if(!empty($active_filters))
+    <div class="pt-2">
+      <a href="{{ get_permalink(wc_get_page_id('shop')) }}" class="text-xs text-red-500 font-medium hover:underline">
+        ✕ Reset all filters
+      </a>
+    </div>
+    @endif
+  </div>
+
+  <div>
     @php
-      do_action('woocommerce_no_products_found')
+    do_action('woocommerce_archive_description')
     @endphp
-  @endif
+  </div>
+</header>
+
+@if (woocommerce_product_loop())
+<div id="shop-area" class="flex flex-col">
+  <div>
+    @php
+    do_action('woocommerce_before_shop_loop');
+    @endphp
+  </div>
+
+  <div class="products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @while (have_posts())
+    @php the_post() @endphp
+    @php do_action('woocommerce_shop_loop') @endphp
+    @include('woocommerce.content-product')
+    @endwhile
+  </div>
 
   @php
-    do_action('woocommerce_after_main_content');
-    do_action('get_sidebar', 'shop');
-    do_action('get_footer', 'shop');
+  do_action('woocommerce_after_shop_loop')
   @endphp
+</div>
+@else
+@php
+do_action('woocommerce_no_products_found')
+@endphp
+@endif
+
+@php
+do_action('woocommerce_after_main_content');
+do_action('get_sidebar', 'shop');
+do_action('get_footer', 'shop');
+@endphp
 @endsection
