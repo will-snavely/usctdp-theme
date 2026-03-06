@@ -22,11 +22,13 @@
     </div>
     
     <h2 @class([
+        'transition-all duration-500',
         'logo-text-main font-black uppercase -mt-8 z-10 text-white tracking-tighter',
         'text-4xl md:text-6xl italic' => $featured,
-        'text-4xl md:text-5xl' => !$featured
+        'text-4xl md:text-5xl' => !$featured,
+        'group-hover:drop-shadow-[0_0_15px_rgba(223,255,79,0.5)]'
     ])>
-      <spa>{{ $title }}</span>
+      <span>{{ $title }}</span>
       <span class="inline-block bg-[#dfff4f] rounded-full ml-1 {{ $featured ? 'w-4 h-4' : 'w-3 h-3' }}"></span>
     </h2>
   </div>
@@ -34,7 +36,7 @@
   {{-- Content Box --}}
   <div @class([
       'w-full p-4 rounded-3xl relative overflow-hidden transition-all',
-      'bg-slate-900 border-2 border-indigo-500 shadow-[0_20px_50px_rgba(0,0,0,0.5)]' => $featured,
+      'bg-slate-900 border-2 border-red-500 shadow-[0_20px_50px_rgba(0,0,0,0.5)]' => $featured,
       'bg-slate-900/80 backdrop-blur-sm border border-slate-800 shadow-xl' => !$featured
   ])>
     
@@ -56,7 +58,7 @@
       <a href="{{ $buttonLink }}" 
         @class([
           'block w-full px-6 py-4 text-center transition-all rounded-xl font-bold',
-          'text-lg text-white bg-indigo-600 hover:bg-indigo-500 shadow-[0_10px_20px_rgba(79,70,229,0.4)]' => $featured,
+          'text-lg text-white bg-red-700 hover:bg-red-600 shadow-[0_10px_20px_rgba(79,70,229,0.4)]' => $featured,
           'text-sm text-white border border-slate-700 hover:bg-slate-800' => !$featured
         ])>
         {{ $buttonText }}
