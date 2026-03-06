@@ -119,13 +119,33 @@ header button svg {
 }
 
 .pattern-grid {
-  /* Only the red crosshatch */
   background-image: url('../images/hexagons.svg');
   background-repeat: repeat;
 }
 
+/*
 .home-page-bg {
   background: linear-gradient(to bottom, #0092be 0%, #005fbe 40%, #1e3a8a 80%, #0f172a 100%);
+}
+*/
+
+.home-page-bg {
+  background: 
+    linear-gradient(
+      to bottom, 
+      rgba(0, 146, 190, 0) 0%, 
+      #0f172a 90%
+    ),
+    url('../images/triangles.svg') repeat,
+    linear-gradient(
+      to bottom, 
+      #0092be 0%, 
+      #005fbe 40%, 
+      #1e3a8a 80%, 
+      #0f172a 100%
+    );
+    
+  background-size: auto, 270px 225px, auto; /* Adjust pattern size here */
 }
 
 .page-header {

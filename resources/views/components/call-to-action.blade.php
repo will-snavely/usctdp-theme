@@ -22,11 +22,11 @@
     </div>
     
     <h2 @class([
-        'font-black uppercase -mt-8 z-10 text-white tracking-tighter',
+        'logo-text-main font-black uppercase -mt-8 z-10 text-white tracking-tighter',
         'text-4xl md:text-6xl italic' => $featured,
         'text-4xl md:text-5xl' => !$featured
     ])>
-      <span>{{ $title }}</span>
+      <spa>{{ $title }}</span>
       <span class="inline-block bg-[#dfff4f] rounded-full ml-1 {{ $featured ? 'w-4 h-4' : 'w-3 h-3' }}"></span>
     </h2>
   </div>
