@@ -30,3 +30,14 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     $fragments['span.bg-red-600'] = ob_get_clean();
     return $fragments;
 });
+
+
+/**
+ * Ensure the login page is always accessible.
+ */
+add_filter('woocommerce_is_coming_soon', function($is_coming_soon) {
+    if (is_account_page()) {
+        return false; // Bypass coming soon for the account/login page
+    }
+    return $is_coming_soon;
+});

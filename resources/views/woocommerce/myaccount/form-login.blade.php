@@ -1,4 +1,5 @@
 <div class="max-w-4xl mx-auto my-12 px-6">
+    @php(wc_print_notices())
     <div class="grid md:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
 
         {{-- Left Side: Login --}}
