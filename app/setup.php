@@ -248,3 +248,13 @@ add_action('init', function () {
         exit;
     }
 });
+
+if (is_page('juniors')) {
+    wp_enqueue_script(
+        'theme/juniors',
+        asset('js/pages/juniors.js')->uri(),
+        [],
+        asset('js/pages/juniors.js')->version(),
+        true  // load in footer
+    );
+}
