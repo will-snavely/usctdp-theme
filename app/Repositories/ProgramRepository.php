@@ -2,41 +2,6 @@
 
 namespace App\Repositories;
 
-/**
- * ProgramRepository
- *
- * Wraps BerlinDB query objects to provide a clean, intention-revealing
- * interface for the rest of the application. Controllers and Composers
- * should never instantiate BerlinDB queries directly — always go through
- * here so query logic stays in one place.
- *
- * Assumptions:
- *   - Your BerlinDB Query class lives at App\DB\Queries\Programs.
- *     Adjust the use statement above to match your actual namespace.
- *   - Your BerlinDB Row object exposes at minimum:
- *       $program->id
- *       $program->name
- *       $program->description
- *       $program->level          (e.g. 'red', 'orange', 'green', 'yellow', 'tiny', 'teen')
- *       $program->ball_color     (e.g. '#e03535')
- *       $program->age_range      (e.g. 'Ages 5+')
- *       $program->audience       ('junior' | 'adult')
- *       $program->season         ('spring' | 'summer' | 'both')
- *       $program->price_one_day  (float)
- *       $program->price_two_day  (float)
- *       $program->product_url    (WooCommerce product permalink)
- *       $program->schedule       (JSON string — see note below)
- *       $program->sort_order     (int, for display ordering)
- *
- * Schedule JSON shape (array of slot objects):
- *   [
- *     { "day": "Mon", "day_full": "Monday", "time": "3:30–4:15 pm" },
- *     { "day": "Fri", "day_full": "Friday", "time": "3:30–4:15 pm" }
- *   ]
- *
- * If your schedules live in a related table instead of a JSON column,
- * replace getScheduleForProgram() below and decode accordingly.
- */
 class ProgramRepository
 {
     public function getActivities($args)

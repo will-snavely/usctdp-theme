@@ -203,6 +203,22 @@ add_action('init', function () {
     }
 }, 20);
 
+add_action('init', function () {
+    // Match /staff/123/ and expose staff_id as a query var
+    add_rewrite_rule(
+        '^staff/([0-9]+)/?$',
+        'index.php?pagename=staff&staff_id=$matches[1]',
+        'top'
+    );
+});
+
+
+// Tell WordPress to recognize staff_id as a legit query var
+add_filter('query_vars', function ($vars) {
+    $vars[] = 'staff_id';
+    return $vars;
+});
+
 add_action('pre_get_posts', function ($query) {
     if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_taxonomy())) {
         $tax_query = [];
@@ -258,3 +274,12 @@ if (is_page('juniors')) {
         true  // load in footer
     );
 }
+
+add_filter('pre_get_document_title', function ($title) {
+    if (\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single') {
+        $slug = request()->route('slug');
+        $member = \App\Repositories\StaffRepository::findBySlug($slug);
+        return "Our Team" . ($member ? " | {$member->first_name} {$member->last_name}" : '');
+    }
+    return $title;
+});

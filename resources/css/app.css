@@ -1,5 +1,6 @@
 @import "tailwindcss" theme(static);
 @import "animate.css";
+@import './staff.css';
 @source "../views/";
 @source "../../app/";
 

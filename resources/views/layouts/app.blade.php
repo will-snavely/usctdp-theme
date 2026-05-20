@@ -26,6 +26,8 @@
           <div class="page-title border-l-10 border-[#0092be] pl-4 animate__animated animate__fadeIn">
             @if(is_shop() || is_product_category() || is_product_tag())
               Register
+            @elseif(\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single')
+              Our Team
             @else
               {!! get_the_title() !!}
             @endif
@@ -34,8 +36,7 @@
       @endif
     </div>
 
-    <div class="flex-grow"
-      style="background: linear-gradient(to bottom, #0092be 0%, #005fbe 40%, #1e3a8a 80%, #0f172a 100%);">
+    <div class="flex-grow home-page-bg relative flex flex-col">
       <main id="main"
         class="main flex-grow w-full max-w-screen-lg mx-auto px-6 lg:px-12 py-8 md:py-16 bg-white rounded-2xl shadow-xl my-8"
         style="
@@ -52,7 +53,6 @@
     </div>
 
     @include('sections.footer')
-
   </div>
 
   @php(do_action('get_footer'))
