@@ -3,8 +3,11 @@ import.meta.glob([
   '../fonts/**',
 ]);
 
-import Alpine from 'alpinejs';
+import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
+
 window.Alpine = Alpine;
+Alpine.plugin(collapse);
 Alpine.start();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector('.team-image-container');
 
   hotspots.forEach(hotspot => {
-
     // 1. Show tooltip and populate quote
     hotspot.addEventListener('mouseenter', (e) => {
       const quoteId = e.target.getAttribute('data-quote');

@@ -10,3 +10,11 @@ Route::get('/our-team/{slug}/', function ($slug) {
     }
     return view('staff.single', compact('member'));
 })->where('slug', '[a-zA-Z0-9-]+')->name('staff.single');
+
+Route::get('/programming/adults/', function () {
+    return view('programs.archive', ['audience' => 'adults']);
+})->name('programs.archive');
+
+Route::get('/programming/juniors/', function () {
+    return view('programs.archive', ['audience' => 'juniors']);
+})->name('programs.archive');

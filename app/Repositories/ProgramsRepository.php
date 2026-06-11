@@ -1,0 +1,192 @@
+<?php
+
+namespace App\Repositories;
+
+class ProgramsRepository
+{
+    public function getActivities($args)
+    {
+        global $wpdb;
+
+        $where_clause = '';
+        $where_args = [];
+        $conditions = [];
+
+        $conditions[] = "sess.is_active = %d";
+        $where_args[] = 1;
+
+        if (isset($args["season"])) {
+            $conditions[] = "sess.season = %s";
+            $where_args[] = $args['season'];
+        }
+
+        if (isset($args["audience"])) {
+            $conditions[] = "prod.age_group = %s";
+            $where_args[] = $args["audience"];
+        }
+
+        if (isset($args["type"])) {
+            $conditions[] = "prod.type = %s";
+            $where_args[] = $args['type'];
+        }
+
+        if (isset($args["level"])) {
+            $conditions[] = "prod.level = %s";
+            $where_args[] = $args['level'];
+        }
+
+        if ($conditions) {
+            $where_clause = "WHERE " . implode(" AND ", $conditions);
+        }
+
+        $query = $wpdb->prepare(
+            "   SELECT
+                    act.id as activity_id, 
+                    act.title as activity_name, 
+                    act.type as activity_type,
+                    clinic.day_of_week as day_of_week,
+                    clinic.start_time as start_time,
+                    clinic.end_time as end_time,
+                    sess.id as session_id, 
+                    sess.title as session_name,
+                    sess.start_date as session_start_date, 
+                    sess.end_date as session_end_date,
+                    sess.num_weeks as session_num_weeks, 
+                    sess.category as session_category,
+                    sess.season as session_season,
+                    prod.title as product_name, 
+                    prod.id as product_id, 
+                    prod.level as product_level,
+                    prod.description as product_description,
+                    prod.short_description as product_short_description,
+                    prod.age_group as product_age_group,
+                    prod.age_range as product_age_range,
+                    prod.woocommerce_id as product_woocommerce_id,
+                    pricing.pricing as product_pricing
+                FROM {$wpdb->prefix}usctdp_activity AS act
+                JOIN {$wpdb->prefix}usctdp_clinic AS clinic ON act.id = clinic.id
+                JOIN {$wpdb->prefix}usctdp_session AS sess ON act.session_id = sess.id
+                JOIN {$wpdb->prefix}usctdp_product AS prod ON act.product_id = prod.id
+                JOIN {$wpdb->prefix}usctdp_pricing AS pricing ON (prod.id = pricing.product_id AND sess.id = pricing.session_id)
+                {$where_clause}
+                ORDER BY act.id DESC",
+            $where_args
+        );
+        error_log("Executing query: " . $query);
+        return $wpdb->get_results($query);
+    }
+    
+    private function getEmptySchedule()
+    {
+        return [
+            1 => ['day' => 'Mon', 'day_full' => 'Monday', 'times' => []],
+            2 => ['day' => 'Tue', 'day_full' => 'Tuesday', 'times' => []],
+            3 => ['day' => 'Wed', 'day_full' => 'Wednesday', 'times' => []],
+            4 => ['day' => 'Thu', 'day_full' => 'Thursday', 'times' => []],
+            5 => ['day' => 'Fri', 'day_full' => 'Friday', 'times' => []],
+            6 => ['day' => 'Sat', 'day_full' => 'Saturday', 'times' => []],
+            7 => ['day' => 'Sun', 'day_full' => 'Sunday', 'times' => []],
+        ];
+    }
+    public function getProgramming($audience, $filters)
+    {
+        $activities = $this->getActivities(array_merge(['audience' => $audience], $filters));
+        $products = [];
+        $levels = [];
+        foreach ($activities as $activity) {
+            $product_id = $activity->product_id;
+            $dayOfWeek = $this->intToDayOfWeek($activity->day_of_week);
+            $dayFull = $dayOfWeek[0];
+            $dayShort = $dayOfWeek[1];
+            $levelColor = $this->getLevelColor($activity->product_level);
+            $pricing = json_decode($activity->product_pricing, true);
+            if (!isset($products[$product_id])) {
+                $products[$product_id] = [
+                    "id" => $product_id,
+                    "name" => $activity->product_name,
+                    "description" => $activity->product_description,
+                    "short_description" => $activity->product_short_description,
+                    "level" => strtolower($activity->product_level),
+                    "level_label" => $activity->product_level,
+                    "ball_color" => $levelColor,
+                    "age_group" => $activity->product_age_group,
+                    "age_range" => $activity->product_age_range,
+                    "woocommerce_id" => $activity->product_woocommerce_id,
+                    "product_url" => get_permalink($activity->product_woocommerce_id),
+                    "season" => $activity->session_season,
+                    "price_one_day" => floatval($pricing["One"]),
+                    "price_two_day" => floatval($pricing["Two"]),
+                    "schedule" => $this->getEmptySchedule(),
+                    "schedule_days" => []
+                ];
+            }
+            $start_time = date('g:i A', strtotime($activity->start_time));
+            $end_time = date('g:i A', strtotime($activity->end_time));
+            $products[$product_id]['schedule'][$activity->day_of_week]['times'][] = [
+                'start_time' => $start_time,
+                'end_time' => $end_time
+            ];
+            $products[$product_id]['schedule_days'][$dayShort] = 1;
+
+            if (!isset($levels[$activity->product_level])) {
+                $levels[$activity->product_level] = [
+                    "level" => strtolower($activity->product_level),
+                    "label" => $activity->product_level,
+                    "color" => $levelColor,
+                ];
+            }
+        }
+        return [
+            "products" => $products,
+            "levels" => $levels
+        ];
+    }
+
+    public function intToDayOfWeek($int)
+    {
+        $days = [
+            1 => ["Monday", "Mon"],
+            2 => ["Tuesday", "Tue"],
+            3 => ["Wednesday", "Wed"],
+            4 => ["Thursday", "Thu"],
+            5 => ["Friday", "Fri"],
+            6 => ["Saturday", "Sat"],
+            7 => ["Sunday", "Sun"]
+        ];
+        return isset($days[$int]) ? $days[$int] : "";
+    }
+
+    public function getLevelColor($level)
+    {
+        $colors = [
+            "Beginner" => "#f45757ff",
+            "Intermediate" => "#3be843ff",
+            "Advanced" => "#e6f23dff",
+        ];
+        return isset($colors[$level]) ? $colors[$level] : "#3893deff";
+    }
+
+    public function getLevelsForAudience(string $audience): array
+    {
+        return [
+            ['value' => 'beginner', 'label' => 'Beginner', 'color' => '#e03535'],
+            ['value' => 'intermediate', 'label' => 'Intermediate', 'color' => '#e87722'],
+            ['value' => 'advanced', 'label' => 'Advanced', 'color' => '#3a9e5f'],
+        ];
+    }
+
+    public function getTypesForAudience(string $audience): array
+    {
+        $types = [
+            ['value' => 'clinic', 'label' => 'Clinic'],
+            ['value' => 'camp', 'label' => 'Camp'],
+            ['value' => 'tournament', 'label' => 'Tournament'],
+        ];
+
+        if ($audience === 'adults') {
+            $types[] = ['value' => 'cardio', 'label' => 'Cardio Tennis'];
+        }
+
+        return $types;
+    }
+}

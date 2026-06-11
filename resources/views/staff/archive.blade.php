@@ -15,7 +15,7 @@ $staff array View-ready staff member arrays
     <section class="staff-archive">
         <div class="staff-archive__teamimage">
             <div class="team-image-container">
-                <img src="{{ Vite::asset('resources/images/ourteam.webp') }}" alt="Our Team" class="base-image">
+                <img src="{{ Vite::asset('resources/images/ourteam_drop.webp') }}" alt="Our Team" class="base-image">
                 <img src="{{ Vite::asset('resources/images/ourteam_motto.svg') }}" alt="Belong, Become, Believe"
                     class="motto-overlay">
                 <svg class="svg-overlay" viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@ $staff array View-ready staff member arrays
                         </text>
                         <text class="quote-name" x="225.5" y="116.7">Janis Finn</text>
                     </g>
-                    <g id="q6" class="quote-grp transparent" transform="translate(790, 40)">
+                    <g id="q6" class="quote-grp transparent" transform="translate(780, 40)">
                         <rect class="quote-rect" width="468.60645" height="130" x="0" y="0" />
                         <rect class="quote-rect-border" width="30" height="130" x="0" y="0" width="30" height="130" x="0"
                             y="0" />

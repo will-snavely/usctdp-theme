@@ -40,9 +40,9 @@
       <main id="main"
         class="main flex-grow w-full max-w-screen-lg mx-auto px-6 lg:px-12 py-8 md:py-16 bg-white rounded-2xl shadow-xl my-8"
         style="
-          background-image: url('{{ Vite::asset('resources/images/bbb.png') }}');
+          background-image: url('{{ Vite::asset('resources/images/bbb.svg') }}');
           background-repeat: repeat;
-          background-size: 1000px 1000px;">
+          background-size: 1000px 1400px;">
         @yield('content')
       </main>
       @hasSection('sidebar')

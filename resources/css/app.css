@@ -1,6 +1,8 @@
 @import "tailwindcss" theme(static);
 @import "animate.css";
 @import './staff.css';
+ @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+ 
 @source "../views/";
 @source "../../app/";
 
@@ -13,6 +15,43 @@
     h2 {
         @apply text-xl md:text-2xl font-semibold text-slate-800 mt-8 mb-4;
     }
+}
+
+@theme {
+  /* Brand colors */
+  --color-court-dark:   #1a1a2e;
+  --color-court-green:  #2d6a4f;
+  --color-court-clay:   #c84b31;
+  --color-off-white:    #f5f2ec;
+
+  /* Ball level colors */
+  --color-level-tiny:   #1a9dc3;
+  --color-level-red:    #e03535;
+  --color-level-orange: #e87722;
+  --color-level-green:  #3a9e5f;
+  --color-level-yellow: #c9a800;
+  --color-level-teen:   #7b5ea7;
+
+  /* Ball level backgrounds */
+  --color-level-tiny-bg:   #eef8fd;
+  --color-level-red-bg:    #fff0f0;
+  --color-level-orange-bg: #fff5ec;
+  --color-level-green-bg:  #eef8f2;
+  --color-level-yellow-bg: #fffbe8;
+  --color-level-teen-bg:   #f5f0ff;
+
+  /* Ball level borders */
+  --color-level-tiny-border:   #a8dcf0;
+  --color-level-red-border:    #f5c6c6;
+  --color-level-orange-border: #fad4aa;
+  --color-level-green-border:  #b0dfc0;
+  --color-level-yellow-border: #f0dfa0;
+  --color-level-teen-border:   #d4bef5;
+
+  /* Typography */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+  --font-sans:    'DM Sans', sans-serif;
 }
 
 .wp-content-container {
@@ -124,12 +163,6 @@ header button svg {
   background-repeat: repeat;
 }
 
-/*
-.home-page-bg {
-  background: linear-gradient(to bottom, #0092be 0%, #005fbe 40%, #1e3a8a 80%, #0f172a 100%);
-}
-*/
-
 .home-page-bg {
   background: 
     linear-gradient(
@@ -230,4 +263,107 @@ header button svg {
 .logo-text-dot {
   color: #35fc3c;
   text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+}
+
+/*
+ * Add this to resources/css/app.css (or @import it).
+ * These are the few things Tailwind utility classes can't handle cleanly:
+ * dynamic per-level pill states, the card entrance animation,
+ * and the schedule drawer open/close transition.
+ */
+
+/* ── Card entrance animation ── */
+@keyframes card-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger delay per card position */
+#js-programs-grid > *:nth-child(1) { animation-delay: 0.05s; }
+#js-programs-grid > *:nth-child(2) { animation-delay: 0.10s; }
+#js-programs-grid > *:nth-child(3) { animation-delay: 0.15s; }
+#js-programs-grid > *:nth-child(4) { animation-delay: 0.20s; }
+#js-programs-grid > *:nth-child(5) { animation-delay: 0.25s; }
+#js-programs-grid > *:nth-child(6) { animation-delay: 0.30s; }
+#js-programs-grid > *:nth-child(7) { animation-delay: 0.35s; }
+#js-programs-grid > *:nth-child(8) { animation-delay: 0.40s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #js-programs-grid > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Schedule drawer open state ── */
+/* JS removes [hidden]; max-height drives the animation */
+.schedule-drawer:not([hidden]) {
+  max-height: 400px;
+}
+
+.program-card--schedule-open .schedule-toggle__icon {
+  transform: rotate(180deg);
+}
+
+/* ── Level filter pills ── */
+/* Base pill — shared across all levels */
+.level-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: none;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+.level-pill.is-active,
+.level-pill:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Per-level colors — these reference the CSS custom properties
+   registered in your @theme block */
+.level-pill--all    { background: #f0f0f0;                              border-color: #ddd;                           color: #1a1a1a; }
+.level-pill--tiny   { background: var(--color-level-tiny-bg);   border-color: var(--color-level-tiny-border);   color: var(--color-level-tiny); }
+.level-pill--red    { background: var(--color-level-red-bg);    border-color: var(--color-level-red-border);    color: var(--color-level-red); }
+.level-pill--orange { background: var(--color-level-orange-bg); border-color: var(--color-level-orange-border); color: var(--color-level-orange); }
+.level-pill--green  { background: var(--color-level-green-bg);  border-color: var(--color-level-green-border);  color: var(--color-level-green); }
+.level-pill--yellow { background: var(--color-level-yellow-bg); border-color: var(--color-level-yellow-border); color: var(--color-level-yellow); }
+.level-pill--teen   { background: var(--color-level-teen-bg);   border-color: var(--color-level-teen-border);   color: var(--color-level-teen); }
+
+/* ── Filter pills (server-side nav links) ── */
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1.5px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.filter-pill--active {
+  background: var(--color-court-dark);
+  border-color: var(--color-court-dark);
+  color: white;
 }

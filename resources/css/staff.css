@@ -306,12 +306,6 @@
     margin: 0;
 }
 
-.staff-single__title {
-    font-size: 1rem;
-    color: var(--color-muted, #6b7280);
-    margin: 0;
-}
-
 .staff-single__roles {
     list-style: none;
     margin: 0.5rem 0 0;
@@ -339,7 +333,7 @@
 .staff-single__quote {
     margin: 0;
     padding: 1.5rem 1.75rem;
-    border-left: 4px solid var(--color-accent, #2563eb);
+    border-left: 4px solid var(--color-accent, #e65627);
     background: var(--color-surface-alt, #f9fafb);
     border-radius: 0 0.5rem 0.5rem 0;
 }

@@ -1,35 +1,44 @@
 {{--
-  Component: schedule-drawer
-  Usage: @include('components.schedule-drawer', [...])
+Component: schedule-drawer
+$schedule array Grouped by day: [{day, day_full, times[]}, ...]
+$season string
 
-  $programId  int     Unique ID for aria-controls linkage
-  $schedule   array   [{day, day_full, time}, ...]
-  $season     string  'spring' | 'summer' | 'both'
+Relies on scheduleOpen from the parent program-card x-data scope.
 --}}
 
-<div
-  class="schedule-drawer"
-  id="schedule-{{ $programId }}"
-  aria-hidden="true"
-  hidden
->
-  <div class="schedule-drawer__inner">
+@php
+  ksort($schedule);
+@endphp
 
-    <p class="schedule-drawer__heading">
+<div x-show="scheduleOpen" x-collapse class="bg-stone-50 border-t-[1.5px] border-stone-200"
+  :aria-hidden="(!scheduleOpen).toString()">
+  <div class="px-6 py-4">
+
+    <p class="font-mono text-[10px] uppercase tracking-[2px] text-stone-400 mb-4">
       {{ ucfirst($season !== 'both' ? $season : 'Current') }} Schedule
     </p>
 
     @if(count($schedule) > 0)
-      <ul class="schedule-slots" aria-label="Available time slots">
-        @foreach($schedule as $slot)
-          <li class="schedule-slot">
-            <span class="schedule-slot__day">{{ $slot['day'] }}</span>
-            <span class="schedule-slot__time">{{ $slot['time'] }}</span>
-          </li>
+      <div class="flex flex-col gap-3">
+        @foreach($schedule as $day => $dayInfo)
+          @if(count($dayInfo['times']) > 0)
+            <div>
+              <p class="text-[11px] font-semibold uppercase tracking-wide text-stone-500 mb-1.5">
+                {{ $dayInfo['day_full'] }}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                @foreach($dayInfo['times'] as $time)
+                  <span class="bg-white border-[1.5px] border-stone-200 rounded-md px-3 py-1.5 text-[12px] text-stone-800">
+                    {{ $time['start_time'] }} - {{ $time['end_time'] }}
+                  </span>
+                @endforeach
+              </div>
+            </div>
+          @endif
         @endforeach
-      </ul>
+      </div>
     @else
-      <p class="schedule-drawer__empty">Schedule to be announced.</p>
+      <p class="text-[13px] text-stone-400 italic">Schedule to be announced.</p>
     @endif
 
   </div>
