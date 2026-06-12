@@ -1,16 +1,12 @@
 <?php
 
 namespace App\View\Composers;
+
 use App\Repositories\ProgramsRepository;
 use Roots\Acorn\View\Composer;
-use Illuminate\View\View;
 
 class ProgramsComposer extends Composer
 {
-    /**
-     * The Blade templates this composer applies to.
-     * Matches resources/views/pages/juniors.blade.php
-     */
     protected static $views = [
         'programs.archive',
     ];
@@ -24,64 +20,63 @@ class ProgramsComposer extends Composer
 
     public function with(): array
     {
-        $audience = $this->data->get('audience', 'juniors');
-        $levels  = $this->repository->getLevelsForAudience($audience);
-        $types   = $this->repository->getTypesForAudience($audience);
-        $filters  = $this->resolveFilters($audience);
-        $programs = $this->repository->getProgramming($audience, $filters);
+        $audience  = $this->data->get('audience', 'juniors');
+        $routeType = $this->data->get('type');  // set by type-URL routes, e.g. /juniors/clinic/
+        $levels    = $this->repository->getLevelsForAudience($audience);
+        $types     = $this->repository->getTypesForAudience($audience);
+        $filters   = $this->resolveFilters($audience, [], $routeType);
+        $programs = $this->repository->getProgramming($audience, '', $filters);
+
+        $mailerKey = $audience === 'adults' ? 'usctdp_adult_mailers' : 'usctdp_junior_mailers';
+        $mailers   = json_decode(get_option($mailerKey, '[]'), true) ?: [];
+
+        // Type labels for breadcrumb display.
+        $typeLabels = collect($types)->pluck('label', 'value')->toArray();
+        $routeTypeLabel = $routeType ? ($typeLabels[$routeType] ?? ucfirst($routeType)) : null;
+
+        // Base URL for the audience page (used for type-pill navigation + breadcrumb back-link).
+        $audienceBaseUrl = home_url('/programming/' . $audience . '/');
+
+        // Filters that came from the user (query params only, not the route-passed type).
+        $userFilters = array_filter($filters, fn($k) => $k !== 'type', ARRAY_FILTER_USE_KEY);
+
         return [
-            'audience'      => $audience,
-            'programs'      => array_values($programs['products']),
-            'activeFilters' => $filters,
-            'seasons'       => $this->buildSeasons(),
-            'levels'        => $levels,
-            'types'         => $types,
+            'audience'        => $audience,
+            'programs'        => array_values($programs['products']),
+            'activeFilters'   => $filters,
+            'userFilters'     => $userFilters,
+            'levels'          => $levels,
+            'types'           => $types,
+            'mailers'         => $mailers,
+            'routeType'       => $routeType,
+            'routeTypeLabel'  => $routeTypeLabel,
+            'audienceBaseUrl' => $audienceBaseUrl,
         ];
-    }
-
-    private function resolveActiveSeason(): string
-    {
-        $allowed = ['spring', 'summer'];
-        $param = sanitize_key($_GET['season'] ?? '');
-
-        if (in_array($param, $allowed, true)) {
-            return $param;
-        }
-
-        return 'spring';
-    }
-
-    /**
-     * Resolve audience from the page slug.
-     * Expects the WordPress page slug to be 'juniors' or 'adults'.
-     * Adjust this logic to match however your Sage routes expose audience.
-     */
-    private function resolveAudience(): string
-    {
-        $slug = request()->route('audience');
-        error_log("Resolving audience from slug: " . $slug);
-        if($slug === 'adults' || $slug === 'juniors') {
-            return $slug;
-        }
-        return '';
     }
 
     /**
      * Read, sanitize, and validate query params against allowed values.
-     * Returns only params that are explicitly set and valid — unset params
-     * are omitted so the repository treats them as "no filter".
+     * When $routeType is provided it is injected directly into filters,
+     * bypassing the query param for 'type'.
      */
-    private function resolveFilters(string $audience): array
+    private function resolveFilters(string $audience, array $seasons, ?string $routeType): array
     {
         $filters = [];
+
+        // Route-passed type is authoritative; query param cannot override it.
+        if ($routeType && in_array($routeType, $this->allowedTypes($audience), true)) {
+            $filters['type'] = $routeType;
+        }
+
         $allowed = [
-            'season' => ['spring', 'summer'],
-            'type'   => $this->allowedTypes($audience),
-            'level'  => array_column(
-                $this->repository->getLevelsForAudience($audience),
-                'value'
-            ),
+            'season' => array_column($seasons, 'value'),
+            'level'  => array_column($this->repository->getLevelsForAudience($audience), 'value'),
         ];
+
+        // Only allow type from query param when no route type is set.
+        if (!$routeType) {
+            $allowed['type'] = $this->allowedTypes($audience);
+        }
 
         foreach ($allowed as $param => $validValues) {
             $value = sanitize_key($_GET[$param] ?? '');
@@ -95,26 +90,9 @@ class ProgramsComposer extends Composer
 
     private function allowedTypes(string $audience): array
     {
-        $types = ['clinic', 'camp', 'tournament'];
         if ($audience === 'adults') {
-            $types[] = 'cardio';
+            return ['clinic', 'cardio', 'tournament'];
         }
-        return $types;
-    }
-
-    private function buildSeasons(): array
-    {
-        return [
-            [
-                'value'   => 'spring',
-                'label'   => 'Spring',
-                'session' => 'May 4 - June 7, 2026 · 5 Weeks',
-            ],
-            [
-                'value'   => 'summer',
-                'label'   => 'Summer',
-                'session' => 'June 8 - August 2, 2026 · 8 Weeks',
-            ],
-        ];
+        return ['clinic', 'camp', 'tournament'];
     }
 }

@@ -46,7 +46,7 @@
   </div>
 
   {{-- Footer --}}
-  <div class="px-6 py-4 fle  x items-center justify-between gap-4 flex-wrap">
+  <div class="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
     <button
       class="inline-flex items-center  gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
       :aria-expanded="scheduleOpen.toString()" @click="scheduleOpen = !scheduleOpen">
@@ -66,6 +66,7 @@
   {{-- Schedule drawer --}}
   @include('components.schedule-drawer', [
   'schedule' => $program['schedule'],
+  'sessions' => $program['sessions'],
   'season' => $program['season'],
 ])
 

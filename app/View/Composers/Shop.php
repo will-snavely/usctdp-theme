@@ -41,7 +41,7 @@ class Shop extends Composer
     public function getAgeGroupTerms()
     {
         $terms = get_terms(['taxonomy' => 'age_group', 'hide_empty' => true]);
-        return $this->orderTerms($terms, ['junior', 'adult']);
+        return $this->orderTerms($terms, ['juniors', 'adults']);
     }
 
     public function with()

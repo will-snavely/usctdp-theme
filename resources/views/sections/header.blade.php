@@ -8,7 +8,7 @@
     <div class="flex-shrink-0 flex items-center h-full pr-4 md:pr-10">
       <a href="{{ home_url('/') }}" class="block max-w-full">
         <img src="{{ Vite::asset('resources/images/logo_banner.svg') }}" alt="USCTDP"
-          class="h-16 md:h-24 lg:h-28 w-auto max-w-full object-contain">
+          class="!h-16 md:!h-24 lg:!h-28 w-auto max-w-full object-contain">
       </a>
     </div>
 

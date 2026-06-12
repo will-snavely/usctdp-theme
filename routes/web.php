@@ -11,10 +11,17 @@ Route::get('/our-team/{slug}/', function ($slug) {
     return view('staff.single', compact('member'));
 })->where('slug', '[a-zA-Z0-9-]+')->name('staff.single');
 
-Route::get('/programming/adults/', function () {
-    return view('programs.archive', ['audience' => 'adults']);
-})->name('programs.archive');
+// ── Programming ──────────────────────────────────────────────────────────────
 
-Route::get('/programming/juniors/', function () {
-    return view('programs.archive', ['audience' => 'juniors']);
-})->name('programs.archive');
+Route::get('/programming/juniors/', fn() => view('programs.juniors', ['audience' => 'juniors']))->name('programs.juniors');
+
+Route::get('/programming/adults/', fn() => view('programs.adults', ['audience' => 'adults']))->name('programs.adults');
+
+// Type-filtered list views. URL type slug matches the filter value exactly.
+Route::get('/programming/juniors/{type}/', function ($type) {
+    return view('programs.archive', ['audience' => 'juniors', 'type' => $type]);
+})->where('type', 'clinic|camp|tournament')->name('programs.juniors.type');
+
+Route::get('/programming/adults/{type}/', function ($type) {
+    return view('programs.archive', ['audience' => 'adults', 'type' => $type]);
+})->where('type', 'clinic|cardio|tournament')->name('programs.adults.type');

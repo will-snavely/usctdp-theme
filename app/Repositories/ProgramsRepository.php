@@ -15,7 +15,7 @@ class ProgramsRepository
         $conditions[] = "sess.is_active = %d";
         $where_args[] = 1;
 
-        if (isset($args["season"])) {
+        if (isset($args["season"]) && $args["season"]) {
             $conditions[] = "sess.season = %s";
             $where_args[] = $args['season'];
         }
@@ -69,7 +69,7 @@ class ProgramsRepository
                 JOIN {$wpdb->prefix}usctdp_product AS prod ON act.product_id = prod.id
                 JOIN {$wpdb->prefix}usctdp_pricing AS pricing ON (prod.id = pricing.product_id AND sess.id = pricing.session_id)
                 {$where_clause}
-                ORDER BY act.id DESC",
+                ORDER BY act.id ASC",
             $where_args
         );
         error_log("Executing query: " . $query);
@@ -88,15 +88,15 @@ class ProgramsRepository
             7 => ['day' => 'Sun', 'day_full' => 'Sunday', 'times' => []],
         ];
     }
-    public function getProgramming($audience, $filters)
+    public function getProgramming($audience, $season, $filters)
     {
-        $activities = $this->getActivities(array_merge(['audience' => $audience], $filters));
+        $args = array_merge(['audience' => $audience, 'season' => $season], $filters);
+        $activities = $this->getActivities($args);
         $products = [];
         $levels = [];
         foreach ($activities as $activity) {
             $product_id = $activity->product_id;
             $dayOfWeek = $this->intToDayOfWeek($activity->day_of_week);
-            $dayFull = $dayOfWeek[0];
             $dayShort = $dayOfWeek[1];
             $levelColor = $this->getLevelColor($activity->product_level);
             $pricing = json_decode($activity->product_pricing, true);
@@ -117,16 +117,29 @@ class ProgramsRepository
                     "price_one_day" => floatval($pricing["One"]),
                     "price_two_day" => floatval($pricing["Two"]),
                     "schedule" => $this->getEmptySchedule(),
+                    "sessions" => [],
                     "schedule_days" => []
                 ];
             }
-            $start_time = date('g:i A', strtotime($activity->start_time));
-            $end_time = date('g:i A', strtotime($activity->end_time));
-            $products[$product_id]['schedule'][$activity->day_of_week]['times'][] = [
-                'start_time' => $start_time,
-                'end_time' => $end_time
+            $start_time = strtotime($activity->start_time);
+            $end_time = strtotime($activity->end_time);
+            $start_time_str = date('g:i A', $start_time);
+            $end_time_str = date('g:i A', $end_time);
+
+            $products[$product_id]['schedule'][$activity->day_of_week]['times'][$start_time] = [
+                'start_time' => $start_time_str,
+                'end_time' => $end_time_str
             ];
             $products[$product_id]['schedule_days'][$dayShort] = 1;
+
+            $session_title = $activity->session_name;
+            $session_start = strtotime($activity->session_start_date);
+            $session_end = strtotime($activity->session_end_date);
+            $products[$product_id]['sessions'][$session_start] = [
+                'title' => $session_title,
+                'start_date' => date('M j, Y', $session_start),
+                'end_date' => date('M j, Y', $session_end),
+            ];
 
             if (!isset($levels[$activity->product_level])) {
                 $levels[$activity->product_level] = [
@@ -134,6 +147,13 @@ class ProgramsRepository
                     "label" => $activity->product_level,
                     "color" => $levelColor,
                 ];
+            }
+        }
+        foreach ($products as &$product) {
+            ksort($product['schedule']);
+            ksort($product['sessions']);
+            foreach ($product['schedule'] as &$day) {
+                ksort($day['times']);
             }
         }
         return [
@@ -165,7 +185,6 @@ class ProgramsRepository
         ];
         return isset($colors[$level]) ? $colors[$level] : "#3893deff";
     }
-
     public function getLevelsForAudience(string $audience): array
     {
         return [
@@ -177,16 +196,18 @@ class ProgramsRepository
 
     public function getTypesForAudience(string $audience): array
     {
-        $types = [
-            ['value' => 'clinic', 'label' => 'Clinic'],
-            ['value' => 'camp', 'label' => 'Camp'],
-            ['value' => 'tournament', 'label' => 'Tournament'],
-        ];
-
         if ($audience === 'adults') {
-            $types[] = ['value' => 'cardio', 'label' => 'Cardio Tennis'];
+            return [
+                ['value' => 'clinic',      'label' => 'Clinic'],
+                ['value' => 'cardio',      'label' => 'Cardio Tennis'],
+                ['value' => 'tournament',  'label' => 'Tournament'],
+            ];
         }
 
-        return $types;
+        return [
+            ['value' => 'clinic',     'label' => 'Clinic'],
+            ['value' => 'camp',       'label' => 'Camp'],
+            ['value' => 'tournament', 'label' => 'Tournament'],
+        ];
     }
 }

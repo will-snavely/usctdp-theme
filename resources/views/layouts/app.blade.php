@@ -38,7 +38,7 @@
 
     <div class="flex-grow home-page-bg relative flex flex-col">
       <main id="main"
-        class="main flex-grow w-full max-w-screen-lg mx-auto px-6 lg:px-12 py-8 md:py-16 bg-white rounded-2xl shadow-xl my-8"
+        class="main flex-grow w-full max-w-screen-lg mx-auto px-6 lg:px-30 py-8 md:py-16 bg-white rounded-2xl shadow-xl my-8"
         style="
           background-image: url('{{ Vite::asset('resources/images/bbb.svg') }}');
           background-repeat: repeat;

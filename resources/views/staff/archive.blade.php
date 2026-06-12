@@ -8,17 +8,15 @@ $staff array View-ready staff member arrays
 
 @extends('layouts.app')
 
-@php
-    $hotspot_radius = 87;
-@endphp
 @section('content')
-    <section class="staff-archive">
-        <div class="staff-archive__teamimage">
-            <div class="team-image-container">
-                <img src="{{ Vite::asset('resources/images/ourteam_drop.webp') }}" alt="Our Team" class="base-image">
+    <section class="py-12">
+        <div class="flex justify-center items-center mb-5 -mt-[100px] animate__animated animate__fadeIn">
+            <div class="inline-grid max-w-[800px] [grid-template-columns:1fr] [grid-template-rows:1fr]">
+                <img src="{{ Vite::asset('resources/images/ourteam_drop.webp') }}" alt="Our Team"
+                    class="col-start-1 row-start-1">
                 <img src="{{ Vite::asset('resources/images/ourteam_motto.svg') }}" alt="Belong, Become, Believe"
-                    class="motto-overlay">
-                <svg class="svg-overlay" viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg">
+                    class="col-start-1 row-start-1 z-[2] pointer-events-none">
+                <svg class="col-start-1 row-start-1 z-[3]" viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg">
                     <a href="doug-addington">
                         <circle class="biohotspot" cx="219.15" cy="123.28" r="87" data-quote="q1" />
                     </a>
@@ -186,10 +184,13 @@ $staff array View-ready staff member arrays
         </div>
 
         @if (!empty($staff))
-            <div class="staff-archive__grid">
+            <div class="grid gap-8 [grid-template-columns:repeat(auto-fill,minmax(240px,1fr))] max-[600px]:[grid-template-columns:repeat(auto-fill,minmax(160px,1fr))] max-[600px]:gap-5 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
                 @foreach ($staff as $member)
                     @include('staff.partials.card', ['member' => $member])
                 @endforeach
-        </div> @else <p class="staff-archive__empty">No staff members found.</p>
+            </div>
+        @else
+            <p class="text-gray-500 italic">No staff members found.</p>
         @endif
-</section> @endsection
+    </section>
+@endsection
