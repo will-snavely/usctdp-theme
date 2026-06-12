@@ -3,6 +3,13 @@
   Usage: @include('components.program-card', ['program' => $program])
 --}}
 
+@php
+  $typeLabel = match($program['type'] ?? '') {
+    'cardio'  => 'Cardio Tennis',
+    default   => ucfirst($program['type'] ?? ''),
+  };
+@endphp
+
 <article
   data-program-card
   x-transition:enter="transition duration-200 ease-out"
@@ -12,43 +19,47 @@
   class="bg-white rounded-2xl border-[1.5px] border-stone-200 overflow-hidden transition-shadow duration-200 hover:shadow-xl"
   aria-label="{{ $program['name'] }}"
 >
-  {{-- Colored accent bar --}}
+
+  {{-- Accent bar --}}
   <div class="h-[5px]" style="background: {{ $program['ball_color'] }};" aria-hidden="true"></div>
 
-  <div class="p-6 pb-0 grid grid-cols-[1fr_auto] gap-4 items-start">
+  {{-- Body --}}
+  <div class="p-6 pb-0">
 
-    <div class="min-w-0">
-      <h2 class="font-display text-[26px] tracking-wide leading-none mt-2 mb-1 text-stone-900">
+    {{-- Name + age range --}}
+    <div class="flex items-baseline gap-3 flex-wrap mb-2">
+      <h2 class="font-display text-[26px] tracking-wide leading-none text-stone-900 m-0">
         {{ $program['name'] }}
       </h2>
-      <p class="font-mono text-[11px] tracking-wide text-stone-400 mb-2">
-        {{ $program['age_range'] }}
-      </p>
-      <p class="text-[14px] text-stone-600 leading-relaxed max-w-xl">
-        {{ $program['description'] }}
-      </p>
+      <span class="text-sm font-semibold text-stone-500">Ages {{ $program['age_range'] }}</span>
     </div>
 
-    {{-- Pricing --}}
-    <div class="text-right shrink-0" aria-label="Pricing">
-      <p class="text-[10px] font-semibold uppercase tracking-widest text-stone-400 mb-0.5">From</p>
-      <p class="font-display text-[32px] leading-none" style="color: {{ $program['ball_color'] }};">
-        ${{ number_format($program['price_one_day'], 0) }}
-      </p>
-      <p class="text-[11px] text-stone-400 mt-0.5">per week · 1 day</p>
-      @if($program['price_two_day'])
-        <p class="text-[11px] text-stone-400 mt-1 italic">
-          ${{ number_format($program['price_two_day'], 0) }} / 2 days
-        </p>
+    {{-- Level + type pills --}}
+    <div class="flex gap-2 flex-wrap mb-3">
+      @if (!empty($program['level_label']))
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
+          style="background-color: {{ $program['ball_color'] }}1a; color: {{ $program['ball_color'] }}; border-color: {{ $program['ball_color'] }}40;">
+          <span class="inline-block w-1.5 h-1.5 rounded-full shrink-0" style="background: {{ $program['ball_color'] }};" aria-hidden="true"></span>
+          {{ $program['level_label'] }}
+        </span>
+      @endif
+      @if ($typeLabel)
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-500 border border-stone-200">
+          {{ $typeLabel }}
+        </span>
       @endif
     </div>
+
+    <p class="text-[14px] text-stone-600 leading-relaxed">
+      {{ $program['description'] }}
+    </p>
 
   </div>
 
   {{-- Footer --}}
   <div class="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
     <button
-      class="inline-flex items-center  gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
+      class="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
       :aria-expanded="scheduleOpen.toString()" @click="scheduleOpen = !scheduleOpen">
       <svg class="transition-transform duration-200 shrink-0" :class="{ 'rotate-180': scheduleOpen }" width="12"
         height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -57,7 +68,7 @@
       <span x-text="scheduleOpen ? 'Hide Schedule' : 'View Schedule'"></span>
     </button>
     <a href="{{ $program['product_url'] }}"
-      class="inline-block bg-court-dark hover:bg-court-clay text-white rounded-lg px-5 py-2 text-[13px] font-semibold tracking-wide transition-colors no-underline"
+      class="inline-block bg-[#0092be] hover:bg-[#007aa0] text-white rounded-lg px-5 py-2 text-[12px] font-bold tracking-widest uppercase transition-colors no-underline"
       aria-label="Register for {{ $program['name'] }}">
       Register &rarr;
     </a>
@@ -65,9 +76,9 @@
 
   {{-- Schedule drawer --}}
   @include('components.schedule-drawer', [
-  'schedule' => $program['schedule'],
-  'sessions' => $program['sessions'],
-  'season' => $program['season'],
-])
+    'schedule' => $program['schedule'],
+    'sessions' => $program['sessions'],
+    'season'   => $program['season'],
+  ])
 
 </article>

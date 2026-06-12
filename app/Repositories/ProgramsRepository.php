@@ -54,9 +54,11 @@ class ProgramsRepository
                     sess.num_weeks as session_num_weeks, 
                     sess.category as session_category,
                     sess.season as session_season,
-                    prod.title as product_name, 
-                    prod.id as product_id, 
+                    prod.wp_image_id as product_image_id,
+                    prod.title as product_name,
+                    prod.id as product_id,
                     prod.level as product_level,
+                    prod.type as product_type,
                     prod.description as product_description,
                     prod.short_description as product_short_description,
                     prod.age_group as product_age_group,
@@ -106,8 +108,10 @@ class ProgramsRepository
                     "name" => $activity->product_name,
                     "description" => $activity->product_description,
                     "short_description" => $activity->product_short_description,
+                    "image_id" => $activity->product_image_id,
                     "level" => strtolower($activity->product_level),
-                    "level_label" => $activity->product_level,
+                    "level_label" => ucfirst(strtolower($activity->product_level)),
+                    "type" => strtolower($activity->product_type),
                     "ball_color" => $levelColor,
                     "age_group" => $activity->product_age_group,
                     "age_range" => $activity->product_age_range,
@@ -179,11 +183,11 @@ class ProgramsRepository
     public function getLevelColor($level)
     {
         $colors = [
-            "Beginner" => "#f45757ff",
-            "Intermediate" => "#3be843ff",
-            "Advanced" => "#e6f23dff",
+            "beginner"     => "#e03535",
+            "intermediate" => "#e87722",
+            "advanced"     => "#3a9e5f",
         ];
-        return isset($colors[$level]) ? $colors[$level] : "#3893deff";
+        return $colors[strtolower($level)] ?? "#3893de";
     }
     public function getLevelsForAudience(string $audience): array
     {
