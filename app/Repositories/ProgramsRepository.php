@@ -56,6 +56,7 @@ class ProgramsRepository
                     sess.season as session_season,
                     prod.wp_image_id as product_image_id,
                     prod.title as product_name,
+                    prod.code as product_code,
                     prod.id as product_id,
                     prod.level as product_level,
                     prod.type as product_type,
@@ -106,6 +107,7 @@ class ProgramsRepository
                 $products[$product_id] = [
                     "id" => $product_id,
                     "name" => $activity->product_name,
+                    "code" => $activity->product_code,
                     "description" => $activity->product_description,
                     "short_description" => $activity->product_short_description,
                     "image_id" => $activity->product_image_id,
@@ -118,8 +120,6 @@ class ProgramsRepository
                     "woocommerce_id" => $activity->product_woocommerce_id,
                     "product_url" => get_permalink($activity->product_woocommerce_id),
                     "season" => $activity->session_season,
-                    "price_one_day" => floatval($pricing["One"]),
-                    "price_two_day" => floatval($pricing["Two"]),
                     "schedule" => $this->getEmptySchedule(),
                     "sessions" => [],
                     "schedule_days" => []

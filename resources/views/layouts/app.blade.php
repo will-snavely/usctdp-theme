@@ -23,14 +23,20 @@
     <div class="page-header w-full h-18 flex justify-center items-center">
       @if(!is_front_page())
         <div class="flex w-full max-w-screen-md justify-start items-center px-6">
-          <div class="page-title border-l-10 border-[#0092be] pl-4 animate__animated animate__fadeIn">
-            @if(is_shop() || is_product_category() || is_product_tag())
-              Register
-            @elseif(\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single')
-              Our Team
-            @else
-              {!! get_the_title() !!}
-            @endif
+          <div class="page-title-wrapper">
+            <img src="{{ Vite::asset('resources/images/racket.svg') }}"
+                 alt="" class="page-title-racket" aria-hidden="true">
+            <img src="{{ Vite::asset('resources/images/green-ball.svg') }}"
+                 alt="" class="page-title-ball" aria-hidden="true">
+            <div class="page-title page-title-text">
+              @if(is_shop() || is_product_category() || is_product_tag())
+                Register
+              @elseif(\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single')
+                Our Team
+              @else
+                {!! get_the_title() !!}
+              @endif
+            </div>
           </div>
         </div>
       @endif

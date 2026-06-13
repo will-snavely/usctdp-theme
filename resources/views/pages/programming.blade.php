@@ -82,7 +82,7 @@
   {{-- ── Season Mailers ── --}}
   @if(!empty($juniorMailers) || !empty($adultMailers))
   <section class="animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
-    <h2 class="border-l-8 border-[#0092be] pl-4 text-2xl font-bold text-slate-800 mb-6">
+    <h2 class="section-heading green text-2xl font-bold text-slate-800 mb-6">
       Season Mailers
     </h2>
     <p class="text-slate-500 text-sm mb-6">

@@ -129,7 +129,10 @@
     @else
       <div class="flex flex-col gap-4">
         @foreach($programs as $program)
-          @include('components.program-card', ['program' => $program])
+          @include('components.program-card', [
+              'program' => $program,
+              'accent'  => $accents[$program['code']] ?? null,
+            ])
         @endforeach
       </div>
     @endif

@@ -29,7 +29,7 @@
 
   {{-- ── Intro ── --}}
   <section class="animate__animated animate__fadeIn">
-    <h2 class="border-l-8 border-[#0092be] pl-4 text-2xl font-bold text-slate-800 mb-4">
+    <h2 class="section-heading red text-2xl font-bold text-slate-800 mb-4">
       Junior Programs
     </h2>
     <p class="text-slate-600 leading-relaxed max-w-2xl">

@@ -8,6 +8,8 @@
     'cardio'  => 'Cardio Tennis',
     default   => ucfirst($program['type'] ?? ''),
   };
+  $accentColor = $accent['card-bg'] ?? $program['ball_color'];
+  $iconUrl = isset($accent['icon']) ? Vite::asset('resources/images/' . $accent['icon']) : null;
 @endphp
 
 <article
@@ -21,13 +23,16 @@
 >
 
   {{-- Accent bar --}}
-  <div class="h-[5px]" style="background: {{ $program['ball_color'] }};" aria-hidden="true"></div>
+  <div class="h-[5px]" style="background: {{ $accentColor }};" aria-hidden="true"></div>
 
   {{-- Body --}}
   <div class="p-6 pb-0">
 
     {{-- Name + age range --}}
-    <div class="flex items-baseline gap-3 flex-wrap mb-2">
+    <div class="flex items-center gap-3 flex-wrap mb-2">
+      @if ($iconUrl)
+        <img src="{{ $iconUrl }}" alt="" class="w-8 h-8 shrink-0" aria-hidden="true">
+      @endif
       <h2 class="font-display text-[26px] tracking-wide leading-none text-stone-900 m-0">
         {{ $program['name'] }}
       </h2>

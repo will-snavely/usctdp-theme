@@ -154,8 +154,76 @@ header button svg {
     @apply h-auto max-w-full;
 }
 
+/* Default bulleted lists in page content — excludes nav, filter pills, and any list
+   that explicitly opts out with the list-none utility class */
+.main ul:not(.list-none) {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+}
+.main ul:not(.list-none) > li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
 .page-title {
     @apply text-4xl font-bold text-slate-900 leading-snug tracking-tight;
+}
+
+/* ── Page-title racket-swing reveal ────────────────────────────────────────
+   1. Racket swings -90° → 0°  (transform-origin near the handle)
+   2. Ball flies right from the racket head, fades out
+   3. Title wipes in left-to-right behind the ball via clip-path            */
+
+@keyframes racketSwing {
+  from { transform: rotate(-90deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes ballFlyAndSpin {
+  0%   { opacity: 1; transform: translateX(0) rotate(0deg); }
+  10% { opacity: 1; transform: translateX(0) rotate(0deg); }
+  85%  { opacity: 1; transform: translateX(333px) rotate(500deg); }
+  
+  /* 85% to 100%: Ball fades out at the very end */
+  100% { opacity: 0; transform: translateX(400px) rotate(600deg); }
+}
+
+@keyframes titleWipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+.page-title-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-title-racket {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  transform-origin: 50% 85%;
+  /* Starts immediately, hits the ball at exactly 0.5s */
+  animation: racketSwing 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) forwards;
+}
+
+.page-title-ball {
+  position: absolute;
+  left: 2.5rem; 
+  top: calc(50% - 1rem); /* Centered properly for a 2rem height */
+  width: 2rem;
+  height: 2rem;
+  pointer-events: none;
+  /* NO DELAY: The 0.5s pause is handled inside the keyframes now */
+  animation: ballFlyAndSpin 0.75s linear forwards;
+}
+
+.page-title-text {
+  /* DELAYED TO 0.5s: Starts revealing the exact moment of impact. 
+     Matches the 1.0s active flight duration of the ball. */
+  animation: titleWipe 0.25s linear 0.25s both;
 }
 
 .pattern-grid {
@@ -189,6 +257,40 @@ header button svg {
 
 [x-cloak] {
     display: none !important;
+}
+
+/* ── Section headings ──────────────────────────────────────────────────────
+   Default icon — change this one line to swap the accent site-wide.
+   Or add a color class to any individual heading to override it:
+     class="section-heading red"    → red ball
+     class="section-heading orange" → orange ball
+     class="section-heading yellow" → yellow ball
+     class="section-heading green"  → green ball (same as default)        */
+:root {
+    --section-heading-icon: url('../images/green-ball.svg');
+}
+
+.section-heading.red    { --section-heading-icon: url('../images/red-ball.svg'); }
+.section-heading.orange { --section-heading-icon: url('../images/orange-ball.svg'); }
+.section-heading.yellow { --section-heading-icon: url('../images/yellow-ball.svg'); }
+.section-heading.green  { --section-heading-icon: url('../images/green-ball.svg'); }
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.section-heading::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: var(--section-heading-icon);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
 }
 
 /** WooCommerce Pagination Styling **/

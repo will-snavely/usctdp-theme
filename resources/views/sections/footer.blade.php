@@ -1,10 +1,10 @@
 {{-- Using a deep slate/navy for a professional anchor --}}
 <footer class="content-info bg-slate-900 text-slate-300 py-12">
-  <div class="max-w-screen-xl mx-auto px-6 lg:px-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+  <div class="max-w-screen-lg mx-auto px-6 lg:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 
-      {{-- Column 1: Branding --}}
-      <div class="col-span-1 md:col-span-1">
+      {{-- Column 1: Branding (wider) --}}
+      <div class="col-span-1 md:col-span-2">
         <a href="{{ home_url('/') }}" class="inline-block mb-4">
           {{-- Using a smaller version of the logo or just text branding --}}
           <span class="text-2xl font-black text-white tracking-tighter uppercase">USC<span

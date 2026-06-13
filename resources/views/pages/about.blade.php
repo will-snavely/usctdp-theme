@@ -10,7 +10,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
 {{-- ── Our Story ── --}}
 <section class="about-story mb-16 animate__animated animate__fadeIn">
-  <h2 class="section-heading border-l-8 border-[#0092be] pl-4 text-2xl font-bold text-slate-800 mb-6">
+  <h2 class="section-heading red text-2xl font-bold text-slate-800 mb-6">
     Our Story
   </h2>
 
@@ -37,7 +37,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
 {{-- ── Our Team ── --}}
 <section class="about-team mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
-  <h2 class="section-heading border-l-8 border-[#0092be] pl-4 text-2xl font-bold text-slate-800 mb-6">
+  <h2 class="section-heading green text-2xl font-bold text-slate-800 mb-6">
     Our Team
   </h2>
 
@@ -56,7 +56,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
 {{-- ── Our Values ── --}}
 <section class="about-values mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
-  <h2 class="section-heading border-l-8 border-[#0092be] pl-4 text-2xl font-bold text-slate-800 mb-6">
+  <h2 class="section-heading yellow text-2xl font-bold text-slate-800 mb-6">
     Our Values
   </h2>
 

@@ -30,12 +30,14 @@
             x-data="{
               active: 1,
               touchStartX: 0,
-              go(n) { this.active = ((n % 3) + 3) % 3; },
+              showHint: true,
+              go(n) { this.showHint = false; this.active = ((n % 3) + 3) % 3; },
               swipe(endX) {
                 const dx = endX - this.touchStartX;
                 if (Math.abs(dx) > 50) this.go(this.active + (dx < 0 ? 1 : -1));
               }
             }"
+            x-init="setTimeout(() => { showHint = false }, 3000)"
             @touchstart.passive="touchStartX = $event.touches[0].clientX"
             @touchend.passive="swipe($event.changedTouches[0].clientX)"
           >
@@ -144,6 +146,21 @@
                   : 'text-slate-500 font-bold text-sm border-transparent hover:text-slate-300'">
                 Believe
               </button>
+            </div>
+
+            {{-- Swipe hint — pulses briefly, auto-dismisses after 3 s or on first interaction --}}
+            <div
+              :class="showHint ? 'opacity-100 animate-pulse' : 'opacity-0'"
+              class="flex items-center justify-center gap-2 pt-3 pb-0 text-slate-400 transition-opacity duration-700 ease-in"
+              aria-hidden="true"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M9 3L5 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="text-[10px] uppercase tracking-[3px] font-medium">swipe</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
 
           </div>
