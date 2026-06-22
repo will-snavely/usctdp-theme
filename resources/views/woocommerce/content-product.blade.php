@@ -3,46 +3,49 @@ global $product;
 if (empty($product) || ! $product->is_visible()) return;
 @endphp
 
-<article {{ wc_product_class('group bg-white border p-4 rounded-xl transition hover:shadow-lg', $product) }}>
-  {{-- Image Section --}}
-  <div class="relative overflow-hidden rounded-md mb-4">
-    <div class="product-image-container max-w-[250px] mx-auto">
-      <a href="{{ get_permalink() }}">
-        {!!
+<article {{ wc_product_class('group flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow', $product) }}>
+
+  {{-- Image --}}
+  <a href="{{ get_permalink() }}" class="block shrink-0 overflow-hidden">
+    <div class="h-[200px] bg-slate-100">
+      {!!
         $product->get_image(
-        'woocommerce_thumbnail',
-        ['class' => 'w-full h-auto transform transition group-hover:scale-105'])
-        !!}
-      </a>
+          'woocommerce_thumbnail',
+          ['class' => 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105']
+        )
+      !!}
     </div>
+  </a>
 
-    {{-- Example of a custom "Sale" badge --}}
-    @if($product->is_on_sale())
-    <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-      SALE
-    </span>
-    @endif
-  </div>
+  {{-- Body --}}
+  <div class="flex flex-col flex-grow p-5">
 
-  {{-- Content Section --}}
-  <div class="flex flex-col flex-grow">
-    <h2 class="text-lg font-semibold mb-2">
-      <a href="{{ get_permalink() }}" class="hover:text-primary">
+    {{-- Name --}}
+    <h2 class="font-bold text-slate-800 text-base leading-snug mb-2 mt-2">
+      <a href="{{ get_permalink() }}" class="hover:text-[#0092be] transition-colors no-underline">
         {!! $product->get_name() !!}
       </a>
     </h2>
 
-    <div class="text-gray-600 mb-4">
+    {{-- Short description --}}
+    <div class="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-4">
       {!! $product->get_short_description() !!}
     </div>
 
-    <div class="text-gray-600 mb-4">
-      {!! $product->get_price_html() !!}
+    {{-- CTA --}}
+    <div class="mt-auto">
+      @if($product->is_in_stock())
+        <a href="{{ get_permalink() }}"
+          class="block text-center px-4 py-2.5 bg-[#0092be] hover:bg-[#007aa0] text-white text-sm font-bold rounded-xl transition-colors no-underline uppercase tracking-widest">
+          Register &rarr;
+        </a>
+      @else
+        <a href="{{ get_permalink() }}"
+          class="block text-center px-4 py-2.5 bg-slate-100 text-slate-400 text-sm font-bold rounded-xl no-underline uppercase tracking-widest cursor-default">
+          Out of Season
+        </a>
+      @endif
     </div>
 
-    {{-- Bottom Action Area --}}
-    <div class="mt-auto">
-      @php(woocommerce_template_loop_add_to_cart())
-    </div>
   </div>
 </article>

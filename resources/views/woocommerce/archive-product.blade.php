@@ -30,27 +30,28 @@ do_action('woocommerce_before_main_content');
   ['label' => 'Skill Level','tax' => 'skill_level','terms' => $skill_levels],
   ];
   @endphp
-  <div class="filter-container mb-10 space-y-4 bg-slate-50 border border-slate-200 p-6 rounded-2xl w-fit">
+  <div class="mb-8 bg-white border border-slate-200 rounded-2xl px-5 py-4 space-y-3">
     @foreach($groups as $group)
-    <div class="filter-group flex flex-col space-y-2 w-fit">
-      <span class="block text-xs font-bold uppercase text-slate-400 mb-2">{{ $group['label'] }}</span>
-      <div class="flex flex-wrap gap-2 w-fit">
-        @foreach($group['terms'] as $term)
-        <x-filter-pill
-          :url="$filter_url($group['tax'], $term->slug)"
-          :label="$term->name"
-          :active="($active_filters[$group['tax']] ?? '') === $term->slug" />
-        @endforeach
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span class="font-mono text-[10px] tracking-[2px] uppercase text-slate-400 shrink-0">{{ $group['label'] }}:</span>
+        <div class="flex flex-wrap gap-1.5">
+          @foreach($group['terms'] as $term)
+            <x-filter-pill
+              :url="$filter_url($group['tax'], $term->slug)"
+              :label="$term->name"
+              :active="($active_filters[$group['tax']] ?? '') === $term->slug" />
+          @endforeach
+        </div>
       </div>
-    </div>
     @endforeach
 
     @if(!empty($active_filters))
-    <div class="pt-2">
-      <a href="{{ get_permalink(wc_get_page_id('shop')) }}" class="text-xs text-red-500 font-medium hover:underline">
-        ✕ Reset all filters
-      </a>
-    </div>
+      <div class="pt-1 border-t border-slate-100">
+        <a href="{{ get_permalink(wc_get_page_id('shop')) }}"
+           class="font-mono text-[11px] text-slate-400 hover:text-court-clay transition-colors">
+          ✕ Reset all filters
+        </a>
+      </div>
     @endif
   </div>
 
