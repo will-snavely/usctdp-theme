@@ -182,10 +182,10 @@ header button svg {
 @keyframes ballFlyAndSpin {
   0%   { opacity: 1; transform: translateX(0) rotate(0deg); }
   10% { opacity: 1; transform: translateX(0) rotate(0deg); }
-  85%  { opacity: 1; transform: translateX(333px) rotate(500deg); }
+  85%  { opacity: 1; transform: translateX(333px) rotate(300deg); }
   
   /* 85% to 100%: Ball fades out at the very end */
-  100% { opacity: 0; transform: translateX(400px) rotate(600deg); }
+  100% { opacity: 0; transform: translateX(400px) rotate(400deg); }
 }
 
 @keyframes titleWipe {
