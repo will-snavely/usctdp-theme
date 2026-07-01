@@ -75,7 +75,6 @@ class ProgramsRepository
                 ORDER BY act.id ASC",
             $where_args
         );
-        error_log("Executing query: " . $query);
         return $wpdb->get_results($query);
     }
     

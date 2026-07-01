@@ -154,13 +154,13 @@ header button svg {
     @apply h-auto max-w-full;
 }
 
-/* Default bulleted lists in page content — excludes nav, filter pills, and any list
-   that explicitly opts out with the list-none utility class */
-.main ul:not(.list-none) {
+/* Default bulleted lists in page content — excludes nav, filter pills, WooCommerce notices,
+   and any list that explicitly opts out with the list-none utility class */
+.main ul:not(.list-none):not([class*="woocommerce"]) {
     list-style-type: disc;
     padding-left: 1.25rem;
 }
-.main ul:not(.list-none) > li {
+.main ul:not(.list-none):not([class*="woocommerce"]) > li {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
 }

@@ -33,6 +33,41 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 
 
 /**
+ * After AJAX cart removal empties the legacy cart, reload the page so the
+ * cart-empty template renders. wc_fragments_refreshed is a mini-cart event and
+ * doesn't reliably fire for legacy cart removals, so we use a MutationObserver
+ * to watch the cart table tbody directly and reload as soon as the last
+ * tr.cart_item is removed from the DOM. The removed_from_cart WooCommerce event
+ * is also bound as a secondary trigger.
+ */
+add_action('wp_footer', function () {
+    if (!is_cart()) {
+        return;
+    }
+    $cart_url = esc_url(wc_get_cart_url());
+    ?>
+    <script>
+    (function () {
+        var tbody = document.querySelector('.woocommerce-cart-form__contents tbody');
+        if (!tbody) return; // not in the populated cart view, nothing to do
+
+        function reloadIfEmpty() {
+            if (!tbody.querySelector('tr.cart_item')) {
+                window.location.href = <?php echo json_encode($cart_url); ?>;
+            }
+        }
+
+        new MutationObserver(reloadIfEmpty).observe(tbody, { childList: true, subtree: true });
+
+        if (typeof jQuery !== 'undefined') {
+            jQuery(document.body).on('removed_from_cart', reloadIfEmpty);
+        }
+    }());
+    </script>
+    <?php
+});
+
+/**
  * Ensure the login page is always accessible.
  */
 add_filter('woocommerce_is_coming_soon', function($is_coming_soon) {

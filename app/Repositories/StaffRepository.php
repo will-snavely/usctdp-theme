@@ -59,8 +59,6 @@ class StaffRepository
         $row = $wpdb->get_row(
             $wpdb->prepare("SELECT * FROM {$table} WHERE slug = %s LIMIT 1", $slug)
         );
-        error_log("findBySlug: slug={$slug} row=" . print_r($row, true));
-
         return $row ? static::hydrate($row) : null;
     }
 
