@@ -24,22 +24,23 @@
 
       {{-- Juniors --}}
       <a href="{{ home_url('/programming/juniors/') }}"
-         class="group flex flex-col justify-between p-8 rounded-2xl bg-slate-900 text-white shadow-xl
-                no-underline hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+         class="group flex flex-col justify-between p-8 rounded-2xl bg-white text-slate-800
+                border border-slate-200 border-t-4 border-t-[#0092be] shadow-sm
+                no-underline hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <div>
           <span class="inline-block mb-3 text-xs font-mono tracking-widest uppercase text-[#0092be]">
             Ages 5–18
           </span>
-          <h3 class="text-3xl font-black uppercase tracking-tight mb-4">Juniors</h3>
-          <ul class="text-slate-400 text-sm space-y-1.5 mb-8">
+          <h3 class="text-3xl font-black uppercase tracking-tight mb-4 text-slate-800">Juniors</h3>
+          <ul class="text-slate-500 text-sm space-y-1.5 mb-8">
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Clinics
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Clinics
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Camps
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Camps
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Tournaments
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Tournaments
             </li>
           </ul>
         </div>
@@ -51,26 +52,27 @@
 
       {{-- Adults --}}
       <a href="{{ home_url('/programming/adults/') }}"
-         class="group flex flex-col justify-between p-8 rounded-2xl bg-slate-800 text-white shadow-xl
-                no-underline hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+         class="group flex flex-col justify-between p-8 rounded-2xl bg-white text-slate-800
+                border border-slate-200 border-t-4 border-t-orange-500 shadow-sm
+                no-underline hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <div>
-          <span class="inline-block mb-3 text-xs font-mono tracking-widest uppercase text-[#dfff4f]">
+          <span class="inline-block mb-3 text-xs font-mono tracking-widest uppercase text-orange-500">
             18 &amp; Up
           </span>
-          <h3 class="text-3xl font-black uppercase tracking-tight mb-4">Adults</h3>
-          <ul class="text-slate-400 text-sm space-y-1.5 mb-8">
+          <h3 class="text-3xl font-black uppercase tracking-tight mb-4 text-slate-800">Adults</h3>
+          <ul class="text-slate-500 text-sm space-y-1.5 mb-8">
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Clinics
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Clinics
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Cardio Tennis
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Cardio Tennis
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-slate-500 shrink-0"></span> Tournaments
+              <span class="w-1 h-1 rounded-full bg-slate-300 shrink-0"></span> Tournaments
             </li>
           </ul>
         </div>
-        <span class="inline-flex items-center gap-2 text-sm font-semibold text-[#dfff4f]
+        <span class="inline-flex items-center gap-2 text-sm font-semibold text-orange-500
                      group-hover:gap-3 transition-all">
           View Adult Programs <span aria-hidden="true">&rarr;</span>
         </span>

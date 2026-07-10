@@ -26,10 +26,17 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
     <div class="md:w-1/2 space-y-4 text-slate-700 leading-relaxed">
       <p>
-        Our story starts in 1983 with a few people who wanted to create a tennis development
-        program that would instill self-esteem, confidence, a strong work ethic, mental toughness, and sportsmanship.
-        Personal goals could vary, ranging from simply having fun to turning pro, to anywhere in between. We aim to
-        inspire "your best self" by modelling ours.
+        Founded in 1983, our club was built on a singular vision: to establish a premier 
+        tennis development program rooted in character, athletic excellence, and personal 
+        growth. What began as a dedicated mission to cultivate self-esteem, confidence, and 
+        sportsmanship has evolved into a thriving community for players of all levels.
+
+        We believe that tennis is a vehicle for lifelong development. Whether our players are 
+        stepping onto the court for the first time, playing for recreation and wellness, or 
+        training to compete at the professional level, we provide the structured environment 
+        and expert elite coaching necessary to reach those milestones. By consistently modeling 
+        professional excellence, integrity, and a steadfast work ethic, we inspire every athlete 
+        who walks through our doors to achieve their personal best—both on and off the court.
       </p>
     </div>
   </div>
@@ -43,7 +50,8 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
   <p class="text-slate-600 mb-8 leading-relaxed">
     Our coaches bring decades of combined playing and teaching experience.
-    Each one shares a passion for the game and a dedication to helping players reach their full potential.
+    Each one shares a passion for the game and a dedication to helping players reach
+    their full potential.
   </p>
 
   <div class="text-center">
@@ -103,7 +111,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
     <div>
       <h2 class="text-2xl font-black text-white uppercase tracking-tight mt-2 mb-2">Ready to Join?</h2>
       <p class="text-slate-300 text-sm leading-relaxed max-w-md">
-        [Placeholder] Browse our programs and register today. Whether you're signing up for the first time
+        Browse our programs and register today. Whether you're signing up for the first time
         or returning for another season, we have a program that's right for you.
       </p>
     </div>
