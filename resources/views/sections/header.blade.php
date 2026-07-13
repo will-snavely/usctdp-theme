@@ -3,24 +3,24 @@
     background-repeat: repeat;
     background-size: 1000px 125px;">
 
-  <div class="max-w-screen-xl mx-auto px-6 lg:px-12 flex justify-between items-center h-32">
+  <div class="max-w-screen-xl mx-auto px-6 lg:px-8 flex justify-between items-center h-32">
     {{-- Logo Area --}}
-    <div class="flex-shrink-0 flex items-center h-full pr-4 md:pr-10">
+    <div class="flex-shrink-0 flex items-center h-full pr-2 md:pr-6">
       <a href="{{ home_url('/') }}" class="block max-w-full">
         <img src="{{ Vite::asset('resources/images/logo_banner.svg') }}" alt="USCTDP"
-          class="!h-16 md:!h-24 lg:!h-28 w-auto max-w-full object-contain">
+          class="!h-16 md:!h-24 lg:!h-20 w-auto max-w-full object-contain">
       </a>
     </div>
 
     {{-- Desktop Navigation --}}
-    <nav class="hidden lg:flex items-center space-x-2" aria-label="Primary Navigation">
+    <nav class="hidden lg:flex items-center" aria-label="Primary Navigation">
       @foreach($navigation as $item)
         <x-nav-item :item="$item" />
       @endforeach
     </nav>
 
-    <div class="hidden lg:flex items-center ml-8 border-l border-white/20 pl-6">
-      <div class="flex items-center mr-6">
+    <div class="hidden lg:flex items-center ml-3 border-l border-white/20 pl-3">
+      <div class="flex items-center mr-3">
         <a href="{{ wc_get_cart_url() }}" class="relative group p-2 text-white hover:text-blue-200 transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -6,7 +6,7 @@ Description: Policies & Information page.
 @extends('layouts.app')
 
 @section('content')
-@while(have_posts()) @php(the_post())
+@while(have_posts()) @php the_post(); @endphp
 
 <div class="max-w-3xl mx-auto">
   {{-- ── Photo & Media Usage ── --}}

@@ -12,7 +12,6 @@
 @extends('layouts.app')
 
 @section('content')
-@while(have_posts()) @php(the_post())
 
 @php
   $levels = [
@@ -73,6 +72,9 @@
     ],
   ];
 @endphp
+
+@while(have_posts())
+  @php the_post(); @endphp
 
 <div x-data="{ filter: 'all' }" class="successes-page">
 

@@ -1,7 +1,7 @@
 @extends('layouts.home')
 
 @section('content')
-@while(have_posts()) @php(the_post())
+@while(have_posts()) @php the_post(); @endphp
 <section class="relative overflow-hidden min-h-screen h-full">
   <div class="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-24 md:pt-32 md:pb-40">
     <div class="text-center">

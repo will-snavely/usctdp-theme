@@ -9,13 +9,13 @@
 <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative group">
     <div class="flex items-center justify-between">
         <a href="{{ $item->url }}"
-            class="flex-1 whitespace-nowrap pl-4 pr-1 py-3 text-sm font-bold uppercase tracking-wider transition-colors
+            class="flex-1 whitespace-nowrap {{ $depth === 0 ? 'pl-2 pr-1' : 'pl-4 pr-1' }} py-3 text-sm font-bold uppercase tracking-wide transition-colors
                   {{ $depth === 0 ? 'text-white hover:text-blue-300' : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600' }}">
             {{ $item->title }}
         </a>
 
         @if($hasChildren)
-            <button class="text-slate-400 {{ $depth === 0 ? 'text-white' : '' }}">
+            <button class="shrink-0 text-slate-400 {{ $depth === 0 ? 'text-white' : '' }}">
                 <svg :class="open ? 'rotate-90' : ''" class="w-4 h-4 transition-transform duration-300 ease-in-out"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <g transform="rotate(-90, 12, 12)">

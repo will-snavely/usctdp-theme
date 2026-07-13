@@ -6,7 +6,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 @extends('layouts.app')
 
 @section('content')
-@while(have_posts()) @php(the_post())
+@while(have_posts()) @php the_post(); @endphp
 
 {{-- ── Our Story ── --}}
 <section class="about-story mb-16 animate__animated animate__fadeIn">
