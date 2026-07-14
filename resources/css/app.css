@@ -13,6 +13,24 @@
     margin: 0 !important;
 }
 
+/* Match the plugin's unstyled label/input/button to the rest of the login form.
+   Its own stylesheet sets padding/margin/width on these, so !important keeps ours
+   from losing the cascade based on enqueue order. */
+#magic-login-shortcode label {
+    @apply text-xs font-bold uppercase text-slate-500 mb-2;
+}
+
+#magic-login-shortcode .input {
+    @apply border border-slate-300 rounded-xl outline-none transition focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da];
+    padding: 0.75rem !important;
+}
+
+#magic-login-shortcode .magic-login-submit {
+    @apply bg-[#5c88da] text-white font-bold rounded-xl shadow-lg transition transform border-0 cursor-pointer hover:bg-blue-600 active:scale-95;
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+}
+
 @layer base {
     h1 {
         /* text-3xl on mobile, text-4xl on desktop */
