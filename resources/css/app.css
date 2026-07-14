@@ -6,6 +6,14 @@
 @source "../views/";
 @source "../../app/";
 
+/* Magic Login Mail plugin hardcodes width: 668px at >=668px viewports,
+   which overflows the narrower myaccount login column. */
+.mlm-login-notice,
+.mlm-login_form {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
 @layer base {
     h1 {
         /* text-3xl on mobile, text-4xl on desktop */

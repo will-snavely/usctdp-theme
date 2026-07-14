@@ -37,6 +37,10 @@
 
                 @php(do_action('woocommerce_login_form_end'))
             </form>
+
+            <div class="mt-8 pt-8 border-t border-slate-100">
+                {!! do_shortcode('[magic_login]') !!}
+            </div>
         </div>
 
         {{-- Right Side: Branding/Registration --}}

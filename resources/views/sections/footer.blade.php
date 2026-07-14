@@ -23,7 +23,7 @@
         {!! wp_nav_menu(['theme_location' => 'footer_navigation', 'menu_class' => 'space-y-3 text-sm', 'echo' => false]) !!}
         @else
         <ul class="space-y-3 text-sm list-none p-0">
-          <li><a href="/shop" class="hover:text-white transition-colors">Shop</a></li>
+          <li><a href="/shop" class="hover:text-white transition-colors">Register</a></li>
           <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
           <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
@@ -35,7 +35,7 @@
         <div>
           <h3 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contact</h3>
           <p class="text-sm"><a href="tel:+14128312630">(412) 831-2630</a></p>
-          <p class="text-sm"><a href="mailto:info@usctdp.com">info@usctdp.com</a></p>
+          <p class="text-sm"><a href="mailto:info@usctdp.com">tennis@usctdp.com</a></p>
         </div>
 
         <div>

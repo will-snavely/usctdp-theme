@@ -76,3 +76,31 @@ add_filter('woocommerce_is_coming_soon', function($is_coming_soon) {
     }
     return $is_coming_soon;
 });
+
+/**
+ * Require an account to purchase. This gates both the add-to-cart button
+ * rendered by WooCommerce templates and WC_Cart::add_to_cart() itself, so
+ * it also blocks direct ?add-to-cart= requests and AJAX/API calls from
+ * logged-out users, not just the UI.
+ */
+add_filter('woocommerce_is_purchasable', function ($is_purchasable) {
+    if (!is_user_logged_in()) {
+        return false;
+    }
+    return $is_purchasable;
+});
+
+/**
+ * Prompt logged-out visitors to log in where the add-to-cart button would be.
+ */
+add_action('woocommerce_single_product_summary', function () {
+    if (is_user_logged_in()) {
+        return;
+    }
+    ?>
+    <p class="woocommerce-info">
+        <a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>"><?php esc_html_e('Log in', 'sage'); ?></a>
+        <?php esc_html_e('to purchase this item.', 'sage'); ?>
+    </p>
+    <?php
+}, 25);
