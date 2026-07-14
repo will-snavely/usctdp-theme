@@ -13,9 +13,8 @@ Route::get('/our-team/{slug}/', function ($slug) {
 
 // ── Programming ──────────────────────────────────────────────────────────────
 
-Route::get('/programming/juniors/', fn() => view('programs.juniors', ['audience' => 'juniors']))->name('programs.juniors');
-
-Route::get('/programming/adults/', fn() => view('programs.adults', ['audience' => 'adults']))->name('programs.adults');
+Route::get('/programming/juniors/', fn() => view('programs.archive', ['audience' => 'juniors', 'type' => 'clinic']))->name('programs.juniors');
+Route::get('/programming/adults/', fn() => view('programs.archive', ['audience' => 'adults', 'type' => 'clinic']))->name('programs.adults');
 
 // Type-filtered list views. URL type slug matches the filter value exactly.
 Route::get('/programming/juniors/{type}/', function ($type) {
