@@ -39,7 +39,7 @@
             </form>
 
             <div class="mt-8 pt-8 border-t border-slate-100">
-                {!! do_shortcode('[magic_login]') !!}
+                {!! do_shortcode('[magic_login_form redirect_to="' . esc_url(wc_get_page_permalink('myaccount')) . '"]') !!}
             </div>
         </div>
 
