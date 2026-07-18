@@ -35,7 +35,7 @@
         <div>
           <h3 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contact</h3>
           <p class="text-sm"><a href="tel:+14128312630">(412) 831-2630</a></p>
-          <p class="text-sm"><a href="mailto:info@usctdp.com">tennis@usctdp.com</a></p>
+          <p class="text-sm"><a href="mailto:tennis@usctdp.com">tennis@usctdp.com</a></p>
         </div>
 
         <div>
