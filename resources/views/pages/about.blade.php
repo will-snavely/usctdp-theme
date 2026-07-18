@@ -70,30 +70,27 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
     <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm border-t-4 border-[#0092be]">
-      <h3 class="text-xl font-black uppercase tracking-tight text-slate-800 mb-3">
-        Belong
-      </h3>
+      <img src="{{ Vite::asset('resources/images/belong.svg') }}" alt="Belong"
+        class="h-10 sm:h-12 w-auto mb-3">
       <p class="text-slate-600 text-sm leading-relaxed">
-        Every player who walks on our courts is part of the family. 
-        We foster an inclusive, supportive community where everyone belongs. 
-        We build multi-generational relationships: former students return as adults, 
+        Every player who walks on our courts is part of the family.
+        We foster an inclusive, supportive community where everyone belongs.
+        We build multi-generational relationships: former students return as adults,
         often enrolling their children.
       </p>
     </div>
     <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm border-t-4 border-red-500">
-      <h3 class="text-xl font-black uppercase tracking-tight text-slate-800 mb-3">
-        Become
-      </h3>
+      <img src="{{ Vite::asset('resources/images/become.svg') }}" alt="Become"
+        class="h-10 sm:h-12 w-auto mb-3">
       <p class="text-slate-600 text-sm leading-relaxed">
-        We believe in growth — on and off the court. 
+        We believe in growth — on and off the court.
         Our coaches help players develop the skills, discipline, and confidence to become their best selves.
         We pay attention to students' expressed and unexpressed goals, going above and beyond to help them achieve them.
       </p>
     </div>
     <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm border-t-4 border-[#dfff4f]">
-      <h3 class="text-xl font-black uppercase tracking-tight text-slate-800 mb-3">
-        Believe
-      </h3>
+      <img src="{{ Vite::asset('resources/images/believe.svg') }}" alt="Believe"
+        class="h-10 sm:h-12 w-auto mb-3">
       <p class="text-slate-600 text-sm leading-relaxed">
         We encourage every player to believe in themselves and in the process. 
         Hard work, consistency, and faith in the journey are at the heart of everything we do.
