@@ -23,7 +23,6 @@
     <div class="page-header w-full h-18 flex justify-center items-center">
       @if(!is_front_page())
         <div class="flex w-full max-w-screen-md justify-start items-center px-6">
-          @php($animateTitle = empty($_GET))
           <div class="page-title-wrapper">
             <img src="{{ Vite::asset('resources/images/racket.svg') }}"
                  alt="" class="{{ $animateTitle ? 'page-title-racket' : 'w-12 h-12 flex-shrink-0' }}" aria-hidden="true">
@@ -32,13 +31,7 @@
                    alt="" class="page-title-ball" aria-hidden="true">
             @endif
             <div class="page-title {{ $animateTitle ? 'page-title-text' : '' }}">
-              @if(is_shop() || is_product_category() || is_product_tag())
-                Register
-              @elseif(\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single')
-                Our Team
-              @else
-                {!! get_the_title() !!}
-              @endif
+              {!! $pageTitle !!}
             </div>
           </div>
         </div>

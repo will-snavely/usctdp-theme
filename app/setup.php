@@ -276,10 +276,13 @@ if (is_page('juniors')) {
 }
 
 add_filter('pre_get_document_title', function ($title) {
-    if (\Illuminate\Support\Facades\Route::currentRouteName() === 'staff.single') {
+    $routeName = \Illuminate\Support\Facades\Route::currentRouteName();
+
+    if ($routeName === 'staff.single') {
         $slug = request()->route('slug');
         $member = \App\Repositories\StaffRepository::findBySlug($slug);
         return "Our Team" . ($member ? " | {$member->first_name} {$member->last_name}" : '');
     }
-    return $title;
+
+    return \App\Support\RouteTitles::for($routeName, request()->route('type')) ?? $title;
 });
