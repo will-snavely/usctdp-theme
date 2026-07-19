@@ -100,15 +100,58 @@ hardcoded array in the template.
 
     <div x-data="{ filter: 'all' }" class="successes-page">
 
-      {{-- ── Intro ── --}}
+      {{-- ── Intro + Featured Endorsement Video ── --}}
       <section class="mb-10 animate__animated animate__fadeIn">
         <h2 class="section-heading green text-2xl font-bold text-slate-800 mb-4">
-          Where Are They Now
+          A World of Possibility
         </h2>
-        <p class="text-slate-700 leading-relaxed max-w-3xl">
-          From weekend clinics to state titles, college scholarships, and professional careers,
-          these are some of the players who got their start on our courts.
-        </p>
+
+        <div class="flex flex-col sm:flex-row sm:items-start gap-5">
+          <div x-data="{ open: false }" class="shrink-0 self-start">
+            <button type="button" @click="open = true"
+              class="group relative w-28 sm:w-32 aspect-[3/4] rounded-2xl overflow-hidden shadow-md ring-1 ring-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              <img src="{{ Vite::asset('resources/images/successes/alison_thumb.png') }}" alt=""
+                class="w-full h-full object-cover" aria-hidden="true">
+              <span
+                class="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors flex items-center justify-center">
+                <span
+                  class="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center shadow group-hover:scale-105 transition-transform">
+                  <svg viewBox="0 0 24 24" class="w-4 h-4 text-slate-800 translate-x-0.5" fill="currentColor"
+                    aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <template x-teleport="body">
+              <div x-show="open" x-cloak x-transition.opacity @keydown.escape.window="open = false"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" @click.self="open = false">
+                <div class="relative w-full max-w-sm" @click.outside="open = false">
+                  <button type="button" @click="open = false" aria-label="Close video"
+                    class="absolute -top-10 right-0 text-white/90 hover:text-white text-sm font-semibold">
+                    Close ✕
+                  </button>
+                  <video x-ref="video"
+                    :src="open ? '{{ Vite::asset('resources/images/successes/alison.mp4') }}' : ''"
+                    x-effect="open ? $refs.video.play() : $refs.video.pause()" controls playsinline
+                    class="w-full max-h-[85vh] rounded-xl shadow-2xl bg-black"></video>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <div>
+            <p class="text-slate-700 leading-relaxed max-w-3xl mb-2">
+              USCTDP has a proven track record of developing champions. From high school to college to the pros,
+              explore our success stories and see what's possible.
+            </p>
+            <p class="text-slate-700 leading-relaxed max-w-3xl mb-2">
+              Watch this endorsement from Alison Riske-Amritraj, who trained with USCTDP and went on to achieve a top
+              rank of 18th in the world.
+            </p>
+          </div>
+        </div>
       </section>
 
       {{-- ── Filter Bar ── --}}
