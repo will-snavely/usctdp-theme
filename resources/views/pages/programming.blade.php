@@ -66,18 +66,17 @@
 
   {{-- ── Intro ── --}}
   <section class="animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
-    <h1 class="text-3xl font-black uppercase tracking-tight text-slate-800 mb-2">Programming</h1>
     <p class="text-slate-600 leading-relaxed max-w-2xl mb-3">
-      USC TDP offers tennis programming for players of every age and level, from junior clinics
+      USCTDP offers tennis programming for players of every age and level, from junior clinics
       and camps to adult leagues and cardio tennis. Explore what's available below, or jump
       straight to a full program page for schedules and registration.
     </p>
     <div class="flex items-center gap-3 text-sm font-semibold">
-      <a href="#junior-programs" class="text-[#0092be] hover:underline">
+      <a href="#junior-programs" class="text-blue-500 hover:underline">
         Jump to Junior Programs <span aria-hidden="true">&darr;</span>
       </a>
       <span class="text-slate-300" aria-hidden="true">|</span>
-      <a href="#adult-programs" class="text-[#0092be] hover:underline">
+      <a href="#adult-programs" class="text-blue-500 hover:underline">
         Jump to Adult Programs <span aria-hidden="true">&darr;</span>
       </a>
     </div>
@@ -90,7 +89,7 @@
         Junior Programs
       </h2>
       <a href="{{ home_url('/programming/juniors/') }}"
-         class="inline-flex items-center gap-2 text-sm font-semibold text-[#0092be]
+         class="inline-flex items-center gap-2 text-sm font-semibold text-blue-500
                 hover:gap-3 transition-all no-underline">
         View All Junior Programs <span aria-hidden="true">&rarr;</span>
       </a>
@@ -113,7 +112,7 @@
 
         <div class="mt-3">
           <a href="{{ home_url('/programming/juniors/' . $type['slug'] . '/') }}"
-             class="inline-flex items-center gap-2 bg-slate-100 hover:bg-[#0092be] text-slate-700
+             class="inline-flex items-center gap-2 bg-slate-100 hover:bg-blue-500 text-slate-700
                     hover:text-white rounded-lg px-5 py-2.5 text-xs font-bold tracking-widest
                     uppercase transition-colors no-underline">
             Learn More <span aria-hidden="true">&rarr;</span>
@@ -131,7 +130,7 @@
       @foreach($juniorMailers as $mailer)
       <a href="{{ $mailer['url'] }}" target="_blank" rel="noopener"
          class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600
-                hover:text-[#0092be] transition-colors no-underline">
+                hover:text-blue-500 transition-colors no-underline">
         <svg class="w-3.5 h-3.5 shrink-0 text-red-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
         </svg>
@@ -149,7 +148,7 @@
         Adult Programs
       </h2>
       <a href="{{ home_url('/programming/adults/') }}"
-         class="inline-flex items-center gap-2 text-sm font-semibold text-[#0092be]
+         class="inline-flex items-center gap-2 text-sm font-semibold text-blue-500
                 hover:gap-3 transition-all no-underline">
         View All Adult Programs <span aria-hidden="true">&rarr;</span>
       </a>
@@ -173,7 +172,7 @@
 
         <div class="mt-3">
           <a href="{{ home_url('/programming/adults/' . $type['slug'] . '/') }}"
-             class="inline-flex items-center gap-2 bg-slate-100 hover:bg-[#0092be] text-slate-700
+             class="inline-flex items-center gap-2 bg-slate-100 hover:bg-blue-500 text-slate-700
                     hover:text-white rounded-lg px-5 py-2.5 text-xs font-bold tracking-widest
                     uppercase transition-colors no-underline">
             Learn More <span aria-hidden="true">&rarr;</span>
@@ -191,7 +190,7 @@
       @foreach($adultMailers as $mailer)
       <a href="{{ $mailer['url'] }}" target="_blank" rel="noopener"
          class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600
-                hover:text-[#0092be] transition-colors no-underline">
+                hover:text-blue-500 transition-colors no-underline">
         <svg class="w-3.5 h-3.5 shrink-0 text-red-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
         </svg>

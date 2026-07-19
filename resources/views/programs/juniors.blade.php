@@ -16,13 +16,13 @@
 
   {{-- ── Breadcrumb ── --}}
   <nav class="flex items-center gap-2 text-xs text-slate-400 px-1" aria-label="Breadcrumb">
-    <a href="{{ home_url('/programming/') }}" class="hover:text-[#0092be] transition-colors no-underline">
+    <a href="{{ home_url('/programming/') }}" class="hover:text-blue-500 transition-colors no-underline">
       Programming
     </a>
     <span aria-hidden="true">/</span>
     <span class="text-slate-600 font-medium">Juniors</span>
     <a href="{{ home_url('/programming/adults/') }}"
-       class="ml-auto hover:text-[#0092be] transition-colors no-underline">
+       class="ml-auto hover:text-blue-500 transition-colors no-underline">
       Switch to Adults &rarr;
     </a>
   </nav>
@@ -48,7 +48,7 @@
     @foreach($mailers as $mailer)
     <a href="{{ $mailer['url'] }}" target="_blank" rel="noopener"
        class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600
-              hover:text-[#0092be] transition-colors no-underline">
+              hover:text-blue-500 transition-colors no-underline">
       <svg class="w-3.5 h-3.5 shrink-0 text-red-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
       </svg>
@@ -65,7 +65,7 @@
         'slug'   => 'clinic',
         'title'  => 'Clinics',
         'tag'    => 'Year-Round · All Levels',
-        'accent' => 'border-[#0092be]',
+        'accent' => 'border-blue-500',
         'cta'    => 'View Clinic Schedule',
         'body'   => '[Placeholder] Our junior clinics are structured group lessons organized by skill
                     level, running throughout the spring and summer seasons. Players work on stroke
@@ -112,7 +112,7 @@
       </div>
       <div class="mt-6">
         <a href="{{ rtrim($audienceBaseUrl, '/') . '/' . $type['slug'] . '/' }}"
-           class="inline-flex items-center gap-2 text-sm font-semibold text-[#0092be]
+           class="inline-flex items-center gap-2 text-sm font-semibold text-blue-500
                   hover:gap-3 transition-all no-underline">
           {{ $type['cta'] }} <span aria-hidden="true">&rarr;</span>
         </a>

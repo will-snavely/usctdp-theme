@@ -260,13 +260,13 @@ header button svg {
   background: 
     linear-gradient(
       to bottom, 
-      rgba(0, 146, 190, 0) 0%, 
+      rgba(59, 130, 246, 0) 0%,
       #0f172a 90%
     ),
     url('../images/triangles.svg') repeat,
     linear-gradient(
-      to bottom, 
-      #0092be 0%, 
+      to bottom,
+      #3b82f6 0%,
       #005fbe 40%, 
       #1e3a8a 80%, 
       #0f172a 100%
@@ -321,6 +321,14 @@ header button svg {
 /** WooCommerce Pagination Styling **/
 .woocommerce-pagination {
     @apply my-4;
+}
+
+/* WooCommerce's core CSS zeroes out .button margins for classic themes and only
+   ships order-actions spacing for the specific default WP themes it recognizes
+   (see woocommerce.scss's twenty-twenty-*.scss files) — not for custom themes
+   like this one, so the Pay/View/Cancel buttons render with no gap between them. */
+.woocommerce-orders-table__cell-order-actions {
+    @apply flex flex-wrap gap-2;
 }
 
 /* Container setup */

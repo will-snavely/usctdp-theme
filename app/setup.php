@@ -250,7 +250,7 @@ add_action('init', function () {
 add_filter('woocommerce_get_breadcrumb', function ($crumbs, $breadcrumb) {
     if (is_product()) {
         $crumbs[1] = [
-            'Shop',
+            'Register',
             get_permalink(wc_get_page_id('shop'))
         ];
     }

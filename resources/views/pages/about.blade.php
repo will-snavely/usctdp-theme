@@ -56,7 +56,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
   <div class="text-center">
     <a href="{{ get_permalink(get_page_by_path('our-team')) ?: '/our-team' }}"
-      class="inline-block px-6 py-3 bg-[#0092be] hover:bg-[#007aa0] text-white font-semibold rounded-xl transition-colors shadow">
+      class="inline-block px-6 py-3 bg-blue-900 hover:bg-blue-950 text-white font-semibold rounded-xl transition-colors shadow">
       Meet the Full Team
     </a>
   </div>
@@ -69,7 +69,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
   </h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm border-t-4 border-[#0092be]">
+    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm border-t-4 border-blue-500">
       <img src="{{ Vite::asset('resources/images/belong.svg') }}" alt="Belong"
         class="h-10 sm:h-12 w-auto mb-3">
       <p class="text-slate-600 text-sm leading-relaxed">
@@ -113,7 +113,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
       </p>
     </div>
     <div class="flex flex-col sm:flex-row gap-3 shrink-0">
-      <a href="{{ wc_get_page_permalink('shop') ?: '/register' }}"
+      <a href="/shop"
         class="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-colors shadow text-center">
         Register Now
       </a>

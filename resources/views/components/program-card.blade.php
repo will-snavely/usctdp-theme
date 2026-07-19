@@ -73,7 +73,7 @@
       <span x-text="scheduleOpen ? 'Hide Schedule' : 'View Schedule'"></span>
     </button>
     <a href="{{ $program['product_url'] }}"
-      class="inline-block bg-[#0092be] hover:bg-[#007aa0] text-white rounded-lg px-5 py-2 text-[12px] font-bold tracking-widest uppercase transition-colors no-underline"
+      class="inline-block bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-5 py-2 text-[12px] font-bold tracking-widest uppercase transition-colors no-underline"
       aria-label="Register for {{ $program['name'] }}">
       Register &rarr;
     </a>

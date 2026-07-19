@@ -35,21 +35,23 @@
         </a>
       </div>
 
-      <div x-data="{ userMenuOpen: false }" class="relative">
+      <div x-data="{ userMenuOpen: false }" @mouseenter="userMenuOpen = true" @mouseleave="userMenuOpen = false"
+        class="relative">
         @if (is_user_logged_in())
-          <button @click="userMenuOpen = !userMenuOpen" @click.away="userMenuOpen = false"
-            class="flex items-center gap-2 text-white font-bold uppercase text-sm hover:text-blue-200 transition-colors">
+          <button class="flex items-center gap-2 text-white font-bold uppercase text-sm hover:text-blue-200 transition-colors">
             <span>My Account</span>
-            <svg class="w-4 h-4 transition-transform duration-500 ease-in-out" :class="userMenuOpen ? 'rotate-180' : ''"
+            <svg :class="userMenuOpen ? 'rotate-90' : ''" class="w-4 h-4 transition-transform duration-300 ease-in-out"
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              <g transform="rotate(-90, 12, 12)">
+                <path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
             </svg>
           </button>
 
           {{-- Dropdown --}}
           <div x-show="userMenuOpen" x-cloak
-            class="absolute right-0 mt-4 w-48 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100 overflow-hidden"
-            x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95"
+            class="absolute right-0 top-full min-w-[200px] bg-white shadow-xl border border-gray-100 py-2 z-[100]"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 scale-95"
             x-transition:enter-end="opacity-100 scale-100">
             <a href="{{ get_permalink(get_option('woocommerce_myaccount_page_id')) }}"
               class="block px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-blue-50">Dashboard</a>

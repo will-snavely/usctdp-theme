@@ -22,7 +22,7 @@ if (empty($product) || ! $product->is_visible()) return;
 
     {{-- Name --}}
     <h2 class="font-bold text-slate-800 text-base leading-snug mb-2 mt-2">
-      <a href="{{ get_permalink() }}" class="hover:text-[#0092be] transition-colors no-underline">
+      <a href="{{ get_permalink() }}" class="hover:text-blue-500 transition-colors no-underline">
         {!! $product->get_name() !!}
       </a>
     </h2>
@@ -36,7 +36,7 @@ if (empty($product) || ! $product->is_visible()) return;
     <div class="mt-auto">
       @if($product->is_in_stock())
         <a href="{{ get_permalink() }}"
-          class="block text-center px-4 py-2.5 bg-[#0092be] hover:bg-[#007aa0] text-white text-sm font-bold rounded-xl transition-colors no-underline uppercase tracking-widest">
+          class="block text-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white text-sm font-bold rounded-xl transition-colors no-underline uppercase tracking-widest">
           Register &rarr;
         </a>
       @else

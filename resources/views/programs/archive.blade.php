@@ -46,11 +46,11 @@
 
   {{-- ── Breadcrumb ── --}}
   <nav class="flex items-center gap-2 text-xs text-slate-400 mb-4 px-1 animate__animated animate__fadeIn" aria-label="Breadcrumb">
-    <a href="{{ home_url('/programming/') }}" class="hover:text-[#0092be] transition-colors no-underline">
+    <a href="{{ home_url('/programming/') }}" class="hover:text-blue-500 transition-colors no-underline">
       Programming
     </a>
     <span aria-hidden="true">/</span>
-    <a href="{{ $audienceBaseUrl }}" class="hover:text-[#0092be] transition-colors no-underline">
+    <a href="{{ $audienceBaseUrl }}" class="hover:text-blue-500 transition-colors no-underline">
       {{ $audienceLabel }}
     </a>
     @if($routeTypeLabel)

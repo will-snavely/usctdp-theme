@@ -17,7 +17,7 @@ Description: Policies & Information page.
         By participating in USCTDP programs, participants and their families grant USCTDP permission
         to photograph and record video of activities for use in promotional and informational materials,
         including our website and social media. If you prefer to opt out, please
-        <a href="/contact" class="text-[#0092be] hover:underline font-medium">contact our office</a>.
+        <a href="/contact" class="text-blue-500 hover:underline font-medium">contact our office</a>.
       </p>
     </div>
   </section>
@@ -66,8 +66,8 @@ Description: Policies & Information page.
       <p>
         In the event of weather cancellations, affected sessions will be rescheduled. For cancellation
         updates, <a href="https://www.facebook.com/tennisstclair/" target="_blank"
-          class="text-[#0092be] hover:underline font-medium">follow us on Facebook</a>
-        or call <a href="tel:4128317556" class="text-[#0092be] hover:underline font-medium">412-831-7556</a>.
+          class="text-blue-500 hover:underline font-medium">follow us on Facebook</a>
+        or call <a href="tel:4128317556" class="text-blue-500 hover:underline font-medium">412-831-7556</a>.
       </p>
     </div>
   </section>
@@ -103,7 +103,7 @@ Description: Policies & Information page.
         <p>
           Families enrolling two or more members concurrently are eligible for a family discount.
           For more details, please
-          <a href='/contact' class="text-[#0092be] hover:underline font-medium">contact the office</a>.
+          <a href='/contact' class="text-blue-500 hover:underline font-medium">contact the office</a>.
         </p>
       </div>
 
@@ -139,7 +139,7 @@ Description: Policies & Information page.
         <p class="text-slate-300 text-sm">Our office is happy to help.</p>
       </div>
       <a href="{{ get_permalink(get_page_by_path('contact')) ?: '/contact' }}"
-        class="shrink-0 px-5 py-2.5 bg-[#0092be] hover:bg-[#007aa0] text-white font-bold rounded-xl transition-colors text-sm no-underline">
+        class="shrink-0 px-5 py-2.5 bg-blue-900 hover:bg-blue-950 text-white font-bold rounded-xl transition-colors text-sm no-underline">
         Contact Us
       </a>
     </div>
