@@ -20,7 +20,7 @@
 
     @include('sections.header')
 
-    <div class="page-header w-full h-18 flex justify-center items-center">
+    <div class="page-header w-full h-18 flex justify-center items-center overflow-hidden">
       @if(!is_front_page())
         <div class="flex w-full max-w-screen-md justify-start items-center px-6">
           <div class="page-title-wrapper">

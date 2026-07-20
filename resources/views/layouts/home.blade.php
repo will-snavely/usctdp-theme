@@ -43,7 +43,7 @@
             <div x-show="active === 0" x-transition:enter="transition ease-out duration-300"
               x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
               class="flex flex-col items-center">
-              <div class="relative w-full">
+              <div class="relative w-full px-6">
                 <img src="{{ Vite::asset('resources/images/home3.png') }}" alt="Belong"
                   class="w-full h-auto object-contain drop-shadow-lg">
                 <h2
@@ -52,12 +52,12 @@
                 </h2>
               </div>
               <div
-                class="w-full p-4 rounded-3xl bg-slate-900/80 backdrop-blur-sm border border-slate-800 shadow-xl mt-2">
+                class="w-full p-3 rounded-3xl bg-slate-900/80 backdrop-blur-sm border border-slate-800 shadow-xl mt-1">
                 <h3 class="text-white text-center text-xl font-bold">Meet Our Community</h3>
-                <p class="mt-4 text-sm text-slate-300 text-center leading-relaxed">
+                <p class="mt-3 text-sm text-slate-300 text-center leading-relaxed">
                   We are a multigenerational community of athletes. Learn more about our tennis family.
                 </p>
-                <div class="mt-6">
+                <div class="mt-4">
                   <a href="/about"
                     class="block w-full px-6 py-4 text-center rounded-xl font-bold text-sm text-white border border-slate-700 hover:bg-slate-800 transition-colors no-underline">
                     About Us
@@ -70,7 +70,7 @@
             <div x-show="active === 1" x-transition:enter="transition ease-out duration-300"
               x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
               class="flex flex-col items-center">
-              <div class="relative w-full">
+              <div class="relative w-full px-6">
                 <img src="{{ Vite::asset('resources/images/home2.png') }}" alt="Become"
                   class="w-full h-auto object-contain drop-shadow-2xl scale-110">
                 <h2
@@ -79,12 +79,12 @@
                 </h2>
               </div>
               <div
-                class="w-full p-4 rounded-3xl bg-slate-900 border-2 border-red-500 shadow-[0_20px_50px_rgba(0,0,0,0.5)] mt-2">
+                class="w-full p-3 rounded-3xl bg-slate-900 border-2 border-red-500 shadow-[0_20px_50px_rgba(0,0,0,0.5)] mt-1">
                 <h3 class="text-white text-center text-2xl font-black italic">Level Up Your Game</h3>
-                <p class="mt-4 text-sm text-slate-300 text-center leading-relaxed">
+                <p class="mt-3 text-sm text-slate-300 text-center leading-relaxed">
                   Instruction for all levels and ages. Build your skills and confidence with our expert-led clinics.
                 </p>
-                <div class="mt-6">
+                <div class="mt-4">
                   <a href="/shop"
                     class="block w-full px-6 py-4 text-center rounded-xl font-bold text-lg text-white bg-red-700 hover:bg-red-600 transition-colors no-underline">
                     Book a Clinic
@@ -97,7 +97,7 @@
             <div x-show="active === 2" x-transition:enter="transition ease-out duration-300"
               x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
               class="flex flex-col items-center">
-              <div class="relative w-full">
+              <div class="relative w-full px-6">
                 <img src="{{ Vite::asset('resources/images/home1.png') }}" alt="Believe"
                   class="w-full h-auto object-contain drop-shadow-lg">
                 <h2
@@ -106,12 +106,12 @@
                 </h2>
               </div>
               <div
-                class="w-full p-4 rounded-3xl bg-slate-900/80 backdrop-blur-sm border border-slate-800 shadow-xl mt-2">
+                class="w-full p-3 rounded-3xl bg-slate-900/80 backdrop-blur-sm border border-slate-800 shadow-xl mt-1">
                 <h3 class="text-white text-center text-xl font-bold">See the Results</h3>
-                <p class="mt-4 text-sm text-slate-300 text-center leading-relaxed">
+                <p class="mt-3 text-sm text-slate-300 text-center leading-relaxed">
                   Read the success stories of the students who have trained with us.
                 </p>
-                <div class="mt-6">
+                <div class="mt-4">
                   <a href="/successes"
                     class="block w-full px-6 py-4 text-center rounded-xl font-bold text-sm text-white border border-slate-700 hover:bg-slate-800 transition-colors no-underline">
                     Success Stories
