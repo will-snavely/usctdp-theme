@@ -25,7 +25,7 @@ class ProgramsComposer extends Composer
         $levels = $this->repository->getLevelsForAudience($audience);
         $types = $this->repository->getTypesForAudience($audience);
         $filters = $this->resolveFilters($audience, [], $routeType);
-        $programs = $this->repository->getProgramming($audience, '', $filters);
+        $programs = $this->repository->getProgramming($audience, $filters);
 
         $mailerKey = $audience === 'adults' ? 'usctdp_adult_mailers' : 'usctdp_junior_mailers';
         $mailers = json_decode(get_option($mailerKey, '[]'), true) ?: [];
@@ -42,7 +42,7 @@ class ProgramsComposer extends Composer
 
         return [
             'audience' => $audience,
-            'programs' => array_values($programs['products']),
+            'programs' => array_values($programs),
             'activeFilters' => $filters,
             'userFilters' => $userFilters,
             'levels' => $levels,
