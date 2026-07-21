@@ -87,19 +87,6 @@
     margin-bottom: 2rem;
 }
 
-.product table.variations th,
-td {
-    padding: 8px;
-}
-
-.product table.variations select {
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    max-width: 10px;
-    padding-left: 5px;
-}
-
 /* Top Level Menu Items */
 .nav-primary ul li {
     @apply relative;
