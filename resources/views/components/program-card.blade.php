@@ -84,6 +84,7 @@
     'schedule' => $program['schedule'],
     'sessions' => $program['sessions'],
     'season'   => $program['season'],
+    'accentColor' => $accentColor,
   ])
 
 </article>

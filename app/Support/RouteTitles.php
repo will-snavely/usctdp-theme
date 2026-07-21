@@ -36,7 +36,7 @@ class RouteTitles
         if ($type && in_array($routeName, self::TYPE_SUFFIXED_ROUTES, true)) {
             $title .= ': ' . ucfirst($type);
 
-            if( $type === 'cardio') {
+            if( $type === 'cardio') {   
                 $title .= ' Tennis';
             } else {
                 $title .= 's';

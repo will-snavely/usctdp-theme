@@ -61,7 +61,7 @@
 
   {{-- ── FILTER BAR ── --}}
   <div class="bg-white border-b border-stone-200 sticky top-0 z-10 shadow-sm">
-    <div class="max-w-4xl mx-auto px-8 py-3 flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div class="max-w-4xl mx-auto px-2 sm:px-8 py-3 flex flex-wrap items-center gap-x-6 gap-y-3">
 
       {{-- Type — navigates via URL segments when type comes from the route --}}
       <div class="flex items-center gap-2">
@@ -117,7 +117,7 @@
   </div>
 
   {{-- ── PROGRAMS ── --}}
-  <main class="max-w-4xl mx-auto px-8 mt-8 mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
+  <main class="max-w-4xl mx-auto px-2 sm:px-8 mt-8 mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
     @if(empty($programs))
       <div class="text-center py-24">
         <p class="font-display text-3xl text-stone-300 mb-2">No programs found</p>
