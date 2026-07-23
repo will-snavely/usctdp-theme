@@ -11,7 +11,7 @@ if (empty($product) || ! $product->is_visible()) return;
       {!!
         $product->get_image(
           'woocommerce_thumbnail',
-          ['class' => 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105']
+          ['class' => 'w-full h-full object-cover transition-transform duration-300']
         )
       !!}
     </div>
