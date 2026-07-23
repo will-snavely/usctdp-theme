@@ -2,10 +2,10 @@
 Template Name: Contact
 Description: Contact page with office details, social links, and email form.
 
-Form submission is handled via WordPress admin-post.php.
-Register the action in your theme's functions.php or a dedicated action class:
-add_action('admin_post_nopriv_contact_form', 'handle_contact_form');
-add_action('admin_post_contact_form', 'handle_contact_form');
+The message form is rendered by the Contact Form 7 plugin ("Contact Page
+Form"). Field styling and layout live in resources/css/app.css (.contact-input,
+.contact-submit, .wpcf7-* rules) since Tailwind can't scan the form markup
+stored in the database.
 --}}
 
 @extends('layouts.app')
@@ -35,9 +35,31 @@ add_action('admin_post_contact_form', 'handle_contact_form');
                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
             </svg>
             <span>
-              37 McMurray Road</br>
-              Building #1, Suite LL1</br>
-              Upper St. Clair, PA 15241
+             <b>Office</b></br>
+              <a href="https://maps.app.goo.gl/TBB5BNz19AJvT4zR8"
+                target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors">
+                37 McMurray Road</br>
+                Building #1, Suite LL1</br>
+                Upper St. Clair, PA 15241
+              </a>
+            </span>
+          </li>
+
+          <li class="flex items-start gap-3">
+            {{-- Location icon --}}
+            <svg class="w-5 h-5 mt-0.5 shrink-0 text-blue-500" fill="none" stroke="currentColor" stroke-width="1.75"
+              viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <span>
+              <b>Courts</b></br>
+              <a href="https://maps.app.goo.gl/JNt7ewt3kQxkeMtQ7"
+                target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors">
+                1750 McLaughlin Run Road</br>
+                Pittsburgh, PA 15241
+              </a>
             </span>
           </li>
 
@@ -103,68 +125,7 @@ add_action('admin_post_contact_form', 'handle_contact_form');
       Send Us a Message
     </h2>
 
-    @if(session('contact_success'))
-      <div class="mb-6 px-5 py-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm" role="alert">
-        Thank you for reaching out! We'll get back to you as soon as possible.
-      </div>
-    @endif
-
-    @if(session('contact_error'))
-      <div class="mb-6 px-5 py-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm" role="alert">
-        Something went wrong. Please try again or email us directly at
-        <a href="mailto:tennis@usctdp.com" class="underline">tennis@usctdp.com</a>.
-      </div>
-    @endif
-
-    <form method="POST" action="{{ admin_url('admin-post.php') }}" class="space-y-5" novalidate>
-      @php(wp_nonce_field('contact_form_submit', 'contact_nonce'))
-      <input type="hidden" name="action" value="contact_form">
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div class="flex flex-col gap-1.5">
-          <label for="contact-name" class="text-sm font-semibold text-slate-700">
-            Name <span class="text-red-500" aria-hidden="true">*</span>
-          </label>
-          <input id="contact-name" type="text" name="contact_name" required autocomplete="name" class="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            placeholder="Your full name">
-        </div>
-
-        <div class="flex flex-col gap-1.5">
-          <label for="contact-email" class="text-sm font-semibold text-slate-700">
-            Email <span class="text-red-500" aria-hidden="true">*</span>
-          </label>
-          <input id="contact-email" type="email" name="contact_email" required autocomplete="email" class="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            placeholder="you@example.com">
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-1.5">
-        <label for="contact-subject" class="text-sm font-semibold text-slate-700">
-          Subject
-        </label>
-        <input id="contact-subject" type="text" name="contact_subject" autocomplete="off" class="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400
-                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-          placeholder="What's this about?">
-      </div>
-
-      <div class="flex flex-col gap-1.5">
-        <label for="contact-message" class="text-sm font-semibold text-slate-700">
-          Message <span class="text-red-500" aria-hidden="true">*</span>
-        </label>
-        <textarea id="contact-message" name="contact_message" required rows="6" class="rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400
-                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-y"
-          placeholder="How can we help you?"></textarea>
-      </div>
-
-      <div>
-        <button type="submit" class="px-8 py-3 bg-blue-900 hover:bg-blue-950 text-white font-semibold rounded-xl
-                 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-          Send Message
-        </button>
-      </div>
-    </form>
+    {!! do_shortcode('[contact-form-7 title="Contact Page Form"]') !!}
   </section>
 
 </div>

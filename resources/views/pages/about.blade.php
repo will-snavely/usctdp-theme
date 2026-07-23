@@ -61,6 +61,24 @@ Description: About page with Our Story, Our Team, and Our Values sections.
   </div>
 </section>
 
+
+{{-- ── Our Facilities ── --}}
+<section class="about-facilities mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+  <h2 class="section-heading yellow text-2xl font-bold text-slate-800 mb-6">
+    Our Facilities
+  </h2>
+
+  <p class="text-slate-600 leading-relaxed">
+    Our facilities include <strong>10 outdoor courts</strong> and
+    <strong>6 indoor courts</strong>, located at
+    <a href="https://maps.google.com/?q=1750+McLaughlin+Run+Road,+Pittsburgh,+PA+15241"
+      target="_blank" rel="noopener noreferrer"
+      class="text-blue-700 hover:text-blue-900 underline">
+      1750 McLaughlin Run Road, Pittsburgh, PA 15241
+    </a>.
+  </p>
+</section>
+
 {{-- ── Our Values ── --}}
 <section class="about-values mb-16 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
   <h2 class="section-heading orange text-2xl font-bold text-slate-800 mb-6">
@@ -100,7 +118,7 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 </section>
 
 {{-- ── Registration CTA ── --}}
-<section class="about-cta animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+<section class="about-cta animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
   <div
     class="rounded-2xl bg-slate-900 text-white px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
     <div>

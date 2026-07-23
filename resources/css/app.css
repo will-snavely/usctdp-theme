@@ -31,6 +31,39 @@
     margin-top: 1rem !important;
 }
 
+/* Contact Form 7's field markup lives in the database, not in a Blade view,
+   so Tailwind's @source scan never sees it. These classes are applied via
+   the form-tag `class:` option in the CF7 form editor instead. */
+.wpcf7-form p {
+    margin: 0;
+}
+
+.contact-input {
+    @apply w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition;
+}
+
+.contact-submit {
+    @apply px-8 py-3 bg-blue-900 hover:bg-blue-950 text-white font-semibold rounded-xl transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer;
+}
+
+.wpcf7-not-valid-tip {
+    @apply text-red-600 text-xs mt-1 block;
+}
+
+.wpcf7-response-output {
+    @apply mt-4 px-5 py-4 rounded-xl border text-sm;
+}
+
+form.sent .wpcf7-response-output {
+    @apply bg-green-50 border-green-200 text-green-800;
+}
+
+form.failed .wpcf7-response-output,
+form.aborted .wpcf7-response-output,
+form.spam .wpcf7-response-output {
+    @apply bg-red-50 border-red-200 text-red-800;
+}
+
 @layer base {
     h1 {
         /* text-3xl on mobile, text-4xl on desktop */

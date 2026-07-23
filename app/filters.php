@@ -91,6 +91,19 @@ add_filter('woocommerce_is_purchasable', function ($is_purchasable) {
 });
 
 /**
+ * Contact Form 7 normally runs its form markup through wpautop, wrapping every
+ * field in <p>/<br> tags. Our contact form template already provides its own
+ * layout wrappers, so autop is only disabled for form rendering (not for the
+ * mail body, which still needs it if HTML mail is ever turned on).
+ */
+add_filter('wpcf7_autop_or_not', function ($autop, $options = '') {
+    if (($options['for'] ?? '') === 'form') {
+        return false;
+    }
+    return $autop;
+}, 10, 2);
+
+/**
  * Prompt logged-out visitors to log in where the add-to-cart button would be.
  */
 add_action('woocommerce_single_product_summary', function () {
