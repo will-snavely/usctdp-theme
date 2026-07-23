@@ -25,20 +25,29 @@ Description: About page with Our Story, Our Team, and Our Values sections.
 
         <div class="md:w-1/2 space-y-4 text-slate-700 leading-relaxed">
           <p>
-            Founded in 1983, our club was built on a singular vision: to establish a premier
-            tennis development program rooted in character, athletic excellence, and personal
-            growth. What began as a dedicated mission to cultivate self-esteem, confidence, and
-            sportsmanship has evolved into a thriving community for players of all levels.
-
-            We believe that tennis is a vehicle for lifelong development. Whether our players are
-            stepping onto the court for the first time, playing for recreation and wellness, or
-            training to compete at the highest level, we provide the structured environment
-            and expert elite coaching necessary to reach those milestones. By consistently modeling
-            professional excellence, integrity, and a steadfast work ethic, we inspire every athlete
-            who walks through our doors to achieve their personal best—both on and off the court.
+            Janice Irwin began building USCTDP in 1983, founded on a love for the game
+            of tennis and for teaching others. Since that time we have trained thousands
+            of players and developed a multi-generational community of tennis lovers in
+            Upper Saint Clair.
+          </p>
+          <p>
+            We are dedicated to excellence, growth, and integrity in everything we do.
+            As professional coaches and staff, we continuously refine our craft while
+            cultivating a safe, welcoming, and team-oriented environment both on and
+            off the court. By upholding high professional standards and actively
+            mentoring our students, we serve as positive, motivating forces
+            across the greater USC community.
           </p>
         </div>
       </div>
+
+      <p class="mt-8 text-center text-slate-700 leading-relaxed max-w-3xl mx-auto">
+        Above all, we deliver on our promises, build lasting trust, and embody
+        our core brand every single day:
+        <span class="block mt-2 text-base font-bold tracking-wide text-slate-800">
+          BELONG. BECOME. BELIEVE.
+        </span>
+      </p>
     </section>
 
     {{-- ── Our Team ── --}}
