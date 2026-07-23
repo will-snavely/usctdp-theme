@@ -13,14 +13,13 @@ Description: About page with Our Story, Our Team, and Our Values sections.
   <h2 class="section-heading red text-2xl font-bold text-slate-800 mb-6">
     Our Story
   </h2>
-
   <div class="flex flex-col md:flex-row gap-8 items-start">
     <div class="md:w-1/2">
       <img src="{{ Vite::asset('resources/images/story.png') }}" alt="Our story"
         class="w-full h-50 object-cover rounded-2xl shadow-md"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="hidden w-full h-72 rounded-2xl bg-slate-200 items-center justify-center text-slate-400 text-sm">
-        The USCTDP
+        The USCTDP Team
       </div>
     </div>
 
