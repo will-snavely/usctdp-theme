@@ -178,7 +178,7 @@ header button svg {
 }
 
 .page-title {
-    @apply text-4xl font-bold text-slate-900 leading-snug tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 leading-snug tracking-tight;
 }
 
 /* ── Page-title racket-swing reveal ────────────────────────────────────────
