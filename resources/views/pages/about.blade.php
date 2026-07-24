@@ -41,7 +41,9 @@ Description: About page with Our Story, Our Team, and Our Values sections.
         </div>
       </div>
 
-      <p class="mt-8 text-center text-slate-700 leading-relaxed max-w-3xl mx-auto">
+      <hr class="mt-8 max-w-sm mx-auto border-t border-slate-200">
+
+      <p class="mt-8 text-center text-slate-700 leading-relaxed max-w-sm mx-auto">
         Above all, we deliver on our promises, build lasting trust, and embody
         our core brand every single day:
         <span class="block mt-2 text-base font-bold tracking-wide text-slate-800">

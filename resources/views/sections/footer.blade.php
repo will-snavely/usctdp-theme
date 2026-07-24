@@ -36,6 +36,23 @@
           <h3 class="text-white font-bold uppercase tracking-widest text-xs mb-6">Contact</h3>
           <p class="text-sm"><a href="tel:+14128312630">(412) 831-2630</a></p>
           <p class="text-sm"><a href="mailto:tennis@usctdp.com">tennis@usctdp.com</a></p>
+          <div class="flex items-start gap-2 mt-4">
+            {{-- Location icon --}}
+            <svg class="w-4 h-4 mt-0.5 shrink-0 text-red-400" fill="none" stroke="currentColor" stroke-width="1.75"
+              viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <p class="text-sm">
+              <span class="block text-slate-400 text-xs uppercase tracking-wide mb-1">Courts</span>
+              <a href="https://maps.app.goo.gl/JNt7ewt3kQxkeMtQ7" target="_blank" rel="noopener noreferrer"
+                class="hover:text-white transition-colors">
+                1750 McLaughlin Run Road<br>
+                Pittsburgh, PA 15241
+              </a>
+            </p>
+          </div>
         </div>
 
         <div>
