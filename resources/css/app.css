@@ -43,7 +43,7 @@
 }
 
 .contact-submit {
-    @apply px-8 py-3 bg-blue-900 hover:bg-blue-950 text-white font-semibold rounded-xl transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer;
+    @apply px-4 py-3 my-2 bg-blue-900 hover:bg-blue-950 text-white font-semibold rounded-xl transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer;
 }
 
 .wpcf7-not-valid-tip {
@@ -51,7 +51,7 @@
 }
 
 .wpcf7-response-output {
-    @apply mt-4 px-5 py-4 rounded-xl border text-sm;
+    @apply mt-4 px-5 py-4 rounded-xl border text-sm text-center;
 }
 
 form.sent .wpcf7-response-output {

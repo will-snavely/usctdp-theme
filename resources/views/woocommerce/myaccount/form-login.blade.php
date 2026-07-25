@@ -54,8 +54,7 @@
 
             @if ($registrationEnabled)
                 <div class="mt-8 pt-8 border-t border-slate-100 text-center">
-                    <p class="text-slate-600 mb-4">New here? Join the program to track your sessions, manage gear
-                        orders, and get early access to clinics.</p>
+                    <p class="text-slate-600 mb-4">New here? Register to get access to online registration for our programming.</p>
                     <button type="button" @click="mode = 'register'"
                         class="inline-block text-center border-2 border-[#5c88da] text-[#5c88da] font-bold py-3 px-8 rounded-xl hover:bg-[#5c88da] hover:text-white transition">
                         Create Account

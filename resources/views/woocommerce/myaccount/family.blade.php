@@ -2,7 +2,7 @@
     @php(wc_print_notices())
 
     <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 p-8 md:p-12">
-        <h2 class="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-tight">Family</h2>
+        <h2 class="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-tight">My Family</h2>
 
         @if (!$family)
             <p class="text-slate-600">We couldn't find a family account linked to your login. Please contact the
@@ -54,10 +54,34 @@
                         </div>
                     </div>
 
+                    @php($months = [
+                        '01' => 'January', '02' => 'February', '03' => 'March', '04' => 'April',
+                        '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'August',
+                        '09' => 'September', '10' => 'October', '11' => 'November', '12' => 'December',
+                    ])
+                    @php($currentYear = (int) date('Y'))
+
                     <div class="mb-6">
                         <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Birth Date</label>
-                        <input type="date" name="birth_date" required
-                            class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
+                        <div class="grid grid-cols-3 gap-4">
+                            <select name="birth_month" required
+                                class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition">
+                                <option value="" disabled selected>Month</option>
+                                @foreach ($months as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            <select name="birth_day" required
+                                class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition">
+                                <option value="" disabled selected>Day</option>
+                                @for ($day = 1; $day <= 31; $day++)
+                                    <option value="{{ str_pad($day, 2, '0', STR_PAD_LEFT) }}">{{ $day }}</option>
+                                @endfor
+                            </select>
+                            <input type="number" name="birth_year" inputmode="numeric" placeholder="Year"
+                                min="{{ $currentYear - 100 }}" max="{{ $currentYear }}" required
+                                class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
+                        </div>
                     </div>
 
                     @php(wp_nonce_field('usctdp_add_student', 'usctdp_add_student_nonce'))

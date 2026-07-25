@@ -264,6 +264,102 @@ add_action('init', function () {
     }
 });
 
+/**
+ * Style the fallback page WordPress shows via wp_die() on wp-login.php
+ * requests - most visibly the "Do you really want to log out?" screen when a
+ * logout link's nonce has gone stale (e.g. the page sat open a while). This
+ * is a wp_die() screen, not the normal login template, so login_enqueue_scripts
+ * never reaches it; overriding the die handler is the only way in. Scoped to
+ * $pagenow === 'wp-login.php' so every other wp_die() call across the site
+ * and admin is untouched.
+ */
+add_filter('wp_die_handler', function ($handler) {
+    global $pagenow;
+    if ($pagenow === 'wp-login.php') {
+        return __NAMESPACE__ . '\\styled_login_die_handler';
+    }
+    return $handler;
+});
+
+function styled_login_die_handler($message, $title = '', $args = [])
+{
+    list($message, $title, $parsed_args) = _wp_die_process_input($message, $title, $args);
+
+    if (!headers_sent()) {
+        header('Content-Type: text/html; charset=' . $parsed_args['charset']);
+        status_header($parsed_args['response']);
+        nocache_headers();
+    }
+
+    $logo = Vite::asset('resources/images/logo_banner.svg');
+    ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+
+<head>
+    <meta charset="<?php echo esc_attr($parsed_args['charset']); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo wp_strip_all_tags($title); ?></title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #5c88da 0%, #1c2b4a 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+            max-width: 26rem;
+            width: 100%;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .card img {
+            height: 48px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card p {
+            color: #334155;
+            line-height: 1.6;
+            margin: 0 0 .75rem;
+        }
+
+        .card a {
+            color: #5c88da;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <a href="<?php echo esc_url(home_url('/')); ?>">
+            <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+        </a>
+        <p><?php echo $message; ?></p>
+    </div>
+</body>
+
+</html>
+<?php
+    if ($parsed_args['exit']) {
+        exit;
+    }
+}
+
 if (is_page('juniors')) {
     wp_enqueue_script(
         'theme/juniors',

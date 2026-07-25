@@ -79,17 +79,54 @@ Description: About page with Our Story, Our Team, and Our Values sections.
         Our Facilities
       </h2>
 
-      <p class="text-slate-600 leading-relaxed">
+      <p class="text-slate-600 leading-relaxed mb-6">
         Our facilities include <strong>10 outdoor courts</strong> and
-        <strong>6 indoor courts</strong>, located at
-        <a href="https://maps.app.goo.gl/JNt7ewt3kQxkeMtQ7" target="_blank" rel="noopener noreferrer"
-          class="text-blue-700 hover:text-blue-900 underline">
-          1750 McLaughlin Run Road, Pittsburgh, PA 15241</a>. Our office is located at
-        <a href="https://maps.app.goo.gl/TBB5BNz19AJvT4zR8" target="_blank" rel="noopener noreferrer"
-          class="text-blue-700 hover:text-blue-900 underline">
-          37 McMurray Road Building #1, Suite LL1 Upper St. Clair, PA 15241.
-        </a>
+        <strong>6 indoor courts</strong>, plus an office to support our players and families.
       </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+          {{-- Location icon --}}
+          <svg class="w-5 h-5 mt-0.5 shrink-0 text-blue-500" fill="none" stroke="currentColor" stroke-width="1.75"
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+          <div class="text-sm leading-snug">
+            <p class="font-semibold text-slate-800">Courts</p>
+            <p class="text-slate-600">
+              1750 McLaughlin Run Road<br>
+              Pittsburgh, PA 15241
+            </p>
+            <a href="https://maps.app.goo.gl/JNt7ewt3kQxkeMtQ7" target="_blank" rel="noopener noreferrer"
+              class="inline-block mt-1 text-blue-700 hover:text-blue-900 font-medium">
+              Get Directions &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+          {{-- Location icon --}}
+          <svg class="w-5 h-5 mt-0.5 shrink-0 text-blue-500" fill="none" stroke="currentColor" stroke-width="1.75"
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+          <div class="text-sm leading-snug">
+            <p class="font-semibold text-slate-800">Office</p>
+            <p class="text-slate-600">
+              37 McMurray Road, Building #1, Suite LL1<br>
+              Upper St. Clair, PA 15241
+            </p>
+            <a href="https://maps.app.goo.gl/TBB5BNz19AJvT4zR8" target="_blank" rel="noopener noreferrer"
+              class="inline-block mt-1 text-blue-700 hover:text-blue-900 font-medium">
+              Get Directions &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     {{-- ── Our Values ── --}}
