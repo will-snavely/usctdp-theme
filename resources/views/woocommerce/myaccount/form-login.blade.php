@@ -109,9 +109,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Phone Number <span
-                                class="normal-case text-slate-400 font-normal">(optional)</span></label>
-                        <input type="tel" name="phone"
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Phone Number</label>
+                        <input type="tel" name="phone" required
                             class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
                     </div>
 

@@ -124,7 +124,6 @@ stored in the database.
     <h2 class="section-heading yellow text-2xl font-bold text-slate-800 mb-6">
       Send Us a Message
     </h2>
-
     {!! do_shortcode('[contact-form-7 title="Contact Page Form"]') !!}
   </section>
 
