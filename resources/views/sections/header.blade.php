@@ -60,10 +60,18 @@
               class="block px-4 py-3 text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50">Logout</a>
           </div>
         @else
-          <a href="{{ wp_login_url() }}"
-            class="text-white font-bold uppercase text-sm hover:text-blue-200 transition-colors">
-            Login
-          </a>
+          <div class="flex items-center gap-4">
+            <a href="{{ wp_login_url() }}"
+              class="text-white font-bold uppercase text-sm hover:text-blue-200 transition-colors">
+              Login
+            </a>
+            @if (get_option('woocommerce_enable_myaccount_registration') === 'yes')
+              <a href="{{ add_query_arg('action', 'register', get_permalink(get_option('woocommerce_myaccount_page_id'))) }}"
+                class="text-white font-bold uppercase text-sm bg-white/10 hover:bg-white/20 border border-white/30 rounded-lg px-4 py-2 transition-colors">
+                Register
+              </a>
+            @endif
+          </div>
         @endif
       </div>
     </div>
@@ -144,6 +152,10 @@
         @else
           <a href="{{ wp_login_url() }}"
             class="flex items-center justify-center w-full p-4 bg-[#5c88da] rounded-lg text-white font-bold uppercase text-sm">Login</a>
+          @if (get_option('woocommerce_enable_myaccount_registration') === 'yes')
+            <a href="{{ add_query_arg('action', 'register', get_permalink(get_option('woocommerce_myaccount_page_id'))) }}"
+              class="flex items-center justify-center w-full p-4 mt-3 bg-white border border-slate-200 rounded-lg text-slate-800 font-bold uppercase text-sm">Register</a>
+          @endif
         @endif
       </div>
     </div>
