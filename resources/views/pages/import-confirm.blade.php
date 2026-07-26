@@ -1,8 +1,8 @@
 {{--
 Template Name: Confirm Import
 Description: Landing page for the legacy-family opt-in import email link
-(?usctdp_login=...&usctdp_key=...). Not linked from the site nav - only
-reachable via the emailed link, so it's provisioned in data/pages.json
+(?usctdp_import=<pending id>&usctdp_key=...). Not linked from the site nav -
+only reachable via the emailed link, so it's provisioned in data/pages.json
 without a menu entry.
 --}}
 
@@ -119,7 +119,7 @@ without a menu entry.
                     </div>
                 @endif
 
-                <input type="hidden" name="usctdp_login" value="{{ $context['login'] }}" />
+                <input type="hidden" name="usctdp_import" value="{{ $context['pending_id'] }}" />
                 <input type="hidden" name="usctdp_key" value="{{ $context['key'] }}" />
                 <input type="hidden" name="usctdp_confirm_import" value="1" />
                 @php(wp_nonce_field('usctdp_confirm_import', 'usctdp_confirm_import_nonce'))
