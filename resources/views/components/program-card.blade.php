@@ -36,7 +36,7 @@
       <h2 class="font-display text-[26px] tracking-wide leading-none text-stone-900 m-0">
         {{ $program['name'] }}
       </h2>
-      <span class="text-sm font-semibold text-stone-500">Ages {{ $program['age_range'] }}</span>
+      <span class="text-sm font-semibold text-stone-500">{{ $program['subtitle_label'] ?? ('Ages ' . $program['age_range']) }}</span>
     </div>
 
     {{-- Level + type pills --}}
@@ -63,15 +63,29 @@
 
   {{-- Footer --}}
   <div class="px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
-    <button
-      class="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
-      :aria-expanded="scheduleOpen.toString()" @click="scheduleOpen = !scheduleOpen">
-      <svg class="transition-transform duration-200 shrink-0" :class="{ 'rotate-180': scheduleOpen }" width="12"
-        height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      </svg>
-      <span x-text="scheduleOpen ? 'Hide Schedule' : 'View Schedule'"></span>
-    </button>
+    <div class="flex items-center gap-3 flex-wrap">
+      <button
+        class="inline-flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
+        :aria-expanded="scheduleOpen.toString()" @click="scheduleOpen = !scheduleOpen">
+        <svg class="transition-transform duration-200 shrink-0" :class="{ 'rotate-180': scheduleOpen }" width="12"
+          height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span x-text="scheduleOpen ? 'Hide Schedule' : 'View Schedule'"></span>
+      </button>
+      @if (!empty($program['flyer_url']))
+        <a href="{{ $program['flyer_url'] }}" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-1.5 text-stone-500 hover:text-stone-800 text-[12px] font-medium transition-colors no-underline"
+          aria-label="View flyer for {{ $program['name'] }} (opens PDF in a new tab)">
+          <svg class="shrink-0" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 1.5h6l3 3V14a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5Z"
+              stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+            <path d="M10 1.5V4a1 1 0 0 0 1 1h2.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+          </svg>
+          Flyer
+        </a>
+      @endif
+    </div>
     <a href="{{ $program['product_url'] }}"
       class="inline-block bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-5 py-2 text-[12px] font-bold tracking-widest uppercase transition-colors no-underline"
       aria-label="Register for {{ $program['name'] }}">
