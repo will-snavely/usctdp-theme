@@ -26,9 +26,6 @@
                                         @else
                                             Birth date not on file
                                         @endif
-                                        @if (!empty($student->level))
-                                            &middot; Level {{ $student->level }}
-                                        @endif
                                     </p>
                                 </div>
                             </div>
