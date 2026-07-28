@@ -1,26 +1,22 @@
 {{--
-  Component: program-card
-  Usage: @include('components.program-card', ['program' => $program])
+Component: program-card
+Usage: @include('components.program-card', ['program' => $program])
 --}}
 
 @php
-  $typeLabel = match($program['type'] ?? '') {
-    'cardio'  => 'Cardio Tennis',
-    default   => ucfirst($program['type'] ?? ''),
+  $typeLabel = match ($program['type'] ?? '') {
+    'cardio' => 'Cardio Tennis',
+    default => ucfirst($program['type'] ?? ''),
   };
   $accentColor = $accent['card-bg'] ?? $program['ball_color'];
   $iconUrl = isset($accent['icon']) ? Vite::asset('resources/images/' . $accent['icon']) : null;
 @endphp
 
-<article
-  data-program-card
-  x-transition:enter="transition duration-200 ease-out"
-  x-transition:enter-start="opacity-0 translate-y-2"
-  x-transition:enter-end="opacity-100 translate-y-0"
+<article data-program-card x-transition:enter="transition duration-200 ease-out"
+  x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
   x-data="{ scheduleOpen: false }"
   class="bg-white rounded-2xl border-[1.5px] border-stone-200 overflow-hidden transition-shadow duration-200 hover:shadow-xl"
-  aria-label="{{ $program['name'] }}"
->
+  aria-label="{{ $program['name'] }}">
 
   {{-- Accent bar --}}
   <div class="h-[5px]" style="background: {{ $accentColor }};" aria-hidden="true"></div>
@@ -36,7 +32,8 @@
       <h2 class="font-display text-[26px] tracking-wide leading-none text-stone-900 m-0">
         {{ $program['name'] }}
       </h2>
-      <span class="text-sm font-semibold text-stone-500">{{ $program['subtitle_label'] ?? ('Ages ' . $program['age_range']) }}</span>
+      <span
+        class="text-sm font-semibold text-stone-500">{{ $program['subtitle_label'] ?? ($program['age_range'] ? 'Ages ' . $program['age_range'] : "") }}</span>
     </div>
 
     {{-- Level + type pills --}}
@@ -44,12 +41,14 @@
       @if (!empty($program['level_label']))
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
           style="background-color: {{ $program['ball_color'] }}1a; color: {{ $program['ball_color'] }}; border-color: {{ $program['ball_color'] }}40;">
-          <span class="inline-block w-1.5 h-1.5 rounded-full shrink-0" style="background: {{ $program['ball_color'] }};" aria-hidden="true"></span>
+          <span class="inline-block w-1.5 h-1.5 rounded-full shrink-0" style="background: {{ $program['ball_color'] }};"
+            aria-hidden="true"></span>
           {{ $program['level_label'] }}
         </span>
       @endif
       @if ($typeLabel)
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-500 border border-stone-200">
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-500 border border-stone-200">
           {{ $typeLabel }}
         </span>
       @endif
@@ -78,8 +77,8 @@
           class="inline-flex items-center gap-1.5 text-stone-500 hover:text-stone-800 text-[12px] font-medium transition-colors no-underline"
           aria-label="View flyer for {{ $program['name'] }} (opens PDF in a new tab)">
           <svg class="shrink-0" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M4 1.5h6l3 3V14a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5Z"
-              stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+            <path d="M4 1.5h6l3 3V14a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5Z" stroke="currentColor"
+              stroke-width="1.3" stroke-linejoin="round" />
             <path d="M10 1.5V4a1 1 0 0 0 1 1h2.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
           </svg>
           Flyer
@@ -97,7 +96,7 @@
   @include('components.schedule-drawer', [
     'schedule' => $program['schedule'],
     'sessions' => $program['sessions'],
-    'season'   => $program['season'],
+    'season' => $program['season'],
     'accentColor' => $accentColor,
   ])
 
