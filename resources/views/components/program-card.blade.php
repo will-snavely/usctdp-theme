@@ -33,7 +33,7 @@ Usage: @include('components.program-card', ['program' => $program])
         {{ $program['name'] }}
       </h2>
       <span
-        class="text-sm font-semibold text-stone-500">{{ $program['subtitle_label'] ?? ($program['age_range'] ? 'Ages ' . $program['age_range'] : "") }}</span>
+        class="text-sm font-semibold text-stone-500">{{ $program['subtitle_label'] ?? (empty($program['age_range']) ? 'Ages ' . $program['age_range'] : "") }}</span>
     </div>
 
     {{-- Level + type pills --}}
