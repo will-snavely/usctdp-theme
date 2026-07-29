@@ -14,8 +14,8 @@
 <div class="bg-white border-b border-stone-200 sticky top-0 z-10 shadow-sm">
   <div class="max-w-4xl mx-auto px-2 sm:px-8 py-3 flex flex-col gap-2">
     @foreach($groups as $group)
-      <div class="flex items-center gap-3">
-        <span class="font-mono text-xs tracking-[2px] uppercase text-stone-600 shrink-0 w-20 text-right">{{ $group['label'] }}:</span>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+        <span class="font-mono text-xs tracking-[2px] uppercase text-stone-600 shrink-0 sm:w-20 sm:text-right">{{ $group['label'] }}:</span>
         <div class="flex flex-wrap gap-1.5">
           @foreach($group['options'] as $option)
             <x-filter-pill
