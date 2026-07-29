@@ -22,10 +22,20 @@ class ProgramsComposer extends Composer
     public function with(): array
     {
         $ageGroups = $this->repository->getAgeGroups();
-        $types = $this->repository->getAllTypes();
         $levels = $this->repository->getLevels();
 
-        $filters = $this->resolveFilters($ageGroups, $types, $levels);
+        // Type options (and validity) depend on the selected age group — camp
+        // is juniors-only, cardio tennis is adults-only — so age group must
+        // resolve first.
+        $ageGroup = $this->resolveParam('age_group', array_column($ageGroups, 'value'));
+        $types = $this->repository->getTypesForAgeGroup($ageGroup);
+
+        $filters = array_filter([
+            'age_group' => $ageGroup,
+            'type' => $this->resolveParam('type', array_column($types, 'value')),
+            'level' => $this->resolveParam('level', array_column($levels, 'value')),
+        ]);
+
         $programs = $this->repository->getProgramming($filters);
 
         $baseUrl = home_url('/programming/schedule/');
@@ -106,24 +116,11 @@ class ProgramsComposer extends Composer
     }
 
     /**
-     * Read, sanitize, and validate query params against allowed values.
+     * Read, sanitize, and validate a single query param against allowed values.
      */
-    private function resolveFilters(array $ageGroups, array $types, array $levels): array
+    private function resolveParam(string $param, array $validValues): ?string
     {
-        $allowed = [
-            'age_group' => array_column($ageGroups, 'value'),
-            'type' => array_column($types, 'value'),
-            'level' => array_column($levels, 'value'),
-        ];
-
-        $filters = [];
-        foreach ($allowed as $param => $validValues) {
-            $value = sanitize_key($_GET[$param] ?? '');
-            if ($value !== '' && in_array($value, $validValues, true)) {
-                $filters[$param] = $value;
-            }
-        }
-
-        return $filters;
+        $value = sanitize_key($_GET[$param] ?? '');
+        return ($value !== '' && in_array($value, $validValues, true)) ? $value : null;
     }
 }

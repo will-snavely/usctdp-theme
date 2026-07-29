@@ -76,4 +76,23 @@ class ProgramsRepository
             ['value' => 'camp',       'label' => 'Camp'],
         ];
     }
+
+    /**
+     * Types available for a given age group — camp is juniors-only, cardio
+     * tennis is adults-only. With no age group selected, all types show.
+     */
+    public function getTypesForAgeGroup(?string $ageGroup): array
+    {
+        $types = $this->getAllTypes();
+
+        if ($ageGroup === 'adults') {
+            return array_values(array_filter($types, fn ($type) => $type['value'] !== 'camp'));
+        }
+
+        if ($ageGroup === 'juniors') {
+            return array_values(array_filter($types, fn ($type) => $type['value'] !== 'cardio'));
+        }
+
+        return $types;
+    }
 }
