@@ -63,13 +63,14 @@ Relies on scheduleOpen from the parent program-card x-data scope.
                         <span
                           x-data="{ tipOpen: false }"
                           class="relative inline-flex"
-                          @mouseenter="tipOpen = true" @mouseleave="tipOpen = false"
+                          @pointerenter="$event.pointerType !== 'touch' && (tipOpen = true)"
+                          @pointerleave="$event.pointerType !== 'touch' && (tipOpen = false)"
                           @click.outside="tipOpen = false"
                         >
                           <button
                             type="button"
                             class="inline-flex items-center justify-center -m-2 p-2 rounded-full text-stone-400 hover:text-stone-600 focus:text-stone-600 focus:outline-none"
-                            @click="tipOpen = !tipOpen" @focus="tipOpen = true" @blur="tipOpen = false"
+                            @click="tipOpen = true" @focus="tipOpen = true" @blur="tipOpen = false"
                             aria-label="More details"
                             :aria-expanded="tipOpen.toString()"
                           >
