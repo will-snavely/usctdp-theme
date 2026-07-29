@@ -11,32 +11,33 @@ class RouteTitles
 {
     protected const TITLES = [
         'staff.single' => 'Our Team',
-        'programs.juniors' => 'Juniors',
-        'programs.juniors.type' => 'Juniors',
-        'programs.adults' => 'Adults',
-        'programs.adults.type' => 'Adults',
     ];
 
-    /**
-     * Route names whose {type} segment (e.g. "camp") should be appended to the title.
-     */
-    protected const TYPE_SUFFIXED_ROUTES = [
-        'programs.juniors.type',
-        'programs.adults.type',
-    ];
-
-    public static function for(?string $routeName, ?string $type = null): ?string
+    public static function for(?string $routeName, ?string $ageGroup = null, ?string $type = null): ?string
     {
+        if ($routeName === 'programs.archive') {
+            return self::programsTitle($ageGroup, $type);
+        }
+
         if (!$routeName || !isset(self::TITLES[$routeName])) {
             return null;
         }
 
-        $title = self::TITLES[$routeName];
+        return self::TITLES[$routeName];
+    }
 
-        if ($type && in_array($routeName, self::TYPE_SUFFIXED_ROUTES, true)) {
+    private static function programsTitle(?string $ageGroup, ?string $type): string
+    {
+        $title = match ($ageGroup) {
+            'adults' => 'Adults',
+            'juniors' => 'Juniors',
+            default => 'Programming',
+        };
+
+        if ($type) {
             $title .= ': ' . ucfirst($type);
 
-            if( $type === 'cardio') {   
+            if ($type === 'cardio') {
                 $title .= ' Tennis';
             } else {
                 $title .= 's';

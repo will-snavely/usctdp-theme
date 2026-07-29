@@ -3,6 +3,7 @@
 namespace App\View\Composers;
 
 use App\Repositories\ProgramsRepository;
+use App\Support\FilterUrl;
 use Roots\Acorn\View\Composer;
 
 class ProgramsComposer extends Composer
@@ -20,37 +21,25 @@ class ProgramsComposer extends Composer
 
     public function with(): array
     {
-        $audience = $this->data->get('audience', 'juniors');
-        $routeType = $this->data->get('type');  // set by type-URL routes, e.g. /juniors/clinic/
-        $levels = $this->repository->getLevelsForAudience($audience);
-        $types = $this->repository->getTypesForAudience($audience);
-        $filters = $this->resolveFilters($audience, [], $routeType);
-        $programs = $this->repository->getProgramming($audience, $filters);
+        $ageGroups = $this->repository->getAgeGroups();
+        $types = $this->repository->getAllTypes();
+        $levels = $this->repository->getLevels();
 
-        $mailerKey = $audience === 'adults' ? 'usctdp_adult_mailers' : 'usctdp_junior_mailers';
-        $mailers = json_decode(get_option($mailerKey, '[]'), true) ?: [];
+        $filters = $this->resolveFilters($ageGroups, $types, $levels);
+        $programs = $this->repository->getProgramming($filters);
 
-        // Type labels for breadcrumb display.
-        $typeLabels = collect($types)->pluck('label', 'value')->toArray();
-        $routeTypeLabel = $routeType ? ($typeLabels[$routeType] ?? ucfirst($routeType)) : null;
-
-        // Base URL for the audience page (used for type-pill navigation + breadcrumb back-link).
-        $audienceBaseUrl = home_url('/programming/' . $audience . '/');
-
-        // Filters that came from the user (query params only, not the route-passed type).
-        $userFilters = array_filter($filters, fn($k) => $k !== 'type', ARRAY_FILTER_USE_KEY);
+        $baseUrl = home_url('/programming/schedule/');
 
         return [
-            'audience' => $audience,
             'programs' => array_values($programs),
             'activeFilters' => $filters,
-            'userFilters' => $userFilters,
-            'levels' => $levels,
-            'types' => $types,
-            'mailers' => $mailers,
-            'routeType' => $routeType,
-            'routeTypeLabel' => $routeTypeLabel,
-            'audienceBaseUrl' => $audienceBaseUrl,
+            'clearUrl' => $baseUrl,
+            'filterUrl' => fn (string $param, string $value) => FilterUrl::toggle($filters, $param, $value, $baseUrl),
+            'groups' => [
+                ['label' => 'Age', 'param' => 'age_group', 'options' => $ageGroups],
+                ['label' => 'Type', 'param' => 'type', 'options' => $types],
+                ['label' => 'Level', 'param' => 'level', 'options' => $levels],
+            ],
             'accents' => $this->getAccents(),
         ];
     }
@@ -118,28 +107,16 @@ class ProgramsComposer extends Composer
 
     /**
      * Read, sanitize, and validate query params against allowed values.
-     * When $routeType is provided it is injected directly into filters,
-     * bypassing the query param for 'type'.
      */
-    private function resolveFilters(string $audience, array $seasons, ?string $routeType): array
+    private function resolveFilters(array $ageGroups, array $types, array $levels): array
     {
-        $filters = [];
-
-        // Route-passed type is authoritative; query param cannot override it.
-        if ($routeType && in_array($routeType, $this->allowedTypes($audience), true)) {
-            $filters['type'] = $routeType;
-        }
-
         $allowed = [
-            'season' => array_column($seasons, 'value'),
-            'level' => array_column($this->repository->getLevelsForAudience($audience), 'value'),
+            'age_group' => array_column($ageGroups, 'value'),
+            'type' => array_column($types, 'value'),
+            'level' => array_column($levels, 'value'),
         ];
 
-        // Only allow type from query param when no route type is set.
-        if (!$routeType) {
-            $allowed['type'] = $this->allowedTypes($audience);
-        }
-
+        $filters = [];
         foreach ($allowed as $param => $validValues) {
             $value = sanitize_key($_GET[$param] ?? '');
             if ($value !== '' && in_array($value, $validValues, true)) {
@@ -148,13 +125,5 @@ class ProgramsComposer extends Composer
         }
 
         return $filters;
-    }
-
-    private function allowedTypes(string $audience): array
-    {
-        if ($audience === 'adults') {
-            return ['clinic', 'cardio', 'tournament'];
-        }
-        return ['clinic', 'camp', 'tournament'];
     }
 }

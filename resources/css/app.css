@@ -522,3 +522,7 @@ header button svg {
   border-color: var(--color-court-dark);
   color: white;
 }
+
+.filter-pill--active:hover {
+  color: white;
+}

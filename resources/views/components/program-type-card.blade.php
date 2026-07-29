@@ -1,9 +1,9 @@
 {{--
   Component: program-type-card
-  Usage: @include('components.program-type-card', ['type' => $type, 'baseUrl' => '/programming/juniors/'])
+  Usage: @include('components.program-type-card', ['type' => $type, 'audience' => 'juniors'])
 
   $type: ['slug', 'title', 'tag', 'accent', 'blurb'] — accent is a hex color, e.g. '#3b82f6'
-  $baseUrl: audience base path, e.g. '/programming/juniors/'
+  $audience: 'juniors' | 'adults' — links to the archive pre-filtered by age group + type
 --}}
 
 <div class="flex flex-col p-6 rounded-2xl bg-white border border-t-4 shadow-sm"
@@ -18,7 +18,7 @@
     <p class="text-sm text-slate-600 leading-relaxed">{{ $type['blurb'] }}</p>
   </div>
   <div class="mt-6">
-    <a href="{{ home_url(rtrim($baseUrl, '/') . '/' . $type['slug'] . '/') }}"
+    <a href="{{ home_url('/programming/schedule/') . '?' . http_build_query(['age_group' => $audience, 'type' => $type['slug']]) }}"
       class="inline-block bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-5 py-2.5
              text-xs font-bold tracking-widest uppercase transition-colors !no-underline">
       Learn More &rarr;

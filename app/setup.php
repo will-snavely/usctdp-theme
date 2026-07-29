@@ -379,5 +379,5 @@ add_filter('pre_get_document_title', function ($title) {
         return "Our Team" . ($member ? " | {$member->first_name} {$member->last_name}" : '');
     }
 
-    return \App\Support\RouteTitles::for($routeName, request()->route('type')) ?? $title;
+    return \App\Support\RouteTitles::for($routeName, sanitize_key($_GET['age_group'] ?? ''), sanitize_key($_GET['type'] ?? '')) ?? $title;
 });

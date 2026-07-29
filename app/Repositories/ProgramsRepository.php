@@ -4,12 +4,17 @@ namespace App\Repositories;
 
 class ProgramsRepository
 {
-    public function getProgramming($audience, $filters)
+    public function getProgramming(array $filters)
     {
         global $wpdb;
 
-        $conditions = ["age_group = %s"];
-        $where_args = [$audience];
+        $conditions = [];
+        $where_args = [];
+
+        if (isset($filters["age_group"])) {
+            $conditions[] = "age_group = %s";
+            $where_args[] = $filters['age_group'];
+        }
 
         if (isset($filters["type"])) {
             $conditions[] = "type = %s";
@@ -21,15 +26,19 @@ class ProgramsRepository
             $where_args[] = $filters['level'];
         }
 
-        $where_clause = "WHERE " . implode(" AND ", $conditions);
+        $where_clause = $conditions ? "WHERE " . implode(" AND ", $conditions) : "";
 
-        $query = $wpdb->prepare(
-            "SELECT product_id, woocommerce_id, data
+        $query = $conditions
+            ? $wpdb->prepare(
+                "SELECT product_id, woocommerce_id, data
+                    FROM {$wpdb->prefix}usctdp_program_schedule
+                    {$where_clause}
+                    ORDER BY product_id ASC",
+                $where_args
+            )
+            : "SELECT product_id, woocommerce_id, data
                 FROM {$wpdb->prefix}usctdp_program_schedule
-                {$where_clause}
-                ORDER BY product_id ASC",
-            $where_args
-        );
+                ORDER BY product_id ASC";
         $rows = $wpdb->get_results($query);
 
         $products = [];
@@ -41,7 +50,15 @@ class ProgramsRepository
         return $products;
     }
 
-    public function getLevelsForAudience(string $audience): array
+    public function getAgeGroups(): array
+    {
+        return [
+            ['value' => 'juniors', 'label' => 'Juniors'],
+            ['value' => 'adults', 'label' => 'Adults'],
+        ];
+    }
+
+    public function getLevels(): array
     {
         return [
             ['value' => 'beginner', 'label' => 'Beginner', 'color' => '#e03535'],
@@ -50,20 +67,13 @@ class ProgramsRepository
         ];
     }
 
-    public function getTypesForAudience(string $audience): array
+    public function getAllTypes(): array
     {
-        if ($audience === 'adults') {
-            return [
-                ['value' => 'clinic',      'label' => 'Clinic'],
-                ['value' => 'cardio',      'label' => 'Cardio Tennis'],
-                ['value' => 'tournament',  'label' => 'Tournament'],
-            ];
-        }
-
         return [
             ['value' => 'clinic',     'label' => 'Clinic'],
-            ['value' => 'camp',       'label' => 'Camp'],
             ['value' => 'tournament', 'label' => 'Tournament'],
+            ['value' => 'cardio',     'label' => 'Cardio Tennis'],
+            ['value' => 'camp',       'label' => 'Camp'],
         ];
     }
 }

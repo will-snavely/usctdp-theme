@@ -13,14 +13,22 @@ Route::get('/our-team/{slug}/', function ($slug) {
 
 // ── Programming ──────────────────────────────────────────────────────────────
 
-Route::get('/programming/juniors/', fn() => view('programs.archive', ['audience' => 'juniors', 'type' => 'clinic']))->name('programs.juniors');
-Route::get('/programming/adults/', fn() => view('programs.archive', ['audience' => 'adults', 'type' => 'clinic']))->name('programs.adults');
+Route::get('/programming/schedule/', fn() => view('programs.archive'))->name('programs.archive');
 
-// Type-filtered list views. URL type slug matches the filter value exactly.
+// Legacy audience/type URLs — redirect (301) to the unified archive with
+// age_group/type as query params, preserving any other query params (e.g. level).
+Route::get('/programming/juniors/', function () {
+    return redirect(add_query_arg(array_merge(request()->query(), ['age_group' => 'juniors']), home_url('/programming/schedule/')), 301);
+})->name('programs.juniors');
+
+Route::get('/programming/adults/', function () {
+    return redirect(add_query_arg(array_merge(request()->query(), ['age_group' => 'adults']), home_url('/programming/schedule/')), 301);
+})->name('programs.adults');
+
 Route::get('/programming/juniors/{type}/', function ($type) {
-    return view('programs.archive', ['audience' => 'juniors', 'type' => $type]);
+    return redirect(add_query_arg(array_merge(request()->query(), ['age_group' => 'juniors', 'type' => $type]), home_url('/programming/schedule/')), 301);
 })->where('type', 'clinic|camp|tournament')->name('programs.juniors.type');
 
 Route::get('/programming/adults/{type}/', function ($type) {
-    return view('programs.archive', ['audience' => 'adults', 'type' => $type]);
+    return redirect(add_query_arg(array_merge(request()->query(), ['age_group' => 'adults', 'type' => $type]), home_url('/programming/schedule/')), 301);
 })->where('type', 'clinic|cardio|tournament')->name('programs.adults.type');

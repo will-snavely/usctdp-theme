@@ -107,7 +107,7 @@ $adultMailers array [{label, url}, ...]
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           @foreach($juniorTypes as $type)
-            @include('components.program-type-card', ['type' => $type, 'baseUrl' => '/programming/juniors/'])
+            @include('components.program-type-card', ['type' => $type, 'audience' => 'juniors'])
           @endforeach
         </div>
 
@@ -145,7 +145,7 @@ $adultMailers array [{label, url}, ...]
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           @foreach($adultTypes as $type)
-            @include('components.program-type-card', ['type' => $type, 'baseUrl' => '/programming/adults/'])
+            @include('components.program-type-card', ['type' => $type, 'audience' => 'adults'])
           @endforeach
         </div>
 

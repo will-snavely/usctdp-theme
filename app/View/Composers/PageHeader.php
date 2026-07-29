@@ -39,7 +39,7 @@ class PageHeader extends Composer
             return 'Register';
         }
 
-        return RouteTitles::for(Route::currentRouteName(), request()->route('type')) ?? get_the_title();
+        return RouteTitles::for(Route::currentRouteName(), sanitize_key($_GET['age_group'] ?? ''), sanitize_key($_GET['type'] ?? '')) ?? get_the_title();
     }
 
     private function resolveAnimateTitle(): bool
