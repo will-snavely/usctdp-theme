@@ -56,8 +56,8 @@ Relies on scheduleOpen from the parent program-card x-data scope.
               </p>
               <div class="flex flex-wrap gap-2">
                 @foreach($dayInfo['times'] as $start_time => $time)
-                  <span class="inline-flex flex-col items-start gap-1 min-w-[9.5rem] bg-white border-[1.5px] border-stone-200 rounded-md px-3 py-1.5 text-[12px] text-stone-800">
-                    <span class="inline-flex items-center gap-1">
+                  <span class="inline-flex flex-col items-center gap-1 min-w-[9.5rem] bg-white border-[1.5px] border-stone-200 rounded-md px-3 py-1.5 text-[12px] text-stone-800">
+                    <span class="inline-flex items-center justify-center gap-1">
                       {{ $time['start_time'] }} - {{ $time['end_time'] }}
                       @if(!empty($time['note']))
                         <span
