@@ -29,7 +29,7 @@ Usage: @include('components.program-card', ['program' => $program])
       @if ($iconUrl)
         <img src="{{ $iconUrl }}" alt="" class="w-8 h-8 shrink-0" aria-hidden="true">
       @endif
-      <h2 class="font-display text-[26px] tracking-wide leading-none text-stone-900 m-0">
+      <h2 class="font-display text-[24px] tracking-wide leading-none text-stone-900 m-0">
         {{ $program['name'] }}
       </h2>
       <span
