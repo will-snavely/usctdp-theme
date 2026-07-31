@@ -68,13 +68,21 @@ add_action('wp_footer', function () {
 });
 
 /**
- * Ensure the login page is always accessible.
+ * Ensure the login page is always accessible during Coming Soon mode.
+ * wp-login.php itself is never gated (Coming Soon only hooks
+ * template_include, which core's login screen doesn't go through) - but
+ * WooCommerce redirects wp-login.php to /my-account/ for its own themed
+ * login form, and that page IS subject to the same template_include gate
+ * as everything else. woocommerce_coming_soon_exclude is the filter
+ * ComingSoonRequestHandler::should_show_coming_soon() actually checks; an
+ * earlier version of this hooked woocommerce_is_coming_soon instead, which
+ * doesn't exist anywhere in WooCommerce and silently did nothing.
  */
-add_filter('woocommerce_is_coming_soon', function($is_coming_soon) {
+add_filter('woocommerce_coming_soon_exclude', function ($excluded) {
     if (is_account_page()) {
-        return false; // Bypass coming soon for the account/login page
+        return true;
     }
-    return $is_coming_soon;
+    return $excluded;
 });
 
 /**
