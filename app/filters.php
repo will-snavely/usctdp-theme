@@ -78,6 +78,21 @@ add_filter('woocommerce_is_coming_soon', function($is_coming_soon) {
 });
 
 /**
+ * Force our own coming-soon.php (resources/views/coming-soon.blade.php) to
+ * be used instead of WooCommerce's own registered "coming-soon" block
+ * template. WooCommerce calls add_theme_support('block-templates') right
+ * before resolving this template (ComingSoonRequestHandler::handle_template_include()),
+ * specifically so its own block template works on classic themes like this
+ * one - but that also makes locate_block_template() prefer its block
+ * template over our classic PHP file, even though the classic file exists
+ * and would otherwise win. This is the last filter get_query_template()
+ * applies before returning, so it has the final say.
+ */
+add_filter('coming-soon_template', function ($template) {
+    return locate_template('coming-soon.php') ?: $template;
+});
+
+/**
  * Require an account to purchase. This gates both the add-to-cart button
  * rendered by WooCommerce templates and WC_Cart::add_to_cart() itself, so
  * it also blocks direct ?add-to-cart= requests and AJAX/API calls from
