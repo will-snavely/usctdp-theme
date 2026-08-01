@@ -99,6 +99,19 @@ Description: Policies & Information page.
       </div>
 
       <div>
+        <h3 class="font-bold text-slate-800 mb-2">Saved Payment Information</h3>
+        <p>
+          With your consent, USCTDP may securely store your payment method (through PayPal) to
+          make future registrations faster - whether completed by you online, or by our office
+          staff on your behalf, for example when you register by phone or in person. Saved
+          payment methods are held by PayPal directly; our office never sees or stores your full
+          card number. You can view or remove a saved payment method at any time from your
+          account dashboard, or by
+          <a href="/contact" class="text-blue-500 hover:underline font-medium">contacting our office</a>.
+        </p>
+      </div>
+
+      <div>
         <h3 class="font-bold text-slate-800 mb-2">Family Discount</h3>
         <p>
           Families enrolling two or more members concurrently are eligible for a family discount.
