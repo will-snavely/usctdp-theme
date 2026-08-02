@@ -39,6 +39,10 @@ class PageHeader extends Composer
             return 'Register';
         }
 
+        if (is_404()) {
+            return 'Page not found';
+        }
+
         return RouteTitles::for(Route::currentRouteName(), sanitize_key($_GET['age_group'] ?? ''), sanitize_key($_GET['type'] ?? '')) ?? get_the_title();
     }
 
