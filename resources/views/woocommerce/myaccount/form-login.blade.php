@@ -106,16 +106,8 @@
                             class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
                     </div>
 
-                    @if (get_option('woocommerce_registration_generate_password') === 'no')
-                        <div class="mb-6">
-                            <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Password</label>
-                            <input type="password" name="password"
-                                class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
-                        </div>
-                    @else
-                        <p class="text-sm text-slate-500 mb-6">A link to set a new password will be sent to your
-                            email address.</p>
-                    @endif
+                    <p class="text-sm text-slate-500 mb-6">A link to set a new password will be sent to your
+                        email address.</p>
 
                     <div
                         class="mb-6 text-sm text-slate-500 [&_p]:mb-0 [&_a]:text-[#5c88da] [&_a]:underline">

@@ -138,6 +138,15 @@ add_filter('pre_option_woocommerce_registration_generate_username', function () 
 });
 
 /**
+ * Always generate the account password too and email the customer a link to
+ * set it, rather than collecting one at registration. Same rationale and
+ * same drift-proofing as the username filter above.
+ */
+add_filter('pre_option_woocommerce_registration_generate_password', function () {
+    return 'yes';
+});
+
+/**
  * Prompt logged-out visitors to log in where the add-to-cart button would be.
  */
 add_action('woocommerce_single_product_summary', function () {
