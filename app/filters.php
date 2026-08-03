@@ -127,6 +127,17 @@ add_filter('wpcf7_autop_or_not', function ($autop, $options = '') {
 }, 10, 2);
 
 /**
+ * Always generate the WooCommerce account username from the customer's email
+ * instead of collecting one at registration, regardless of the "Automatically
+ * generate username from customer email" admin toggle (WooCommerce > Settings
+ * > Accounts & Privacy). Keeps this enforced in code so it can't drift back
+ * via the admin UI.
+ */
+add_filter('pre_option_woocommerce_registration_generate_username', function () {
+    return 'yes';
+});
+
+/**
  * Prompt logged-out visitors to log in where the add-to-cart button would be.
  */
 add_action('woocommerce_single_product_summary', function () {

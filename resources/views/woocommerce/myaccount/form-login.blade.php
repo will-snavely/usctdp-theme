@@ -81,14 +81,6 @@
                     @php(do_action('woocommerce_register_form_tag'))>
                     @php(do_action('woocommerce_register_form_start'))
 
-                    @if (get_option('woocommerce_registration_generate_username') === 'no')
-                        <div class="mb-4">
-                            <label class="block text-xs font-bold uppercase text-slate-500 mb-2">Username</label>
-                            <input type="text" name="username"
-                                class="w-full border border-slate-300 rounded-xl p-3 focus:border-[#5c88da] focus:ring-1 focus:ring-[#5c88da] outline-none transition" />
-                        </div>
-                    @endif
-
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-500 mb-2">First Name</label>
