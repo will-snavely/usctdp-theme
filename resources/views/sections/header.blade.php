@@ -129,31 +129,6 @@
 
       {{-- Mobile User Area (Fixed to the bottom of the main panel) --}}
       <div x-show="activePanel === 'main'" class="mt-4 border-t border-gray-100 bg-slate-50 px-6 py-6">
-        <a href="{{ wc_get_cart_url() }}"
-          class="flex items-center justify-between w-full p-4 mb-3 bg-white rounded-lg border border-gray-200 text-sm font-bold uppercase text-slate-800">
-          <span class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-            </svg>
-            Cart
-          </span>
-          @if (WC()->cart->get_cart_contents_count() > 0)
-            {{-- bg-[#dc2626] (red-600's hex), not the bg-red-600 utility class:
-            the woocommerce_add_to_cart_fragments filter in filters.php
-            targets 'span.bg-red-600' by plain class selector and would
-            otherwise blindly replace this with the desktop badge's
-            absolutely-positioned markup on every AJAX cart update. --}}
-            <span
-              class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 text-[11px] font-black leading-none text-white bg-[#dc2626] rounded-full">
-              {{ WC()->cart->get_cart_contents_count() }}
-            </span>
-          @else
-            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          @endif
-        </a>
         @if (is_user_logged_in())
           <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
@@ -173,6 +148,31 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path d="M9 5l7 7-7 7" stroke-width="2" />
             </svg>
+          </a>
+          <a href="{{ wc_get_cart_url() }}"
+            class="flex items-center justify-between w-full p-4 mt-3 bg-white rounded-lg border border-gray-200 text-sm font-bold uppercase text-slate-800">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+              Cart
+            </span>
+            @if (WC()->cart->get_cart_contents_count() > 0)
+              {{-- bg-[#dc2626] (red-600's hex), not the bg-red-600 utility class:
+              the woocommerce_add_to_cart_fragments filter in filters.php
+              targets 'span.bg-red-600' by plain class selector and would
+              otherwise blindly replace this with the desktop badge's
+              absolutely-positioned markup on every AJAX cart update. --}}
+              <span
+                class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 text-[11px] font-black leading-none text-white bg-[#dc2626] rounded-full">
+                {{ WC()->cart->get_cart_contents_count() }}
+              </span>
+            @else
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            @endif
           </a>
         @else
           <a href="{{ wp_login_url() }}"
