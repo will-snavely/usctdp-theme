@@ -1,6 +1,14 @@
 {{-- resources/views/woocommerce/cart/cart-empty.blade.php --}}
+{{--
+WooCommerce's own cart.js (update_wc_div) looks for .wc-empty-cart-message in
+the AJAX response when the cart becomes empty via an AJAX remove, and splices
+it in to replace the cart form - no page reload involved. Without this class
+on the outer wrapper, that lookup finds nothing and cart.js replaces the cart
+form with an empty jQuery set, i.e. nothing, leaving a blank cart page until a
+manual refresh.
+--}}
 <div
-    class="py-16 md:py-24 px-6 text-center bg-white rounded-3xl shadow-sm border border-slate-100 max-w-2xl mx-auto my-12">
+    class="wc-empty-cart-message py-16 md:py-24 px-6 text-center bg-white rounded-3xl shadow-sm border border-slate-100 max-w-2xl mx-auto my-12">
     {{-- Decorative Icon --}}
     <div class="mb-8 flex justify-center">
         <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
