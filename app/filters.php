@@ -147,6 +147,12 @@ add_filter('pre_option_woocommerce_registration_generate_password', function () 
 });
 
 /**
+ * Drop the product title from the single-product summary body - the page's
+ * own title area above it already renders the product name.
+ */
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+
+/**
  * Prompt logged-out visitors to log in where the add-to-cart button would be.
  */
 add_action('woocommerce_single_product_summary', function () {
