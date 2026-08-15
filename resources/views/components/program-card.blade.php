@@ -55,7 +55,7 @@ Usage: @include('components.program-card', ['program' => $program])
     </div>
 
     <p class="text-[14px] text-stone-600 leading-relaxed">
-      {{ $program['description'] }}
+      {{ \App\Support\Linkify::html($program['description'] ?? null) }}
     </p>
 
   </div>
