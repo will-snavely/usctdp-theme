@@ -19,6 +19,7 @@
       @endforeach
     </nav>
 
+    @php($cartCount = WC()->cart?->get_cart_contents_count() ?? 0)
     <div class="hidden lg:flex items-center ml-3 border-l border-white/20 pl-3">
       <div class="flex items-center mr-3">
         <a href="{{ wc_get_cart_url() }}" class="relative group p-2 text-white hover:text-blue-200 transition-colors">
@@ -26,12 +27,15 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
           </svg>
-          @if (WC()->cart->get_cart_contents_count() > 0)
-            <span
-              class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-[10px] font-black leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full border-2 border-[#5c88da]">
-              {{ WC()->cart->get_cart_contents_count() }}
-            </span>
-          @endif
+          {{-- Always rendered (never @if-omitted) so the AJAX cart-fragment
+          refresh in filters.php has a stable node to replaceWith() - a
+          conditionally-rendered span can't be found/replaced once it's
+          missing from the DOM, which is why this used to require a page
+          reload to reflect cart changes. --}}
+          <span
+            class="js-cart-badge-desktop absolute top-0 right-0 items-center justify-center px-2 py-1 text-[10px] font-black leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full border-2 border-[#5c88da] {{ $cartCount > 0 ? 'inline-flex' : 'hidden' }}">
+            {{ $cartCount }}
+          </span>
         </a>
       </div>
 
@@ -158,21 +162,23 @@
               </svg>
               Cart
             </span>
-            @if (WC()->cart->get_cart_contents_count() > 0)
-              {{-- bg-[#dc2626] (red-600's hex), not the bg-red-600 utility class:
-              the woocommerce_add_to_cart_fragments filter in filters.php
-              targets 'span.bg-red-600' by plain class selector and would
-              otherwise blindly replace this with the desktop badge's
-              absolutely-positioned markup on every AJAX cart update. --}}
-              <span
-                class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 text-[11px] font-black leading-none text-white bg-[#dc2626] rounded-full">
-                {{ WC()->cart->get_cart_contents_count() }}
-              </span>
-            @else
-              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            @endif
+            {{-- Wrapper is always present so the AJAX cart-fragment refresh in
+            filters.php can replaceWith() it directly - it swaps this whole
+            span (badge or chevron) as one atomic unit, keyed off
+            'span.js-cart-badge-mobile', so it stays in sync with the desktop
+            badge instead of only updating on a full page reload. --}}
+            <span class="js-cart-badge-mobile inline-flex items-center justify-center">
+              @if ($cartCount > 0)
+                <span
+                  class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 text-[11px] font-black leading-none text-white bg-[#dc2626] rounded-full">
+                  {{ $cartCount }}
+                </span>
+              @else
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              @endif
+            </span>
           </a>
         @else
           <a href="{{ wp_login_url() }}"

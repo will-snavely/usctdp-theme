@@ -16,18 +16,65 @@ add_filter('excerpt_more', function () {
 });
 
 /**
+ * WooCommerce only enqueues its cart-fragments script (the one that listens
+ * for add/remove events and refreshes fragments via AJAX) from inside the
+ * classic [Cart] widget - see WC_Widget_Cart::__construct()/widget(), the
+ * only place core calls wp_enqueue_script('wc-cart-fragments'). This theme
+ * doesn't place that widget anywhere, so the script - and the header cart
+ * badges below that depend on it - never received live updates, most
+ * noticeably when removing an item on the cart page (which only fires an
+ * 'updated_wc_div' event that nothing was listening for). Enqueue it
+ * ourselves; WooCommerce's own localize_printed_scripts() picks up the
+ * enqueue and adds the wc_cart_fragments_params it needs automatically.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (! is_admin()) {
+        wp_enqueue_script('wc-cart-fragments');
+    }
+});
+
+/**
  * Update Cart Count via AJAX
+ *
+ * Markup here must stay byte-for-byte structurally in sync with the desktop
+ * (.js-cart-badge-desktop) and mobile (.js-cart-badge-mobile) badges in
+ * header.blade.php - these fragments replaceWith() those elements directly.
  */
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+    $count = WC()->cart?->get_cart_contents_count() ?? 0;
+    // Not `inline-flex ... hidden` together: both set `display`, and with
+    // equal specificity Tailwind's generated stylesheet order (not the
+    // order of classes here) decides the winner - `hidden` isn't reliably
+    // hidden when paired with a display utility on the same element. Swap
+    // the display utility itself instead.
+    $displayClass = $count > 0 ? 'inline-flex' : 'hidden';
+
     ob_start();
     ?>
     <span
-        class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-[10px] font-black leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full border-2 border-[#5c88da]">
-        <?php echo WC()->cart->get_cart_contents_count(); ?>
+        class="js-cart-badge-desktop absolute top-0 right-0 items-center justify-center px-2 py-1 text-[10px] font-black leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full border-2 border-[#5c88da] <?php echo $displayClass; ?>">
+        <?php echo $count; ?>
     </span>
     <?php
-    // This matches the selector in your HTML
-    $fragments['span.bg-red-600'] = ob_get_clean();
+    $fragments['span.js-cart-badge-desktop'] = ob_get_clean();
+
+    ob_start();
+    ?>
+    <span class="js-cart-badge-mobile inline-flex items-center justify-center">
+        <?php if ($count > 0) : ?>
+            <span
+                class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1 text-[11px] font-black leading-none text-white bg-[#dc2626] rounded-full">
+                <?php echo $count; ?>
+            </span>
+        <?php else : ?>
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M9 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        <?php endif; ?>
+    </span>
+    <?php
+    $fragments['span.js-cart-badge-mobile'] = ob_get_clean();
+
     return $fragments;
 });
 
