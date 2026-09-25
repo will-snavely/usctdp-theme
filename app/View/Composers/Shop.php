@@ -40,7 +40,7 @@ class Shop extends Composer
     public function getEventTypeOptions()
     {
         $terms = get_terms(['taxonomy' => 'event_type', 'hide_empty' => true]);
-        return $this->termOptions($terms, ['clinic', 'tournament', 'cardio-tennis']);
+        return $this->termOptions($terms, ['clinic', 'tournament', 'camp', 'cardio-tennis']);
     }
 
     public function getSkillLevelOptions()

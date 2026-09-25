@@ -190,7 +190,7 @@ add_action('init', function () {
     $taxonomy_terms = [
         'skill_level' => ['Beginner', 'Intermediate', 'Advanced'],
         'age_group' => ['Juniors', 'Adults'],
-        'event_type' => ['Clinic', 'Cardio Tennis', 'Tournament'],
+        'event_type' => ['Clinic', 'Cardio Tennis', 'Tournament', 'Camp'],
     ];
 
     foreach ($taxonomy_terms as $taxonomy => $terms) {
